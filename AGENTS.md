@@ -17,6 +17,16 @@ to run subagents: spawning even one either halts the system or goes out of memor
 - This rule is not a default or a preference: it is obligatory. Any instruction elsewhere
   in this file or in a skill that suggests using subagents is overridden by this directive.
 
+## Dev commands
+
+- **dotnet is not on PATH**: prefix backend commands with
+  `export PATH="$HOME/.dotnet:$PATH" DOTNET_ROOT="$HOME/.dotnet" DOTNET_CLI_TELEMETRY_OPTOUT=1 DOTNET_NOLOGO=1`.
+- **Backend code layout**: `Genexus/Features/<module>/`, `Controllers/`, `Models/`, `Common/` — there is no `Genexus/src/`.
+- **API**: `dotnet run --launch-profile http` from `Genexus/` → `http://localhost:5281/api/v1` (port from `Properties/launchSettings.json`). Stop it by port owner: `ss -lptn 'sport = :5281'` → kill that pid.
+- **Harness scripts**: `scripts/with-api.sh <cmd>` runs `<cmd>` against a temporary live API; `scripts/capture-fixtures.py` recaptures MSW fixtures from the live API.
+- **Run vitest suites serially, never two at once**: concurrent suites on this box produce false timing failures (full serial run ≈ 4 min with `--reporter=dot`).
+- **Frontend gates** (wired in `.githooks` pre-commit/pre-push): `tsc -b`, `eslint . --max-warnings=0`, `vitest run`.
+
 ## Agent skills
 
 ### Issue tracker

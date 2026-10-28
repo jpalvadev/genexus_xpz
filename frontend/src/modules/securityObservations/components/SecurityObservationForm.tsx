@@ -76,7 +76,7 @@ export default function SecurityObservationForm({
         companiesQuery.isPending ||
         combosQuery.isPending;
 
-    const combos = combosQuery.data ?? [];
+    const combos = useMemo(() => combosQuery.data ?? [], [combosQuery.data]);
 
     const initialFormValues = useMemo<SecurityObservationFormValues>(
         () =>

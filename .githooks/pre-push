@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Full frontend suite before pushing (serial, default pool: concurrent suites on
+# this box produce false timing failures). Skip with `git push --no-verify`
+# only for deliberate escapes.
+set -u
+cd "$(git rev-parse --show-toplevel)/frontend" || exit 1
+npx vitest run --reporter=dot || { echo "pre-push: vitest failed"; exit 1; }
