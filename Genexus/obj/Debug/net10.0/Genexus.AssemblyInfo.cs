@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Genexus")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a3d33b3545abed80386f5ba29da4c672b0ee3ae1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+73951edb5e944adadca888363bd68cf5b7f34de6")]
 [assembly: System.Reflection.AssemblyProductAttribute("Genexus")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Genexus")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

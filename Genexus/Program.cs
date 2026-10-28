@@ -1,5 +1,6 @@
 using Itrion.Api.Common.Storage;
 using Itrion.Api.Features.EquipmentMaintenances;
+using Itrion.Api.Features.SecurityObservations;
 using Itrion.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,7 @@ builder.Services.AddDbContext<ItrionDbContext>(options => options.UseSqlite(conn
 builder.Services.AddSingleton<ITenantLogoResolver, NoLogoTenantLogoResolver>();
 
 builder.Services.AddScoped<IEquipmentMaintenanceService, EquipmentMaintenanceService>();
+builder.Services.AddScoped<ISecurityObservationService, SecurityObservationService>();
 
 // The only client of this local API is the Vite dev server.
 const string ViteDevOrigin = "ViteDev";
