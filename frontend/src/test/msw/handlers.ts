@@ -12,6 +12,21 @@ import {
 const api = (path: string) =>
     `${import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:5281/api/v1'}${path}`;
 
+/// CRUD masters (observers, plants, sectors, companies) share the exact same
+/// live response shape: list `{count,data}`, GET-by-id, create 201, update, delete 204.
+function crudMasterHandlers<T extends { id: number }>(path: string, items: T[]) {
+    return [
+        http.get(api(path), () => HttpResponse.json({ count: items.length, data: items })),
+        http.get(api(`${path}/:id`), ({ params }) =>
+            HttpResponse.json(items.find((i) => i.id === Number(params.id)) ?? items[0])),
+        http.post(api(path), async ({ request }) =>
+            HttpResponse.json({ id: 99, ...(await request.json() as object) }, { status: 201 })),
+        http.put(api(`${path}/:id`), async ({ request, params }) =>
+            HttpResponse.json({ id: Number(params.id), ...(await request.json() as object) })),
+        http.delete(api(`${path}/:id`), () => new HttpResponse(null, { status: 204 })),
+    ];
+}
+
 export const handlers = [
     // Devices
     http.get('*/api/v1/devices', () => {
@@ -104,44 +119,13 @@ export const handlers = [
         HttpResponse.json({ ...fixtureSecurityObservation, id: Number(params.id), ...(await request.json() as object) })),
     http.delete(api('/security-observations/:id'), () => new HttpResponse(null, { status: 204 })),
 
+    // Lookup + CRUD masters (observers, plants, sectors, companies)
     http.get(api('/observers/lookup'), () =>
         HttpResponse.json({ data: fixtureObservers, rowCount: fixtureObservers.length })),
-    http.get(api('/observers'), () => HttpResponse.json({ count: fixtureObservers.length, data: fixtureObservers })),
-    http.get(api('/observers/:id'), ({ params }) =>
-        HttpResponse.json(fixtureObservers.find((o) => o.id === Number(params.id)) ?? fixtureObservers[0])),
-    http.post(api('/observers'), async ({ request }) =>
-        HttpResponse.json({ id: 99, ...(await request.json() as object) }, { status: 201 })),
-    http.put(api('/observers/:id'), async ({ request, params }) =>
-        HttpResponse.json({ id: Number(params.id), ...(await request.json() as object) })),
-    http.delete(api('/observers/:id'), () => new HttpResponse(null, { status: 204 })),
-
-    http.get(api('/plants'), () => HttpResponse.json({ count: fixturePlants.length, data: fixturePlants })),
-    http.get(api('/plants/:id'), ({ params }) =>
-        HttpResponse.json(fixturePlants.find((p) => p.id === Number(params.id)) ?? fixturePlants[0])),
-    http.post(api('/plants'), async ({ request }) =>
-        HttpResponse.json({ id: 99, ...(await request.json() as object) }, { status: 201 })),
-    http.put(api('/plants/:id'), async ({ request, params }) =>
-        HttpResponse.json({ id: Number(params.id), ...(await request.json() as object) })),
-    http.delete(api('/plants/:id'), () => new HttpResponse(null, { status: 204 })),
-
-    http.get(api('/sectors'), () => HttpResponse.json({ count: fixtureSectors.length, data: fixtureSectors })),
-    http.get(api('/sectors/:id'), ({ params }) =>
-        HttpResponse.json(fixtureSectors.find((s) => s.id === Number(params.id)) ?? fixtureSectors[0])),
-    http.post(api('/sectors'), async ({ request }) =>
-        HttpResponse.json({ id: 99, ...(await request.json() as object) }, { status: 201 })),
-    http.put(api('/sectors/:id'), async ({ request, params }) =>
-        HttpResponse.json({ id: Number(params.id), ...(await request.json() as object) })),
-    http.delete(api('/sectors/:id'), () => new HttpResponse(null, { status: 204 })),
-
-    http.get(api('/contractor-companies'), () =>
-        HttpResponse.json({ count: fixtureCompanies.length, data: fixtureCompanies })),
-    http.get(api('/contractor-companies/:id'), ({ params }) =>
-        HttpResponse.json(fixtureCompanies.find((c) => c.id === Number(params.id)) ?? fixtureCompanies[0])),
-    http.post(api('/contractor-companies'), async ({ request }) =>
-        HttpResponse.json({ id: 99, ...(await request.json() as object) }, { status: 201 })),
-    http.put(api('/contractor-companies/:id'), async ({ request, params }) =>
-        HttpResponse.json({ id: Number(params.id), ...(await request.json() as object) })),
-    http.delete(api('/contractor-companies/:id'), () => new HttpResponse(null, { status: 204 })),
+    ...crudMasterHandlers('/observers', fixtureObservers),
+    ...crudMasterHandlers('/plants', fixturePlants),
+    ...crudMasterHandlers('/sectors', fixtureSectors),
+    ...crudMasterHandlers('/contractor-companies', fixtureCompanies),
 
     http.get(api('/combo-options/keys'), () => HttpResponse.json([])),
     http.get(api('/combo-options/keys/:key'), () => HttpResponse.json([])),
