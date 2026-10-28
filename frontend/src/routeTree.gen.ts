@@ -13,8 +13,12 @@ import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
 import { Route as LayoutEquipmentMaintenancesIndexRouteImport } from './routes/_layout/equipmentMaintenances/index'
 import { Route as LayoutEquipmentMaintenancesNewRouteImport } from './routes/_layout/equipmentMaintenances/new'
+import { Route as LayoutSecurityObservationsIndexRouteImport } from './routes/_layout/securityObservations/index'
+import { Route as LayoutSecurityObservationsNewRouteImport } from './routes/_layout/securityObservations/new'
 import { Route as LayoutEquipmentMaintenancesIdIndexRouteImport } from './routes/_layout/equipmentMaintenances/$id/index'
 import { Route as LayoutEquipmentMaintenancesEditLegajoRouteImport } from './routes/_layout/equipmentMaintenances/edit.$legajo'
+import { Route as LayoutSecurityObservationsIdIndexRouteImport } from './routes/_layout/securityObservations/$id/index'
+import { Route as LayoutSecurityObservationsIdEditRouteImport } from './routes/_layout/securityObservations/$id/edit'
 
 const LayoutRouteRoute = LayoutRouteRouteImport.update({
   id: '/_layout',
@@ -37,6 +41,18 @@ const LayoutEquipmentMaintenancesNewRoute =
     path: '/equipmentMaintenances/new',
     getParentRoute: () => LayoutRouteRoute,
   } as any)
+const LayoutSecurityObservationsIndexRoute =
+  LayoutSecurityObservationsIndexRouteImport.update({
+    id: '/securityObservations/',
+    path: '/securityObservations/',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutSecurityObservationsNewRoute =
+  LayoutSecurityObservationsNewRouteImport.update({
+    id: '/securityObservations/new',
+    path: '/securityObservations/new',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
 const LayoutEquipmentMaintenancesIdIndexRoute =
   LayoutEquipmentMaintenancesIdIndexRouteImport.update({
     id: '/equipmentMaintenances/$id/',
@@ -49,53 +65,89 @@ const LayoutEquipmentMaintenancesEditLegajoRoute =
     path: '/equipmentMaintenances/edit/$legajo',
     getParentRoute: () => LayoutRouteRoute,
   } as any)
+const LayoutSecurityObservationsIdIndexRoute =
+  LayoutSecurityObservationsIdIndexRouteImport.update({
+    id: '/securityObservations/$id/',
+    path: '/securityObservations/$id/',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutSecurityObservationsIdEditRoute =
+  LayoutSecurityObservationsIdEditRouteImport.update({
+    id: '/securityObservations/$id/edit',
+    path: '/securityObservations/$id/edit',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof LayoutIndexRoute
   '/equipmentMaintenances/new': typeof LayoutEquipmentMaintenancesNewRoute
+  '/securityObservations/new': typeof LayoutSecurityObservationsNewRoute
   '/equipmentMaintenances/': typeof LayoutEquipmentMaintenancesIndexRoute
+  '/securityObservations/': typeof LayoutSecurityObservationsIndexRoute
   '/equipmentMaintenances/edit/$legajo': typeof LayoutEquipmentMaintenancesEditLegajoRoute
+  '/securityObservations/$id/edit': typeof LayoutSecurityObservationsIdEditRoute
   '/equipmentMaintenances/$id/': typeof LayoutEquipmentMaintenancesIdIndexRoute
+  '/securityObservations/$id/': typeof LayoutSecurityObservationsIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof LayoutIndexRoute
   '/equipmentMaintenances/new': typeof LayoutEquipmentMaintenancesNewRoute
+  '/securityObservations/new': typeof LayoutSecurityObservationsNewRoute
   '/equipmentMaintenances': typeof LayoutEquipmentMaintenancesIndexRoute
+  '/securityObservations': typeof LayoutSecurityObservationsIndexRoute
   '/equipmentMaintenances/edit/$legajo': typeof LayoutEquipmentMaintenancesEditLegajoRoute
+  '/securityObservations/$id/edit': typeof LayoutSecurityObservationsIdEditRoute
   '/equipmentMaintenances/$id': typeof LayoutEquipmentMaintenancesIdIndexRoute
+  '/securityObservations/$id': typeof LayoutSecurityObservationsIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_layout': typeof LayoutRouteRouteWithChildren
   '/_layout/': typeof LayoutIndexRoute
   '/_layout/equipmentMaintenances/new': typeof LayoutEquipmentMaintenancesNewRoute
+  '/_layout/securityObservations/new': typeof LayoutSecurityObservationsNewRoute
   '/_layout/equipmentMaintenances/': typeof LayoutEquipmentMaintenancesIndexRoute
+  '/_layout/securityObservations/': typeof LayoutSecurityObservationsIndexRoute
   '/_layout/equipmentMaintenances/edit/$legajo': typeof LayoutEquipmentMaintenancesEditLegajoRoute
+  '/_layout/securityObservations/$id/edit': typeof LayoutSecurityObservationsIdEditRoute
   '/_layout/equipmentMaintenances/$id/': typeof LayoutEquipmentMaintenancesIdIndexRoute
+  '/_layout/securityObservations/$id/': typeof LayoutSecurityObservationsIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/equipmentMaintenances/new'
+    | '/securityObservations/new'
     | '/equipmentMaintenances/'
+    | '/securityObservations/'
     | '/equipmentMaintenances/edit/$legajo'
+    | '/securityObservations/$id/edit'
     | '/equipmentMaintenances/$id/'
+    | '/securityObservations/$id/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/equipmentMaintenances/new'
+    | '/securityObservations/new'
     | '/equipmentMaintenances'
+    | '/securityObservations'
     | '/equipmentMaintenances/edit/$legajo'
+    | '/securityObservations/$id/edit'
     | '/equipmentMaintenances/$id'
+    | '/securityObservations/$id'
   id:
     | '__root__'
     | '/_layout'
     | '/_layout/'
     | '/_layout/equipmentMaintenances/new'
+    | '/_layout/securityObservations/new'
     | '/_layout/equipmentMaintenances/'
+    | '/_layout/securityObservations/'
     | '/_layout/equipmentMaintenances/edit/$legajo'
+    | '/_layout/securityObservations/$id/edit'
     | '/_layout/equipmentMaintenances/$id/'
+    | '/_layout/securityObservations/$id/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -132,6 +184,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutEquipmentMaintenancesNewRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
+    '/_layout/securityObservations/': {
+      id: '/_layout/securityObservations/'
+      path: '/securityObservations'
+      fullPath: '/securityObservations/'
+      preLoaderRoute: typeof LayoutSecurityObservationsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/securityObservations/new': {
+      id: '/_layout/securityObservations/new'
+      path: '/securityObservations/new'
+      fullPath: '/securityObservations/new'
+      preLoaderRoute: typeof LayoutSecurityObservationsNewRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
     '/_layout/equipmentMaintenances/$id/': {
       id: '/_layout/equipmentMaintenances/$id/'
       path: '/equipmentMaintenances/$id'
@@ -146,25 +212,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutEquipmentMaintenancesEditLegajoRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
+    '/_layout/securityObservations/$id/': {
+      id: '/_layout/securityObservations/$id/'
+      path: '/securityObservations/$id'
+      fullPath: '/securityObservations/$id/'
+      preLoaderRoute: typeof LayoutSecurityObservationsIdIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/securityObservations/$id/edit': {
+      id: '/_layout/securityObservations/$id/edit'
+      path: '/securityObservations/$id/edit'
+      fullPath: '/securityObservations/$id/edit'
+      preLoaderRoute: typeof LayoutSecurityObservationsIdEditRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
   }
 }
 
 interface LayoutRouteRouteChildren {
   LayoutIndexRoute: typeof LayoutIndexRoute
   LayoutEquipmentMaintenancesNewRoute: typeof LayoutEquipmentMaintenancesNewRoute
+  LayoutSecurityObservationsNewRoute: typeof LayoutSecurityObservationsNewRoute
   LayoutEquipmentMaintenancesIndexRoute: typeof LayoutEquipmentMaintenancesIndexRoute
+  LayoutSecurityObservationsIndexRoute: typeof LayoutSecurityObservationsIndexRoute
   LayoutEquipmentMaintenancesEditLegajoRoute: typeof LayoutEquipmentMaintenancesEditLegajoRoute
+  LayoutSecurityObservationsIdEditRoute: typeof LayoutSecurityObservationsIdEditRoute
   LayoutEquipmentMaintenancesIdIndexRoute: typeof LayoutEquipmentMaintenancesIdIndexRoute
+  LayoutSecurityObservationsIdIndexRoute: typeof LayoutSecurityObservationsIdIndexRoute
 }
 
 const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
   LayoutIndexRoute: LayoutIndexRoute,
   LayoutEquipmentMaintenancesNewRoute: LayoutEquipmentMaintenancesNewRoute,
+  LayoutSecurityObservationsNewRoute: LayoutSecurityObservationsNewRoute,
   LayoutEquipmentMaintenancesIndexRoute: LayoutEquipmentMaintenancesIndexRoute,
+  LayoutSecurityObservationsIndexRoute: LayoutSecurityObservationsIndexRoute,
   LayoutEquipmentMaintenancesEditLegajoRoute:
     LayoutEquipmentMaintenancesEditLegajoRoute,
+  LayoutSecurityObservationsIdEditRoute: LayoutSecurityObservationsIdEditRoute,
   LayoutEquipmentMaintenancesIdIndexRoute:
     LayoutEquipmentMaintenancesIdIndexRoute,
+  LayoutSecurityObservationsIdIndexRoute:
+    LayoutSecurityObservationsIdIndexRoute,
 }
 
 const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(

@@ -19,7 +19,7 @@ public class SecurityObservationService : ISecurityObservationService {
     }
 
     public async Task<Paging<SecurityObservationResponse>> GetAllAsync(GridifyQuery query) {
-        var mapper = GridifyBootstrapper.CreateMapper<SecurityObservation>();
+        var mapper = CreateMapper();
         var paged = await Query().GridifyAsync(WithDefaultSort(query), mapper);
         return new Paging<SecurityObservationResponse>(paged.Count, paged.Data.Select(MapToResponse).ToList());
     }
@@ -90,7 +90,7 @@ public class SecurityObservationService : ISecurityObservationService {
     }
 
     public async Task<byte[]> ExportAsync(GridifyQuery query) {
-        var mapper = GridifyBootstrapper.CreateMapper<SecurityObservation>();
+        var mapper = CreateMapper();
         var rows = await Query().ApplyFilteringAndOrdering(WithDefaultSort(query), mapper).ToListAsync();
         // No tenant, so no logo (ADR 0001).
         var logoBytes = await _tenantLogoResolver.ResolvePngLogoBytesAsync(null);
@@ -104,6 +104,14 @@ public class SecurityObservationService : ISecurityObservationService {
             .Include(o => o.ContractorCompany)
             .Include(o => o.Observers).ThenInclude(x => x.Observer)
             .AsNoTracking();
+
+    /// <summary>Mapper with SecurityObservationGridifyConfig applied — nested maps
+    /// (plant.name, sector.name, company.name) are part of the grid contract (ticket 01).</summary>
+    private static GridifyMapper<SecurityObservation> CreateMapper() {
+        var mapper = GridifyBootstrapper.CreateMapper<SecurityObservation>();
+        new SecurityObservationGridifyConfig().Configure(mapper);
+        return mapper;
+    }
 
     /// <summary>Created On is the grid's default order (GLOSSARY.md). Gridify OrderBy is "field direction".</summary>
     private static GridifyQuery WithDefaultSort(GridifyQuery query) {
