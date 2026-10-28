@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "comboKey": "gestionRiesgo",
+    "label": "Daily Risk Talk (DRT)",
+    "order": 1
+  },
+  {
+    "id": 2,
+    "comboKey": "gestionRiesgo",
+    "label": "Job Safety Analysis (JSA)",
+    "order": 2
+  },
+  {
+    "id": 3,
+    "comboKey": "gestionRiesgo",
+    "label": "Permit to Work",
+    "order": 3
+  },
+  {
+    "id": 4,
+    "comboKey": "gestionRiesgo",
+    "label": "Toolbox Talk",
+    "order": 4
+  }
+]
