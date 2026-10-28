@@ -105,5 +105,7 @@ public class ItrionDbContext(DbContextOptions<ItrionDbContext> options) : DbCont
             .WithMany()
             .HasForeignKey(x => x.ObserverId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        SeedData.Seed(modelBuilder);
     }
 }
