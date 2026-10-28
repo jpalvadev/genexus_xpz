@@ -1,6 +1,6 @@
 import type { GridifySearchParams } from '@/hooks/useGridifyParams';
 
-export interface Observer {
+export type Observer = {
     id: number;
     legajo: number;
     fullName: string;

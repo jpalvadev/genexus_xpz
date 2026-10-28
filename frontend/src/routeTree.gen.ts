@@ -11,12 +11,27 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
+import { Route as LayoutComboOptionsIndexRouteImport } from './routes/_layout/comboOptions/index'
+import { Route as LayoutComboOptionsNewRouteImport } from './routes/_layout/comboOptions/new'
+import { Route as LayoutContractorCompaniesIndexRouteImport } from './routes/_layout/contractorCompanies/index'
+import { Route as LayoutContractorCompaniesNewRouteImport } from './routes/_layout/contractorCompanies/new'
 import { Route as LayoutEquipmentMaintenancesIndexRouteImport } from './routes/_layout/equipmentMaintenances/index'
 import { Route as LayoutEquipmentMaintenancesNewRouteImport } from './routes/_layout/equipmentMaintenances/new'
+import { Route as LayoutObserversIndexRouteImport } from './routes/_layout/observers/index'
+import { Route as LayoutObserversNewRouteImport } from './routes/_layout/observers/new'
+import { Route as LayoutPlantsIndexRouteImport } from './routes/_layout/plants/index'
+import { Route as LayoutPlantsNewRouteImport } from './routes/_layout/plants/new'
+import { Route as LayoutSectorsIndexRouteImport } from './routes/_layout/sectors/index'
+import { Route as LayoutSectorsNewRouteImport } from './routes/_layout/sectors/new'
 import { Route as LayoutSecurityObservationsIndexRouteImport } from './routes/_layout/securityObservations/index'
 import { Route as LayoutSecurityObservationsNewRouteImport } from './routes/_layout/securityObservations/new'
+import { Route as LayoutComboOptionsIdEditRouteImport } from './routes/_layout/comboOptions/$id/edit'
+import { Route as LayoutContractorCompaniesIdEditRouteImport } from './routes/_layout/contractorCompanies/$id/edit'
 import { Route as LayoutEquipmentMaintenancesIdIndexRouteImport } from './routes/_layout/equipmentMaintenances/$id/index'
 import { Route as LayoutEquipmentMaintenancesEditLegajoRouteImport } from './routes/_layout/equipmentMaintenances/edit.$legajo'
+import { Route as LayoutObserversIdEditRouteImport } from './routes/_layout/observers/$id/edit'
+import { Route as LayoutPlantsIdEditRouteImport } from './routes/_layout/plants/$id/edit'
+import { Route as LayoutSectorsIdEditRouteImport } from './routes/_layout/sectors/$id/edit'
 import { Route as LayoutSecurityObservationsIdIndexRouteImport } from './routes/_layout/securityObservations/$id/index'
 import { Route as LayoutSecurityObservationsIdEditRouteImport } from './routes/_layout/securityObservations/$id/edit'
 
@@ -29,6 +44,28 @@ const LayoutIndexRoute = LayoutIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
+const LayoutComboOptionsIndexRoute = LayoutComboOptionsIndexRouteImport.update({
+  id: '/comboOptions/',
+  path: '/comboOptions/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutComboOptionsNewRoute = LayoutComboOptionsNewRouteImport.update({
+  id: '/comboOptions/new',
+  path: '/comboOptions/new',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutContractorCompaniesIndexRoute =
+  LayoutContractorCompaniesIndexRouteImport.update({
+    id: '/contractorCompanies/',
+    path: '/contractorCompanies/',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutContractorCompaniesNewRoute =
+  LayoutContractorCompaniesNewRouteImport.update({
+    id: '/contractorCompanies/new',
+    path: '/contractorCompanies/new',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
 const LayoutEquipmentMaintenancesIndexRoute =
   LayoutEquipmentMaintenancesIndexRouteImport.update({
     id: '/equipmentMaintenances/',
@@ -41,6 +78,36 @@ const LayoutEquipmentMaintenancesNewRoute =
     path: '/equipmentMaintenances/new',
     getParentRoute: () => LayoutRouteRoute,
   } as any)
+const LayoutObserversIndexRoute = LayoutObserversIndexRouteImport.update({
+  id: '/observers/',
+  path: '/observers/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutObserversNewRoute = LayoutObserversNewRouteImport.update({
+  id: '/observers/new',
+  path: '/observers/new',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutPlantsIndexRoute = LayoutPlantsIndexRouteImport.update({
+  id: '/plants/',
+  path: '/plants/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutPlantsNewRoute = LayoutPlantsNewRouteImport.update({
+  id: '/plants/new',
+  path: '/plants/new',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutSectorsIndexRoute = LayoutSectorsIndexRouteImport.update({
+  id: '/sectors/',
+  path: '/sectors/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutSectorsNewRoute = LayoutSectorsNewRouteImport.update({
+  id: '/sectors/new',
+  path: '/sectors/new',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
 const LayoutSecurityObservationsIndexRoute =
   LayoutSecurityObservationsIndexRouteImport.update({
     id: '/securityObservations/',
@@ -51,6 +118,18 @@ const LayoutSecurityObservationsNewRoute =
   LayoutSecurityObservationsNewRouteImport.update({
     id: '/securityObservations/new',
     path: '/securityObservations/new',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutComboOptionsIdEditRoute =
+  LayoutComboOptionsIdEditRouteImport.update({
+    id: '/comboOptions/$id/edit',
+    path: '/comboOptions/$id/edit',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutContractorCompaniesIdEditRoute =
+  LayoutContractorCompaniesIdEditRouteImport.update({
+    id: '/contractorCompanies/$id/edit',
+    path: '/contractorCompanies/$id/edit',
     getParentRoute: () => LayoutRouteRoute,
   } as any)
 const LayoutEquipmentMaintenancesIdIndexRoute =
@@ -65,6 +144,21 @@ const LayoutEquipmentMaintenancesEditLegajoRoute =
     path: '/equipmentMaintenances/edit/$legajo',
     getParentRoute: () => LayoutRouteRoute,
   } as any)
+const LayoutObserversIdEditRoute = LayoutObserversIdEditRouteImport.update({
+  id: '/observers/$id/edit',
+  path: '/observers/$id/edit',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutPlantsIdEditRoute = LayoutPlantsIdEditRouteImport.update({
+  id: '/plants/$id/edit',
+  path: '/plants/$id/edit',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutSectorsIdEditRoute = LayoutSectorsIdEditRouteImport.update({
+  id: '/sectors/$id/edit',
+  path: '/sectors/$id/edit',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
 const LayoutSecurityObservationsIdIndexRoute =
   LayoutSecurityObservationsIdIndexRouteImport.update({
     id: '/securityObservations/$id/',
@@ -80,22 +174,52 @@ const LayoutSecurityObservationsIdEditRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof LayoutIndexRoute
+  '/comboOptions/new': typeof LayoutComboOptionsNewRoute
+  '/contractorCompanies/new': typeof LayoutContractorCompaniesNewRoute
   '/equipmentMaintenances/new': typeof LayoutEquipmentMaintenancesNewRoute
+  '/observers/new': typeof LayoutObserversNewRoute
+  '/plants/new': typeof LayoutPlantsNewRoute
+  '/sectors/new': typeof LayoutSectorsNewRoute
   '/securityObservations/new': typeof LayoutSecurityObservationsNewRoute
+  '/comboOptions/': typeof LayoutComboOptionsIndexRoute
+  '/contractorCompanies/': typeof LayoutContractorCompaniesIndexRoute
   '/equipmentMaintenances/': typeof LayoutEquipmentMaintenancesIndexRoute
+  '/observers/': typeof LayoutObserversIndexRoute
+  '/plants/': typeof LayoutPlantsIndexRoute
+  '/sectors/': typeof LayoutSectorsIndexRoute
   '/securityObservations/': typeof LayoutSecurityObservationsIndexRoute
+  '/comboOptions/$id/edit': typeof LayoutComboOptionsIdEditRoute
+  '/contractorCompanies/$id/edit': typeof LayoutContractorCompaniesIdEditRoute
   '/equipmentMaintenances/edit/$legajo': typeof LayoutEquipmentMaintenancesEditLegajoRoute
+  '/observers/$id/edit': typeof LayoutObserversIdEditRoute
+  '/plants/$id/edit': typeof LayoutPlantsIdEditRoute
+  '/sectors/$id/edit': typeof LayoutSectorsIdEditRoute
   '/securityObservations/$id/edit': typeof LayoutSecurityObservationsIdEditRoute
   '/equipmentMaintenances/$id/': typeof LayoutEquipmentMaintenancesIdIndexRoute
   '/securityObservations/$id/': typeof LayoutSecurityObservationsIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof LayoutIndexRoute
+  '/comboOptions/new': typeof LayoutComboOptionsNewRoute
+  '/contractorCompanies/new': typeof LayoutContractorCompaniesNewRoute
   '/equipmentMaintenances/new': typeof LayoutEquipmentMaintenancesNewRoute
+  '/observers/new': typeof LayoutObserversNewRoute
+  '/plants/new': typeof LayoutPlantsNewRoute
+  '/sectors/new': typeof LayoutSectorsNewRoute
   '/securityObservations/new': typeof LayoutSecurityObservationsNewRoute
+  '/comboOptions': typeof LayoutComboOptionsIndexRoute
+  '/contractorCompanies': typeof LayoutContractorCompaniesIndexRoute
   '/equipmentMaintenances': typeof LayoutEquipmentMaintenancesIndexRoute
+  '/observers': typeof LayoutObserversIndexRoute
+  '/plants': typeof LayoutPlantsIndexRoute
+  '/sectors': typeof LayoutSectorsIndexRoute
   '/securityObservations': typeof LayoutSecurityObservationsIndexRoute
+  '/comboOptions/$id/edit': typeof LayoutComboOptionsIdEditRoute
+  '/contractorCompanies/$id/edit': typeof LayoutContractorCompaniesIdEditRoute
   '/equipmentMaintenances/edit/$legajo': typeof LayoutEquipmentMaintenancesEditLegajoRoute
+  '/observers/$id/edit': typeof LayoutObserversIdEditRoute
+  '/plants/$id/edit': typeof LayoutPlantsIdEditRoute
+  '/sectors/$id/edit': typeof LayoutSectorsIdEditRoute
   '/securityObservations/$id/edit': typeof LayoutSecurityObservationsIdEditRoute
   '/equipmentMaintenances/$id': typeof LayoutEquipmentMaintenancesIdIndexRoute
   '/securityObservations/$id': typeof LayoutSecurityObservationsIdIndexRoute
@@ -104,11 +228,26 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_layout': typeof LayoutRouteRouteWithChildren
   '/_layout/': typeof LayoutIndexRoute
+  '/_layout/comboOptions/new': typeof LayoutComboOptionsNewRoute
+  '/_layout/contractorCompanies/new': typeof LayoutContractorCompaniesNewRoute
   '/_layout/equipmentMaintenances/new': typeof LayoutEquipmentMaintenancesNewRoute
+  '/_layout/observers/new': typeof LayoutObserversNewRoute
+  '/_layout/plants/new': typeof LayoutPlantsNewRoute
+  '/_layout/sectors/new': typeof LayoutSectorsNewRoute
   '/_layout/securityObservations/new': typeof LayoutSecurityObservationsNewRoute
+  '/_layout/comboOptions/': typeof LayoutComboOptionsIndexRoute
+  '/_layout/contractorCompanies/': typeof LayoutContractorCompaniesIndexRoute
   '/_layout/equipmentMaintenances/': typeof LayoutEquipmentMaintenancesIndexRoute
+  '/_layout/observers/': typeof LayoutObserversIndexRoute
+  '/_layout/plants/': typeof LayoutPlantsIndexRoute
+  '/_layout/sectors/': typeof LayoutSectorsIndexRoute
   '/_layout/securityObservations/': typeof LayoutSecurityObservationsIndexRoute
+  '/_layout/comboOptions/$id/edit': typeof LayoutComboOptionsIdEditRoute
+  '/_layout/contractorCompanies/$id/edit': typeof LayoutContractorCompaniesIdEditRoute
   '/_layout/equipmentMaintenances/edit/$legajo': typeof LayoutEquipmentMaintenancesEditLegajoRoute
+  '/_layout/observers/$id/edit': typeof LayoutObserversIdEditRoute
+  '/_layout/plants/$id/edit': typeof LayoutPlantsIdEditRoute
+  '/_layout/sectors/$id/edit': typeof LayoutSectorsIdEditRoute
   '/_layout/securityObservations/$id/edit': typeof LayoutSecurityObservationsIdEditRoute
   '/_layout/equipmentMaintenances/$id/': typeof LayoutEquipmentMaintenancesIdIndexRoute
   '/_layout/securityObservations/$id/': typeof LayoutSecurityObservationsIdIndexRoute
@@ -117,22 +256,52 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/comboOptions/new'
+    | '/contractorCompanies/new'
     | '/equipmentMaintenances/new'
+    | '/observers/new'
+    | '/plants/new'
+    | '/sectors/new'
     | '/securityObservations/new'
+    | '/comboOptions/'
+    | '/contractorCompanies/'
     | '/equipmentMaintenances/'
+    | '/observers/'
+    | '/plants/'
+    | '/sectors/'
     | '/securityObservations/'
+    | '/comboOptions/$id/edit'
+    | '/contractorCompanies/$id/edit'
     | '/equipmentMaintenances/edit/$legajo'
+    | '/observers/$id/edit'
+    | '/plants/$id/edit'
+    | '/sectors/$id/edit'
     | '/securityObservations/$id/edit'
     | '/equipmentMaintenances/$id/'
     | '/securityObservations/$id/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/comboOptions/new'
+    | '/contractorCompanies/new'
     | '/equipmentMaintenances/new'
+    | '/observers/new'
+    | '/plants/new'
+    | '/sectors/new'
     | '/securityObservations/new'
+    | '/comboOptions'
+    | '/contractorCompanies'
     | '/equipmentMaintenances'
+    | '/observers'
+    | '/plants'
+    | '/sectors'
     | '/securityObservations'
+    | '/comboOptions/$id/edit'
+    | '/contractorCompanies/$id/edit'
     | '/equipmentMaintenances/edit/$legajo'
+    | '/observers/$id/edit'
+    | '/plants/$id/edit'
+    | '/sectors/$id/edit'
     | '/securityObservations/$id/edit'
     | '/equipmentMaintenances/$id'
     | '/securityObservations/$id'
@@ -140,11 +309,26 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_layout'
     | '/_layout/'
+    | '/_layout/comboOptions/new'
+    | '/_layout/contractorCompanies/new'
     | '/_layout/equipmentMaintenances/new'
+    | '/_layout/observers/new'
+    | '/_layout/plants/new'
+    | '/_layout/sectors/new'
     | '/_layout/securityObservations/new'
+    | '/_layout/comboOptions/'
+    | '/_layout/contractorCompanies/'
     | '/_layout/equipmentMaintenances/'
+    | '/_layout/observers/'
+    | '/_layout/plants/'
+    | '/_layout/sectors/'
     | '/_layout/securityObservations/'
+    | '/_layout/comboOptions/$id/edit'
+    | '/_layout/contractorCompanies/$id/edit'
     | '/_layout/equipmentMaintenances/edit/$legajo'
+    | '/_layout/observers/$id/edit'
+    | '/_layout/plants/$id/edit'
+    | '/_layout/sectors/$id/edit'
     | '/_layout/securityObservations/$id/edit'
     | '/_layout/equipmentMaintenances/$id/'
     | '/_layout/securityObservations/$id/'
@@ -170,6 +354,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutIndexRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
+    '/_layout/comboOptions/': {
+      id: '/_layout/comboOptions/'
+      path: '/comboOptions'
+      fullPath: '/comboOptions/'
+      preLoaderRoute: typeof LayoutComboOptionsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/comboOptions/new': {
+      id: '/_layout/comboOptions/new'
+      path: '/comboOptions/new'
+      fullPath: '/comboOptions/new'
+      preLoaderRoute: typeof LayoutComboOptionsNewRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/contractorCompanies/': {
+      id: '/_layout/contractorCompanies/'
+      path: '/contractorCompanies'
+      fullPath: '/contractorCompanies/'
+      preLoaderRoute: typeof LayoutContractorCompaniesIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/contractorCompanies/new': {
+      id: '/_layout/contractorCompanies/new'
+      path: '/contractorCompanies/new'
+      fullPath: '/contractorCompanies/new'
+      preLoaderRoute: typeof LayoutContractorCompaniesNewRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
     '/_layout/equipmentMaintenances/': {
       id: '/_layout/equipmentMaintenances/'
       path: '/equipmentMaintenances'
@@ -182,6 +394,48 @@ declare module '@tanstack/react-router' {
       path: '/equipmentMaintenances/new'
       fullPath: '/equipmentMaintenances/new'
       preLoaderRoute: typeof LayoutEquipmentMaintenancesNewRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/observers/': {
+      id: '/_layout/observers/'
+      path: '/observers'
+      fullPath: '/observers/'
+      preLoaderRoute: typeof LayoutObserversIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/observers/new': {
+      id: '/_layout/observers/new'
+      path: '/observers/new'
+      fullPath: '/observers/new'
+      preLoaderRoute: typeof LayoutObserversNewRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/plants/': {
+      id: '/_layout/plants/'
+      path: '/plants'
+      fullPath: '/plants/'
+      preLoaderRoute: typeof LayoutPlantsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/plants/new': {
+      id: '/_layout/plants/new'
+      path: '/plants/new'
+      fullPath: '/plants/new'
+      preLoaderRoute: typeof LayoutPlantsNewRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/sectors/': {
+      id: '/_layout/sectors/'
+      path: '/sectors'
+      fullPath: '/sectors/'
+      preLoaderRoute: typeof LayoutSectorsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/sectors/new': {
+      id: '/_layout/sectors/new'
+      path: '/sectors/new'
+      fullPath: '/sectors/new'
+      preLoaderRoute: typeof LayoutSectorsNewRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
     '/_layout/securityObservations/': {
@@ -198,6 +452,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutSecurityObservationsNewRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
+    '/_layout/comboOptions/$id/edit': {
+      id: '/_layout/comboOptions/$id/edit'
+      path: '/comboOptions/$id/edit'
+      fullPath: '/comboOptions/$id/edit'
+      preLoaderRoute: typeof LayoutComboOptionsIdEditRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/contractorCompanies/$id/edit': {
+      id: '/_layout/contractorCompanies/$id/edit'
+      path: '/contractorCompanies/$id/edit'
+      fullPath: '/contractorCompanies/$id/edit'
+      preLoaderRoute: typeof LayoutContractorCompaniesIdEditRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
     '/_layout/equipmentMaintenances/$id/': {
       id: '/_layout/equipmentMaintenances/$id/'
       path: '/equipmentMaintenances/$id'
@@ -210,6 +478,27 @@ declare module '@tanstack/react-router' {
       path: '/equipmentMaintenances/edit/$legajo'
       fullPath: '/equipmentMaintenances/edit/$legajo'
       preLoaderRoute: typeof LayoutEquipmentMaintenancesEditLegajoRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/observers/$id/edit': {
+      id: '/_layout/observers/$id/edit'
+      path: '/observers/$id/edit'
+      fullPath: '/observers/$id/edit'
+      preLoaderRoute: typeof LayoutObserversIdEditRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/plants/$id/edit': {
+      id: '/_layout/plants/$id/edit'
+      path: '/plants/$id/edit'
+      fullPath: '/plants/$id/edit'
+      preLoaderRoute: typeof LayoutPlantsIdEditRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/sectors/$id/edit': {
+      id: '/_layout/sectors/$id/edit'
+      path: '/sectors/$id/edit'
+      fullPath: '/sectors/$id/edit'
+      preLoaderRoute: typeof LayoutSectorsIdEditRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
     '/_layout/securityObservations/$id/': {
@@ -231,11 +520,26 @@ declare module '@tanstack/react-router' {
 
 interface LayoutRouteRouteChildren {
   LayoutIndexRoute: typeof LayoutIndexRoute
+  LayoutComboOptionsNewRoute: typeof LayoutComboOptionsNewRoute
+  LayoutContractorCompaniesNewRoute: typeof LayoutContractorCompaniesNewRoute
   LayoutEquipmentMaintenancesNewRoute: typeof LayoutEquipmentMaintenancesNewRoute
+  LayoutObserversNewRoute: typeof LayoutObserversNewRoute
+  LayoutPlantsNewRoute: typeof LayoutPlantsNewRoute
+  LayoutSectorsNewRoute: typeof LayoutSectorsNewRoute
   LayoutSecurityObservationsNewRoute: typeof LayoutSecurityObservationsNewRoute
+  LayoutComboOptionsIndexRoute: typeof LayoutComboOptionsIndexRoute
+  LayoutContractorCompaniesIndexRoute: typeof LayoutContractorCompaniesIndexRoute
   LayoutEquipmentMaintenancesIndexRoute: typeof LayoutEquipmentMaintenancesIndexRoute
+  LayoutObserversIndexRoute: typeof LayoutObserversIndexRoute
+  LayoutPlantsIndexRoute: typeof LayoutPlantsIndexRoute
+  LayoutSectorsIndexRoute: typeof LayoutSectorsIndexRoute
   LayoutSecurityObservationsIndexRoute: typeof LayoutSecurityObservationsIndexRoute
+  LayoutComboOptionsIdEditRoute: typeof LayoutComboOptionsIdEditRoute
+  LayoutContractorCompaniesIdEditRoute: typeof LayoutContractorCompaniesIdEditRoute
   LayoutEquipmentMaintenancesEditLegajoRoute: typeof LayoutEquipmentMaintenancesEditLegajoRoute
+  LayoutObserversIdEditRoute: typeof LayoutObserversIdEditRoute
+  LayoutPlantsIdEditRoute: typeof LayoutPlantsIdEditRoute
+  LayoutSectorsIdEditRoute: typeof LayoutSectorsIdEditRoute
   LayoutSecurityObservationsIdEditRoute: typeof LayoutSecurityObservationsIdEditRoute
   LayoutEquipmentMaintenancesIdIndexRoute: typeof LayoutEquipmentMaintenancesIdIndexRoute
   LayoutSecurityObservationsIdIndexRoute: typeof LayoutSecurityObservationsIdIndexRoute
@@ -243,12 +547,27 @@ interface LayoutRouteRouteChildren {
 
 const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
   LayoutIndexRoute: LayoutIndexRoute,
+  LayoutComboOptionsNewRoute: LayoutComboOptionsNewRoute,
+  LayoutContractorCompaniesNewRoute: LayoutContractorCompaniesNewRoute,
   LayoutEquipmentMaintenancesNewRoute: LayoutEquipmentMaintenancesNewRoute,
+  LayoutObserversNewRoute: LayoutObserversNewRoute,
+  LayoutPlantsNewRoute: LayoutPlantsNewRoute,
+  LayoutSectorsNewRoute: LayoutSectorsNewRoute,
   LayoutSecurityObservationsNewRoute: LayoutSecurityObservationsNewRoute,
+  LayoutComboOptionsIndexRoute: LayoutComboOptionsIndexRoute,
+  LayoutContractorCompaniesIndexRoute: LayoutContractorCompaniesIndexRoute,
   LayoutEquipmentMaintenancesIndexRoute: LayoutEquipmentMaintenancesIndexRoute,
+  LayoutObserversIndexRoute: LayoutObserversIndexRoute,
+  LayoutPlantsIndexRoute: LayoutPlantsIndexRoute,
+  LayoutSectorsIndexRoute: LayoutSectorsIndexRoute,
   LayoutSecurityObservationsIndexRoute: LayoutSecurityObservationsIndexRoute,
+  LayoutComboOptionsIdEditRoute: LayoutComboOptionsIdEditRoute,
+  LayoutContractorCompaniesIdEditRoute: LayoutContractorCompaniesIdEditRoute,
   LayoutEquipmentMaintenancesEditLegajoRoute:
     LayoutEquipmentMaintenancesEditLegajoRoute,
+  LayoutObserversIdEditRoute: LayoutObserversIdEditRoute,
+  LayoutPlantsIdEditRoute: LayoutPlantsIdEditRoute,
+  LayoutSectorsIdEditRoute: LayoutSectorsIdEditRoute,
   LayoutSecurityObservationsIdEditRoute: LayoutSecurityObservationsIdEditRoute,
   LayoutEquipmentMaintenancesIdIndexRoute:
     LayoutEquipmentMaintenancesIdIndexRoute,

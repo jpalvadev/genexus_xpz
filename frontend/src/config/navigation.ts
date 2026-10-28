@@ -54,6 +54,37 @@ export const navigationConfig: INavigationConfig[] = [
                         to: '/securityObservations/new',
                         icon: ShieldIcon,
                     },
+                    {
+                        title: 'Catálogos',
+                        icon: ListIcon,
+                        menus: [
+                            {
+                                title: 'Observadores',
+                                to: '/observers',
+                                icon: UsersIcon,
+                            },
+                            {
+                                title: 'Plantas',
+                                to: '/plants',
+                                icon: ListIcon,
+                            },
+                            {
+                                title: 'Sectores',
+                                to: '/sectors',
+                                icon: ListIcon,
+                            },
+                            {
+                                title: 'Empresas Contratistas',
+                                to: '/contractorCompanies',
+                                icon: ListIcon,
+                            },
+                            {
+                                title: 'Opciones de Combo',
+                                to: '/comboOptions',
+                                icon: ListIcon,
+                            },
+                        ],
+                    },
                 ],
             },
         ],

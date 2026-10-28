@@ -1,7 +1,7 @@
 import { apiClient } from '@/api/apiClient';
 import type { PaginatedData } from '@/types/table.type';
 import type { GridifyResponse } from '@/types/gridifyResponse.type';
-import { buildGridifyParams, type GridifyQuery } from '@/utils/gridifyFilter';
+import { type GridifyQuery } from '@/utils/gridifyFilter';
 import type { Observer, ObserverRequest } from '../types/observer.type';
 
 const BASE_URL = 'observers';
@@ -9,7 +9,7 @@ const BASE_URL = 'observers';
 export const observerService = {
     getAllPaginated: async (gridifyQuery: GridifyQuery): Promise<PaginatedData<Observer>> => {
         const response = await apiClient.get<GridifyResponse<Observer>>(BASE_URL, {
-            params: buildGridifyParams(gridifyQuery),
+            params: gridifyQuery,
         });
         return { data: response.data.data, rowCount: response.data.count };
     },
@@ -26,7 +26,7 @@ export const observerService = {
      * (spec), contains search on fullName driven by the MultiSelect search box.
      */
     lookup: async (params: Record<string, string>): Promise<PaginatedData<Observer>> => {
-        const filters = ['active eq true'];
+        const filters = ['active=true'];
         const term = (params.fullName ?? '').trim();
         if (term) {
             filters.push(`fullName=*${term}`);
@@ -36,7 +36,7 @@ export const observerService = {
                 Page: 1,
                 PageSize: Number(params.pageSize) || 30,
                 OrderBy: 'fullName asc',
-                Filters: filters.join(','),
+                Filter: filters.join(','),
             },
         });
         return { data: response.data.data, rowCount: response.data.count };

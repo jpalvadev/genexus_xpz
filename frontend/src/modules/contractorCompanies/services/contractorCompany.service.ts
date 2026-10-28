@@ -1,7 +1,7 @@
 import { apiClient } from '@/api/apiClient';
 import type { PaginatedData } from '@/types/table.type';
 import type { GridifyResponse } from '@/types/gridifyResponse.type';
-import { buildGridifyParams, type GridifyQuery } from '@/utils/gridifyFilter';
+import { type GridifyQuery } from '@/utils/gridifyFilter';
 import type {
     ContractorCompany,
     ContractorCompanyRequest,
@@ -15,7 +15,7 @@ export const contractorCompanyService = {
     ): Promise<PaginatedData<ContractorCompany>> => {
         const response = await apiClient.get<GridifyResponse<ContractorCompany>>(
             BASE_URL,
-            { params: buildGridifyParams(gridifyQuery) },
+            { params: gridifyQuery },
         );
         return { data: response.data.data, rowCount: response.data.count };
     },

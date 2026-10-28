@@ -1,6 +1,6 @@
 import type { GridifySearchParams } from '@/hooks/useGridifyParams';
 
-export interface Sector {
+export type Sector = {
     id: number;
     name: string;
 }

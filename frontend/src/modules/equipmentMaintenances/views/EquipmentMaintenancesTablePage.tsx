@@ -22,7 +22,7 @@ export default function EquipmentMaintenancesTablePage() {
 
     const { data, isPending } = useEquipmentMaintenancesQuery(gridifyQuery);
 
-    if (isPending) return <Loading />;
+    if (isPending || !data) return <Loading />;
 
     return (
         <div className="flex flex-col gap-4 h-full">

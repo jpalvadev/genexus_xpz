@@ -1,7 +1,7 @@
 import { apiClient } from '@/api/apiClient';
 import type { PaginatedData } from '@/types/table.type';
 import type { GridifyResponse } from '@/types/gridifyResponse.type';
-import { buildGridifyParams, type GridifyQuery } from '@/utils/gridifyFilter';
+import { type GridifyQuery } from '@/utils/gridifyFilter';
 import type { Plant, PlantRequest } from '../types/plant.type';
 
 const BASE_URL = 'plants';
@@ -9,7 +9,7 @@ const BASE_URL = 'plants';
 export const plantService = {
     getAllPaginated: async (gridifyQuery: GridifyQuery): Promise<PaginatedData<Plant>> => {
         const response = await apiClient.get<GridifyResponse<Plant>>(BASE_URL, {
-            params: buildGridifyParams(gridifyQuery),
+            params: gridifyQuery,
         });
         return { data: response.data.data, rowCount: response.data.count };
     },
