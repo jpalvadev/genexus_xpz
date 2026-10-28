@@ -25,7 +25,7 @@ to run subagents: spawning even one either halts the system or goes out of memor
 - **API**: `dotnet run --launch-profile http` from `Genexus/` → `http://localhost:5281/api/v1` (port from `Properties/launchSettings.json`). Stop it by port owner: `ss -lptn 'sport = :5281'` → kill that pid.
 - **Harness scripts**: `scripts/with-api.sh <cmd>` runs `<cmd>` against a temporary live API; `scripts/capture-fixtures.py` recaptures MSW fixtures from the live API.
 - **Run vitest suites serially, never two at once**: concurrent suites on this box produce false timing failures (full serial run ≈ 4 min with `--reporter=dot`).
-- **Frontend gates** (wired in `.githooks` pre-commit/pre-push): `tsc -b`, `eslint . --max-warnings=0`, `vitest run`.
+- **Frontend gates** (wired in `.githooks` pre-commit/pre-push): `tsc -b`, `eslint --max-warnings=0` on staged TS files, `vitest run`.
 
 ## Agent skills
 
