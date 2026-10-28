@@ -1,6 +1,6 @@
 import type { GridifySearchParams } from '@/hooks/useGridifyParams';
 
-export interface ComboOption {
+export type ComboOption = {
     id: number;
     comboKey: string;
     label: string;

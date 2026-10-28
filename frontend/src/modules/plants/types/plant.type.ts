@@ -1,6 +1,6 @@
 import type { GridifySearchParams } from '@/hooks/useGridifyParams';
 
-export interface Plant {
+export type Plant = {
     id: number;
     name: string;
 }
