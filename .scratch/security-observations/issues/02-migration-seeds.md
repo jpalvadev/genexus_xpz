@@ -1,6 +1,6 @@
 # 02 — Initial migration & demo seeds
 
-Status: ready-for-agent
+Status: resolved
 
 - Local tool manifest with `dotnet-ef`; create + apply the initial EF migration.
 - `HasData` seeds: 4 Plants (English names, legacy subtype labels baked in, e.g.
