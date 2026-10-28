@@ -1,0 +1,72 @@
+import Loading from '@/components/Loading';
+import { Button } from '@/components/ui/button';
+
+import Authorized from '@/components/Authorized';
+import { useGridifyParams } from '@/hooks/useGridifyParams';
+import { equipmentMaintenanceService } from '../services/equipmentMaintenance.service';
+import { useEquipmentMaintenancesQuery } from '../hooks/useEquipmentMaintenancesQuery';
+import GenericTable from '@/components/GenericTable';
+import { EQUIPMENT_MAINTENANCE_COLUMNS } from '../components/equipmentMaintenance.columns';
+
+export default function EquipmentMaintenancesTablePage() {
+    const {
+        pagination,
+        sorting,
+        filter,
+        onPaginationChange,
+        onSortingChange,
+        onFilterChange,
+        hasActiveFilters,
+        onResetFilters,
+        gridifyQuery,
+    } = useGridifyParams();
+
+    const { data, isPending } = useEquipmentMaintenancesQuery(gridifyQuery);
+
+    if (isPending) return <Loading />;
+
+    return (
+        <div className="flex flex-col gap-4 h-full">
+            <div className="flex items-center justify-between">
+                <h1 className="text-2xl font-semibold">
+                    Registro de Tratamientos Preventivos y Correctivos
+                </h1>
+
+                <Authorized requiredModule="equipmentMaintenance" requiredRole="reports">
+                    <Button
+                        variant="default"
+                        onClick={() => {
+                            equipmentMaintenanceService.exportExcel(
+                                gridifyQuery,
+                            );
+                        }}
+                    >
+                        Excel
+                    </Button>
+                </Authorized>
+
+                {hasActiveFilters && (
+                    <Button onClick={onResetFilters} variant="outline">
+                        Limpiar filtros
+                    </Button>
+                )}
+            </div>
+
+            <Authorized requiredModule="equipmentMaintenance" requiredRole="admin" fallback={<p>No tienes permisos para gestionar mantenimientos.</p>}>
+                <GenericTable
+                    data={data?.data ?? []}
+                    columns={EQUIPMENT_MAINTENANCE_COLUMNS}
+                    pagination={pagination}
+                    paginationOptions={{
+                        onPaginationChange,
+                        rowCount: data?.rowCount,
+                    }}
+                    filter={filter}
+                    onFilterChange={onFilterChange}
+                    sorting={sorting}
+                    onSortingChange={onSortingChange}
+                />
+            </Authorized>
+        </div>
+    );
+}
