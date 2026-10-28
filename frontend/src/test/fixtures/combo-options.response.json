@@ -1,0 +1,110 @@
+[
+  {
+    "id": 11,
+    "comboKey": "clasificacionObservacion",
+    "label": "Safe Act",
+    "order": 1
+  },
+  {
+    "id": 12,
+    "comboKey": "clasificacionObservacion",
+    "label": "Safe Condition",
+    "order": 2
+  },
+  {
+    "id": 13,
+    "comboKey": "clasificacionObservacion",
+    "label": "At-Risk Act",
+    "order": 3
+  },
+  {
+    "id": 14,
+    "comboKey": "clasificacionObservacion",
+    "label": "Defensive Control",
+    "order": 4
+  },
+  {
+    "id": 1,
+    "comboKey": "gestionRiesgo",
+    "label": "Daily Risk Talk (DRT)",
+    "order": 1
+  },
+  {
+    "id": 2,
+    "comboKey": "gestionRiesgo",
+    "label": "Job Safety Analysis (JSA)",
+    "order": 2
+  },
+  {
+    "id": 3,
+    "comboKey": "gestionRiesgo",
+    "label": "Permit to Work",
+    "order": 3
+  },
+  {
+    "id": 4,
+    "comboKey": "gestionRiesgo",
+    "label": "Toolbox Talk",
+    "order": 4
+  },
+  {
+    "id": 5,
+    "comboKey": "protocolosMortales",
+    "label": "Working at Height",
+    "order": 1
+  },
+  {
+    "id": 6,
+    "comboKey": "protocolosMortales",
+    "label": "Energy Isolation (LOTO)",
+    "order": 2
+  },
+  {
+    "id": 7,
+    "comboKey": "protocolosMortales",
+    "label": "Confined Space Entry",
+    "order": 3
+  },
+  {
+    "id": 8,
+    "comboKey": "protocolosMortales",
+    "label": "Hot Work",
+    "order": 4
+  },
+  {
+    "id": 9,
+    "comboKey": "protocolosMortales",
+    "label": "Mobile Equipment in Motion",
+    "order": 5
+  },
+  {
+    "id": 10,
+    "comboKey": "protocolosMortales",
+    "label": "Excavation",
+    "order": 6
+  },
+  {
+    "id": 15,
+    "comboKey": "relacionObservacion",
+    "label": "Related to APR",
+    "order": 1
+  },
+  {
+    "id": 16,
+    "comboKey": "relacionObservacion",
+    "label": "Related to ATR",
+    "order": 2
+  },
+  {
+    "id": 17,
+    "comboKey": "relacionObservacion",
+    "label": "Related to Task",
+    "order": 3
+  },
+  {
+    "id": 18,
+    "comboKey": "relacionObservacion",
+    "label": "Related to Site Conditions",
+    "order": 4
+  }
+]

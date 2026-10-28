@@ -1,0 +1,61 @@
+{
+  "id": 5,
+  "observationDate": "2026-10-28",
+  "createdOn": "2026-10-28T09:22:14.7067507",
+  "task": "Prueba",
+  "lugar": "planta",
+  "aprReviewed": true,
+  "taskRealized": true,
+  "requiresAtrReview": false,
+  "trcRisk": true,
+  "impactRiskControlled": true,
+  "handInjuryMeasures": false,
+  "injuryMeasures": true,
+  "toolsReviewed": true,
+  "mobileEquipmentReviewed": false,
+  "energyReviewed": true,
+  "ladderReviewed": false,
+  "electricalEquipmentCircuitBreaker": true,
+  "controlesCriticos": "critico",
+  "gestionRiesgo": [
+    "Daily Risk Talk (DRT)"
+  ],
+  "protocolosMortales": [
+    "Working at Height"
+  ],
+  "clasificacionObservacion": [
+    "Safe Condition"
+  ],
+  "relacionObservacion": [
+    "Related to Task"
+  ],
+  "resumenObservacion": "PRueba",
+  "detalleAI": "PRueba",
+  "descripcionAC": "PRueba",
+  "plant": {
+    "id": 1,
+    "name": "North Plant (RNV)"
+  },
+  "sector": {
+    "id": 2,
+    "name": "Access Control"
+  },
+  "contractorCompany": {
+    "id": 3,
+    "name": "Apex Facility Protection"
+  },
+  "observers": [
+    {
+      "id": 1,
+      "fullName": "Dana Herrera",
+      "legajo": 1001,
+      "active": true
+    },
+    {
+      "id": 2,
+      "fullName": "Owen Mercado",
+      "legajo": 1002,
+      "active": true
+    }
+  ]
+}

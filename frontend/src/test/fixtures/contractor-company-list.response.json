@@ -1,0 +1,17 @@
+{
+  "count": 3,
+  "data": [
+    {
+      "id": 1,
+      "name": "Shield Security Services"
+    },
+    {
+      "id": 2,
+      "name": "Guardian Staffing"
+    },
+    {
+      "id": 3,
+      "name": "Apex Facility Protection"
+    }
+  ]
+}
