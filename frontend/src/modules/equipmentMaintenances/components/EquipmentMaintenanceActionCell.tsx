@@ -76,9 +76,9 @@ export default function EquipmentMaintenanceActionCell({
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild className="cursor-pointer">
                             <Link
-                                to="/equipmentMaintenances/$id/edit"
+                                to="/equipmentMaintenances/edit/$legajo"
                                 params={{
-                                    id: equipmentMaintenance.id.toString(),
+                                    legajo: equipmentMaintenance.id.toString(),
                                 }}
                             >
                                 Editar

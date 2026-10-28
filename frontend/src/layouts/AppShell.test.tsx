@@ -51,9 +51,6 @@ describe('AppShell Layout', () => {
             <AppShell>
                 <div data-testid="child-content">Página Principal de Prueba</div>
             </AppShell>,
-            {
-                permissions: [{ module: 'general', role: 'admin', scope: null }],
-            }
         );
 
         await waitFor(() => {
@@ -72,9 +69,6 @@ describe('AppShell Layout', () => {
             <AppShell>
                 <div>Contenido</div>
             </AppShell>,
-            {
-                permissions: [{ module: 'general', role: 'admin', scope: null }],
-            }
         );
 
         await waitFor(() => {
@@ -87,9 +81,6 @@ describe('AppShell Layout', () => {
             <AppShell>
                 <div>Contenido</div>
             </AppShell>,
-            {
-                permissions: [{ module: 'general', role: 'admin', scope: null }],
-            }
         );
 
         await waitFor(() => {
@@ -101,20 +92,6 @@ describe('AppShell Layout', () => {
 
         // Verifica la especificación de cierre de sidebar mobile (PROGRESS.md)
         expect(mockSetOpenMobile).toHaveBeenCalledWith(false);
-    });
-
-    it('muestra el indicador de carga si los permisos/menú aún no están cargados', () => {
-        renderWithProviders(
-            <AppShell>
-                <div>Contenido</div>
-            </AppShell>,
-            {
-                user: null, // Sin usuario autenticado o cargando
-            }
-        );
-
-        // Al no haber usuario o permisos listos, el menú no renderiza los links de admin
-        expect(screen.queryByRole('link', { name: 'Dispositivos' })).not.toBeInTheDocument();
     });
 });
 

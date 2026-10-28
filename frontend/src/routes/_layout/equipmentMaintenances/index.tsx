@@ -2,7 +2,7 @@ import type { EquipmentMaintenanceFilters } from '@/modules/equipmentMaintenance
 import EquipmentMaintenancesTablePage from '@/modules/equipmentMaintenances/views/EquipmentMaintenancesTablePage';
 import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/_auth/equipmentMaintenances/')({
+export const Route = createFileRoute('/_layout/equipmentMaintenances/')({
     component: EquipmentMaintenancesTablePage,
     validateSearch: () => ({}) as EquipmentMaintenanceFilters,
 });

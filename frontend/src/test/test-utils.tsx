@@ -8,12 +8,9 @@ import {
     RouterProvider,
 } from '@tanstack/react-router';
 import { ThemeProvider } from '@/components/ThemeProvider';
-import type { AuthUser, UserPermission } from '@/modules/auth/types/auth.type';
 import { routeTree } from '@/routeTree.gen';
 
 export interface ExtendedRenderOptions extends Omit<RenderOptions, 'wrapper'> {
-    user?: Partial<AuthUser> | null;
-    permissions?: UserPermission[];
     queryClient?: QueryClient;
 }
 
@@ -32,51 +29,13 @@ export function createTestQueryClient() {
     });
 }
 
-function seedUserCache(
-    queryClient: QueryClient,
-    user?: Partial<AuthUser> | null,
-    permissions?: UserPermission[]
-) {
-    if (user !== undefined) {
-        if (user === null) {
-            queryClient.setQueryData(['auth', 'user'], null);
-        } else {
-            const fullUser: AuthUser = {
-                email: user.email ?? 'test@itrion.com',
-                firstName: user.firstName ?? 'Test',
-                lastName: user.lastName ?? 'User',
-                roles: user.roles ?? ['admin'],
-                permissions: permissions ?? user.permissions ?? [
-                    { module: 'general', role: 'admin', scope: null },
-                ],
-                avatarUrl: user.avatarUrl ?? null,
-                mustChangePassword: user.mustChangePassword ?? false,
-            };
-            queryClient.setQueryData(['auth', 'user'], fullUser);
-        }
-    } else if (permissions !== undefined) {
-        queryClient.setQueryData(['auth', 'user'], {
-            email: 'test@itrion.com',
-            firstName: 'Test',
-            lastName: 'User',
-            roles: ['user'],
-            permissions,
-            avatarUrl: null,
-        });
-    }
-}
-
 export function renderWithProviders(
     ui: ReactElement,
     {
-        user,
-        permissions,
         queryClient = createTestQueryClient(),
         ...renderOptions
     }: ExtendedRenderOptions = {}
 ) {
-    seedUserCache(queryClient, user, permissions);
-
     function Wrapper({ children }: { children: ReactNode }) {
         return (
             <QueryClientProvider client={queryClient}>
@@ -102,14 +61,10 @@ export function renderWithProviders(
 export async function renderWithRouter(
     initialRoute: string = '/',
     {
-        user,
-        permissions,
         queryClient = createTestQueryClient(),
         ...renderOptions
-    }: Omit<ExtendedRenderOptions, 'initialRoute' | 'withRouter'> = {}
+    }: ExtendedRenderOptions = {}
 ) {
-    seedUserCache(queryClient, user, permissions);
-
     const history = createMemoryHistory({
         initialEntries: [initialRoute],
     });

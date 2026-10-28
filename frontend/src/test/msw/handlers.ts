@@ -16,20 +16,6 @@ export const defaultMockUser = {
 
 export const handlers = [
     // Auth
-    http.post('*/api/v1/auth/login', async ({ request }) => {
-        const body = (await request.json()) as { email?: string; password?: string };
-        if (body.email === 'error@itrion.com' || body.password === 'wrong-password') {
-            return HttpResponse.json(
-                { message: 'Credenciales inválidas' },
-                { status: 401 }
-            );
-        }
-
-        return HttpResponse.json({
-            ...defaultMockUser,
-            email: body.email || defaultMockUser.email,
-        });
-    }),
 
     // Devices
     http.get('*/api/v1/devices', () => {
