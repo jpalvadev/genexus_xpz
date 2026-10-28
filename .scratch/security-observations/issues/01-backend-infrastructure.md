@@ -1,6 +1,6 @@
 # 01 — Backend infrastructure & entities
 
-Status: ready-for-agent
+Status: claimed
 
 - Add packages: `Gridify`, `Gridify.EntityFramework`, `ClosedXML`.
 - `Models/ItrionDbContext.cs` + entities: Person, EquipmentItem, EquipmentMaintenance,

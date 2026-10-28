@@ -1,7 +1,6 @@
 using Gridify;
 using Gridify.EntityFramework;
 using Itrion.Api.Common;
-using Itrion.Api.Data;
 using Itrion.Api.Features.EquipmentItems;
 using Itrion.Api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -10,12 +9,10 @@ using Itrion.Api.Common.Storage;
 namespace Itrion.Api.Features.EquipmentMaintenances;
 public class EquipmentMaintenanceService : IEquipmentMaintenanceService {
     private readonly ItrionDbContext _context;
-    private readonly ITenantContext _tenantContext;
     private readonly ITenantLogoResolver _tenantLogoResolver;
 
-    public EquipmentMaintenanceService(ItrionDbContext context, ITenantContext tenantContext, ITenantLogoResolver tenantLogoResolver) {
+    public EquipmentMaintenanceService(ItrionDbContext context, ITenantLogoResolver tenantLogoResolver) {
         _context = context;
-        _tenantContext = tenantContext;
         _tenantLogoResolver = tenantLogoResolver;
     }
 
@@ -106,7 +103,6 @@ private static EquipmentMaintenanceResponse MapToResponse(EquipmentMaintenance e
             EquipmentItemId = request.EquipmentItemId,
             PersonId = request.PersonId,
             ClosedAt = request.ClosedAt,
-            TenantId = _tenantContext.TenantId,
         };
     }
 
@@ -151,8 +147,8 @@ private static EquipmentMaintenanceResponse MapToResponse(EquipmentMaintenance e
 
     public async Task<byte[]> ExportAsync(GridifyQuery query) {
         var data = await GetAllAsync(query, isPaginated: false);
-        var tenant = await _context.Tenants.FindAsync(_tenantContext.TenantId);
-        var logoBytes = await _tenantLogoResolver.ResolvePngLogoBytesAsync(tenant?.LogoUrl);
+        // No tenant, so no logo (ADR 0001).
+        var logoBytes = await _tenantLogoResolver.ResolvePngLogoBytesAsync(null);
         return await EquipmentMaintenanceExcelExport.ExportAsync(data.Data.ToList(), logoBytes);
     }
 

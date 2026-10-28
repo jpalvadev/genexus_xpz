@@ -1,6 +1,5 @@
 ﻿using Gridify;
 using Itrion.Api.Common;
-using Itrion.Api.Features.Auth;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Itrion.Api.Features.EquipmentMaintenances;
@@ -17,21 +16,18 @@ public class EquipmentMaintenancesController: ControllerBase {
     }
 
     [HttpGet]
-    [RequirePermission("equipmentMaintenance", "admin")]
     public async Task<ActionResult<IList<EquipmentMaintenanceResponse>>> GetAll([FromQuery] GridifyQuery query) {
         var response = await _equipmentMaintenanceService.GetAllAsync(query);
         return Ok(response);
     }
 
     [HttpGet("charts")]
-    [RequirePermission("equipmentMaintenance", "reports")]
     public async Task<ActionResult<Paging<EquipmentMaintenanceResponse>>> GetAllForCharts([FromQuery] GridifyQuery query) {
         Paging<EquipmentMaintenanceResponse> response = await _equipmentMaintenanceService.GetAllForChartsAsync(query);
         return Ok(response);
     }
 
     [HttpGet("{id}")]
-    [RequirePermission("equipmentMaintenance", "admin")]
     public async Task<ActionResult<EquipmentMaintenanceResponse>> GetById(int id) {
         var response = await _equipmentMaintenanceService.GetByIdAsync(id);
         if (response is null) {
@@ -41,21 +37,18 @@ public class EquipmentMaintenancesController: ControllerBase {
     }
 
     [HttpGet("export-excel")]
-    [RequirePermission("equipmentMaintenance", "reports")]
     public async Task<IActionResult> Export([FromQuery] GridifyQuery query) {
         var fileBytes = await _equipmentMaintenanceService.ExportAsync(query);
         return File(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "mantenimientos.xlsx");
     }
 
     [HttpPost]
-    [RequirePermission("equipmentMaintenance", "admin")]
     public async Task<ActionResult<EquipmentMaintenanceResponse>> Create([FromBody] EquipmentMaintenanceRequest request) {
         var response = await _equipmentMaintenanceService.CreateAsync(request);
         return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
     }
 
     [HttpPut("{id:int}")]
-    [RequirePermission("equipmentMaintenance", "admin")]
     public async Task<IActionResult> Update(int id, [FromBody] EquipmentMaintenanceRequest request) {
         var response = await _equipmentMaintenanceService.UpdateAsync(id, request);
         if (response is null) {
@@ -65,7 +58,6 @@ public class EquipmentMaintenancesController: ControllerBase {
     }
 
     [HttpDelete("{id}")]
-    [RequirePermission("equipmentMaintenance", "admin")]
     public async Task<ActionResult<bool>> DeleteById(int id) {
         if (!await _equipmentMaintenanceService.DeleteByIdAsync(id)) {
             return NotFound();
