@@ -1,0 +1,6 @@
+@Genexus_HostAddress = http://localhost:5281
+
+GET {{Genexus_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
