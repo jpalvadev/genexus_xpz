@@ -1,6 +1,6 @@
 # 03 — Security Observations API
 
-Status: claimed
+Status: resolved
 
 `Features/SecurityObservations/`: `SecurityObservationsController`,
 `ISecurityObservationService`, `SecurityObservationService`,

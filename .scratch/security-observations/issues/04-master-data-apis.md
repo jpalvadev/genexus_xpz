@@ -1,6 +1,6 @@
 # 04 — Master data & combo APIs
 
-Status: ready-for-agent
+Status: resolved
 
 Full CRUD per module, equipment-style (Gridify grid + GetById + Create + Update +
 Delete), no permissions:
