@@ -12,24 +12,7 @@ import {
 const api = (path: string) =>
     `${import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:5281/api/v1'}${path}`;
 
-
-export const validMockJwt =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAaXRyaW9uLmNvbSIsImZpcnN0X25hbWUiOiJUZXN0IiwibGFzdF9uYW1lIjoiVXNlciIsInJvbGVzIjpbImFkbWluIl19.signature';
-
-export const defaultMockUser = {
-    token: validMockJwt,
-    email: 'test@itrion.com',
-    firstName: 'Test',
-    lastName: 'User',
-    roles: ['admin'],
-    permissions: [
-        { module: 'general', role: 'admin', scope: null },
-    ],
-};
-
 export const handlers = [
-    // Auth
-
     // Devices
     http.get('*/api/v1/devices', () => {
         return HttpResponse.json(
