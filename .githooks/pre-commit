@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Frontend gate: typecheck + lint of staged TS/TSX. The repo's legacy lint
+# baseline is red, so lint is scoped to what this commit touches; the baseline
+# cleanup is its own future task. Skip with `git commit --no-verify` only for
+# deliberate escapes.
+set -u
+root="$(git rev-parse --show-toplevel)"
+cd "$root/frontend" || exit 1
+npx tsc -b || { echo "pre-commit: tsc -b failed"; exit 1; }
+files=$(git diff --cached --name-only --diff-filter=ACM -- 'frontend/**/*.ts' 'frontend/**/*.tsx' | sed "s|^frontend/||")
+[ -z "$files" ] && exit 0
+# shellcheck disable=SC2086
+npx eslint --max-warnings=0 --no-warn-ignored $files || { echo "pre-commit: eslint failed (staged files)"; exit 1; }
