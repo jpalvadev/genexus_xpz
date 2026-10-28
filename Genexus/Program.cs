@@ -1,6 +1,12 @@
+using Itrion.Api.Common;
 using Itrion.Api.Common.Storage;
 using Itrion.Api.Features.EquipmentMaintenances;
 using Itrion.Api.Features.SecurityObservations;
+using Itrion.Api.Features.Observers;
+using Itrion.Api.Features.Plants;
+using Itrion.Api.Features.Sectors;
+using Itrion.Api.Features.ContractorCompanies;
+using Itrion.Api.Features.ComboOptions;
 using Itrion.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +28,11 @@ builder.Services.AddSingleton<ITenantLogoResolver, NoLogoTenantLogoResolver>();
 
 builder.Services.AddScoped<IEquipmentMaintenanceService, EquipmentMaintenanceService>();
 builder.Services.AddScoped<ISecurityObservationService, SecurityObservationService>();
+builder.Services.AddScoped<IObserverService, ObserverService>();
+builder.Services.AddScoped<IPlantService, PlantService>();
+builder.Services.AddScoped<ISectorService, SectorService>();
+builder.Services.AddScoped<IContractorCompanyService, ContractorCompanyService>();
+builder.Services.AddScoped<IComboOptionService, ComboOptionService>();
 
 // The only client of this local API is the Vite dev server.
 const string ViteDevOrigin = "ViteDev";
@@ -42,6 +53,7 @@ if (app.Environment.IsDevelopment()) {
 }
 
 // No HTTPS redirection: this is a loopback HTTP API called by the Vite dev server.
+app.UseMiddleware<ApiExceptionMiddleware>();
 app.UseCors(ViteDevOrigin);
 
 app.MapControllers();
