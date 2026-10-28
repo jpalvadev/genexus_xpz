@@ -106,6 +106,18 @@ export function removeFiltersByPrefix(
 }
 
 /**
+ * Query string for the Gridify endpoints: the backend binds `Filters` (plural).
+ */
+export function buildGridifyParams(query: GridifyQuery): Record<string, string | number> {
+    return {
+        Page: query.Page ?? 1,
+        PageSize: query.PageSize ?? 10,
+        ...(query.OrderBy && { OrderBy: query.OrderBy }),
+        ...(query.Filter && { Filters: query.Filter }),
+    };
+}
+
+/**
  * Retorna el valor de un campo específico dentro del filter string,
  * o undefined si no existe.
  */

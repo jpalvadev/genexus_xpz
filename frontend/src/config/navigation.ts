@@ -3,6 +3,7 @@ import {
     ListIcon,
     ForkliftIcon,
     UsersIcon,
+    ShieldIcon,
     type LucideProps,
 } from 'lucide-react';
 import type { ForwardRefExoticComponent, RefAttributes } from 'react';
@@ -36,6 +37,22 @@ export const navigationConfig: INavigationConfig[] = [
                         title: 'Nuevo',
                         to: '/equipmentMaintenances/new',
                         icon: ForkliftIcon,
+                    },
+                ],
+            },
+            {
+                title: 'Seguridad',
+                icon: ShieldIcon,
+                menus: [
+                    {
+                        title: 'Observaciones',
+                        to: '/securityObservations',
+                        icon: ListIcon,
+                    },
+                    {
+                        title: 'Nueva Observación',
+                        to: '/securityObservations/new',
+                        icon: ShieldIcon,
                     },
                 ],
             },
