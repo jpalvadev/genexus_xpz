@@ -1,4 +1,4 @@
-import { Route } from '@/routes/_auth/equipmentMaintenances/$id';
+import { Route } from '@/routes/_layout/equipmentMaintenances/$id';
 import EquipmentMaintenanceForm from '../components/EquipmentMaintenanceForm';
 
 const GetEquipmentMaintenanceByIdFormPage = () => {

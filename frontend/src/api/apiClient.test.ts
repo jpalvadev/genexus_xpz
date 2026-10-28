@@ -1,6 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { apiClient } from './apiClient';
-import { authService } from '@/modules/auth/services/auth.service';
 import { toast } from 'sonner';
 import { server } from '@/test/msw/server';
 import { http, HttpResponse } from 'msw';
@@ -12,7 +11,7 @@ vi.mock('sonner', () => ({
     },
 }));
 
-describe('apiClient interceptors', () => {
+describe('apiClient response interceptor', () => {
     const originalLocation = window.location;
 
     function mockLocation(urlStr: string) {
@@ -52,177 +51,110 @@ describe('apiClient interceptors', () => {
         (window as any).location = originalLocation;
     });
 
-    describe('request interceptor', () => {
-        it('agrega el header Authorization: Bearer cuando hay un token en authService', async () => {
-            authService.saveToken('token-de-prueba-123');
+    it('no agrega header Authorization (no hay interceptor de request con token)', async () => {
+        let authHeader: string | null = 'init';
+        server.use(
+            http.get('*/api/v1/test-no-auth', ({ request }) => {
+                authHeader = request.headers.get('Authorization');
+                return HttpResponse.json({ ok: true });
+            })
+        );
 
-            let authHeader: string | null = null;
-            server.use(
-                http.get('*/api/v1/test-auth-header', ({ request }) => {
-                    authHeader = request.headers.get('Authorization');
-                    return HttpResponse.json({ ok: true });
-                })
-            );
+        await apiClient.get('/test-no-auth');
 
-            await apiClient.get('/test-auth-header');
-
-            expect(authHeader).toBe('Bearer token-de-prueba-123');
-        });
-
-        it('no agrega header Authorization cuando no hay token', async () => {
-            let authHeader: string | null = null;
-            server.use(
-                http.get('*/api/v1/test-no-auth', ({ request }) => {
-                    authHeader = request.headers.get('Authorization');
-                    return HttpResponse.json({ ok: true });
-                })
-            );
-
-            await apiClient.get('/test-no-auth');
-
-            expect(authHeader).toBeNull();
-        });
+        expect(authHeader).toBeNull();
     });
 
-    describe('response interceptor', () => {
-        it('ante un 401 en ruta normal: ejecuta logout y redirige a /login con redirect param', async () => {
-            const logoutSpy = vi.spyOn(authService, 'logout');
-            mockLocation('http://localhost:5173/devices?view=cards');
+    it('ante un 404: muestra toast con el mensaje del backend', async () => {
+        server.use(
+            http.get('*/api/v1/missing-device', () => {
+                return HttpResponse.json({ message: 'Dispositivo 999 no existe' }, { status: 404 });
+            })
+        );
 
-            server.use(
-                http.get('*/api/v1/devices', () => {
-                    return HttpResponse.json({ message: 'No autorizado' }, { status: 401 });
-                })
-            );
+        await expect(apiClient.get('/missing-device')).rejects.toBeDefined();
 
-            await expect(apiClient.get('/devices')).rejects.toBeDefined();
+        expect(toast.error).toHaveBeenCalledWith('Dispositivo 999 no existe');
+    });
 
-            expect(logoutSpy).toHaveBeenCalledTimes(1);
-            expect(window.location.href).toBe('/login?redirect=%2Fdevices%3Fview%3Dcards');
-        });
+    it('ante un 404 sin mensaje específico: muestra "Recurso no encontrado"', async () => {
+        server.use(
+            http.get('*/api/v1/empty-404', () => {
+                return new HttpResponse(null, { status: 404 });
+            })
+        );
 
-        it('ante un 401 en /auth/login: NO ejecuta logout ni redirige', async () => {
-            const logoutSpy = vi.spyOn(authService, 'logout');
-            mockLocation('http://localhost:5173/login');
+        await expect(apiClient.get('/empty-404')).rejects.toBeDefined();
 
-            server.use(
-                http.post('*/api/v1/auth/login', () => {
-                    return HttpResponse.json({ message: 'Credenciales inválidas' }, { status: 401 });
-                })
-            );
+        expect(toast.error).toHaveBeenCalledWith('Recurso no encontrado');
+    });
 
-            await expect(apiClient.post('/auth/login', {})).rejects.toBeDefined();
+    it('ante un 400 con mensaje: muestra toast con el mensaje devuelto', async () => {
+        server.use(
+            http.get('*/api/v1/bad-request', () => {
+                return HttpResponse.json({ message: 'La cantidad debe ser mayor a cero.' }, { status: 400 });
+            })
+        );
 
-            expect(logoutSpy).not.toHaveBeenCalled();
-            expect(window.location.href).toBe('http://localhost:5173/login');
-        });
+        await expect(apiClient.get('/bad-request')).rejects.toBeDefined();
 
-        it('ante un 403: muestra toast de permisos con id anti-duplicado', async () => {
-            server.use(
-                http.get('*/api/v1/forbidden-resource', () => {
-                    return HttpResponse.json({ message: 'Prohibido' }, { status: 403 });
-                })
-            );
+        expect(toast.error).toHaveBeenCalledWith('La cantidad debe ser mayor a cero.', { id: 'api-error-La cantidad debe ser mayor a cero.' });
+    });
 
-            await expect(apiClient.get('/forbidden-resource')).rejects.toBeDefined();
+    it('ante un 409 con mensaje: muestra toast con el mensaje de conflicto', async () => {
+        server.use(
+            http.get('*/api/v1/conflict', () => {
+                return HttpResponse.json({ message: 'Legajo already exists' }, { status: 409 });
+            })
+        );
 
-            expect(toast.error).toHaveBeenCalledWith(
-                'No tenés permisos para realizar esta acción',
-                { id: 'forbidden-error' }
-            );
-        });
+        await expect(apiClient.get('/conflict')).rejects.toBeDefined();
 
-        it('ante un 404: muestra toast con el mensaje del backend', async () => {
-            server.use(
-                http.get('*/api/v1/missing-device', () => {
-                    return HttpResponse.json({ message: 'Dispositivo 999 no existe' }, { status: 404 });
-                })
-            );
+        expect(toast.error).toHaveBeenCalledWith('Legajo already exists', { id: 'api-error-Legajo already exists' });
+    });
 
-            await expect(apiClient.get('/missing-device')).rejects.toBeDefined();
+    it('ante un 500: muestra toast de error interno del servidor con id anti-duplicado', async () => {
+        server.use(
+            http.get('*/api/v1/server-crash', () => {
+                return HttpResponse.json({ message: 'Crash' }, { status: 500 });
+            })
+        );
 
-            expect(toast.error).toHaveBeenCalledWith('Dispositivo 999 no existe');
-        });
+        await expect(apiClient.get('/server-crash')).rejects.toBeDefined();
 
-        it('ante un 404 sin mensaje específico: muestra "Recurso no encontrado"', async () => {
-            server.use(
-                http.get('*/api/v1/empty-404', () => {
-                    return new HttpResponse(null, { status: 404 });
-                })
-            );
+        expect(toast.error).toHaveBeenCalledWith(
+            'Error interno del servidor',
+            { id: 'server-500-error' }
+        );
+    });
 
-            await expect(apiClient.get('/empty-404')).rejects.toBeDefined();
+    it('ante un timeout de Axios (ECONNABORTED): muestra toast de tiempo agotado', async () => {
+        const timeoutError = {
+            code: 'ECONNABORTED',
+            message: 'timeout of 10000ms exceeded',
+        };
 
-            expect(toast.error).toHaveBeenCalledWith('Recurso no encontrado');
-        });
+        const responseInterceptor = (apiClient.interceptors.response as any).handlers[0];
+        await expect(responseInterceptor.rejected(timeoutError)).rejects.toEqual(timeoutError);
 
-        it('ante un 400 con mensaje: muestra toast con el mensaje devuelto', async () => {
-            server.use(
-                http.get('*/api/v1/bad-request', () => {
-                    return HttpResponse.json({ message: 'La cantidad debe ser mayor a cero.' }, { status: 400 });
-                })
-            );
+        expect(toast.error).toHaveBeenCalledWith(
+            'La solicitud tardó demasiado, intentá de nuevo',
+            { id: 'timeout-error' }
+        );
+    });
 
-            await expect(apiClient.get('/bad-request')).rejects.toBeDefined();
+    it('ante un error de red sin respuesta del servidor: muestra toast de conexión', async () => {
+        server.use(
+            http.get('*/api/v1/network-down', () => {
+                return HttpResponse.error();
+            })
+        );
 
-            expect(toast.error).toHaveBeenCalledWith('La cantidad debe ser mayor a cero.', { id: 'api-error-La cantidad debe ser mayor a cero.' });
-        });
+        await expect(apiClient.get('/network-down')).rejects.toBeDefined();
 
-        it('ante un 409 con mensaje: muestra toast con el mensaje de conflicto/stock', async () => {
-            server.use(
-                http.get('*/api/v1/conflict-stock', () => {
-                    return HttpResponse.json({ message: 'La cantidad solicitada supera el stock disponible.' }, { status: 409 });
-                })
-            );
-
-            await expect(apiClient.get('/conflict-stock')).rejects.toBeDefined();
-
-            expect(toast.error).toHaveBeenCalledWith('La cantidad solicitada supera el stock disponible.', { id: 'api-error-La cantidad solicitada supera el stock disponible.' });
-        });
-
-        it('ante un 500: muestra toast de error interno del servidor con id anti-duplicado', async () => {
-            server.use(
-                http.get('*/api/v1/server-crash', () => {
-                    return HttpResponse.json({ message: 'Crash' }, { status: 500 });
-                })
-            );
-
-            await expect(apiClient.get('/server-crash')).rejects.toBeDefined();
-
-            expect(toast.error).toHaveBeenCalledWith(
-                'Error interno del servidor',
-                { id: 'server-500-error' }
-            );
-        });
-
-        it('ante un timeout de Axios (ECONNABORTED): muestra toast de tiempo agotado', async () => {
-            const timeoutError = {
-                code: 'ECONNABORTED',
-                message: 'timeout of 10000ms exceeded',
-            };
-
-            const responseInterceptor = (apiClient.interceptors.response as any).handlers[0];
-            await expect(responseInterceptor.rejected(timeoutError)).rejects.toEqual(timeoutError);
-
-            expect(toast.error).toHaveBeenCalledWith(
-                'La solicitud tardó demasiado, intentá de nuevo',
-                { id: 'timeout-error' }
-            );
-        });
-
-        it('ante un error de red sin respuesta del servidor: muestra toast de conexión', async () => {
-            server.use(
-                http.get('*/api/v1/network-down', () => {
-                    return HttpResponse.error();
-                })
-            );
-
-            await expect(apiClient.get('/network-down')).rejects.toBeDefined();
-
-            expect(toast.error).toHaveBeenCalledWith(
-                'No se pudo conectar al servidor',
-                { id: 'connection-error' }
-            );
-        });
+        expect(toast.error).toHaveBeenCalledWith(
+            'No se pudo conectar al servidor',
+            { id: 'connection-error' }
+        );
     });
 });

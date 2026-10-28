@@ -4,8 +4,6 @@ import GenericTable from './GenericTable';
 import type { ColumnDef, PaginationState, SortingState } from '@tanstack/react-table';
 import { server } from '@/test/msw/server';
 import { http, HttpResponse } from 'msw';
-import { validMockJwt } from '@/test/msw/handlers';
-import { authService } from '@/modules/auth/services/auth.service';
 
 interface TestItem extends Record<string, unknown> {
     id: number;
@@ -185,71 +183,49 @@ describe('GenericTable component', () => {
         }, { timeout: 1000 });
     });
 
-    describe('integración con MSW (DevicesTablePage)', () => {
+    describe('integración con MSW (EquipmentMaintenancesTablePage)', () => {
         it('muestra los registros obtenidos de MSW en la tabla real', async () => {
-            authService.saveToken(validMockJwt);
-            authService.savePermissions([
-                { module: 'general', role: 'admin', scope: null },
-                { module: 'device', role: 'admin', scope: null },
-            ]);
-
             server.use(
-                http.get('*/api/v1/devices', () => {
-                    return HttpResponse.json(
-                        {
-                            data: [
-                                {
-                                    id: 101,
-                                    name: 'Termómetro Central',
-                                    minTemperature: 15,
-                                    maxTemperature: 28,
-                                    minHumidity: 40,
-                                    maxHumidity: 80,
-                                    sleepSeconds: 300,
-                                    recipients: [],
-                                    sector: { id: 1, name: 'Sector Producción' },
+                http.get('*/api/v1/equipment-maintenances', () => {
+                    return HttpResponse.json({
+                        data: [
+                            {
+                                id: 101,
+                                date: '2026-01-01',
+                                type: 2,
+                                status: 3,
+                                activity: 'Reparación urgente',
+                                closedAt: null,
+                                person: {
+                                    legajo: 1001,
+                                    firstName: 'Ana',
+                                    lastName: 'Pérez',
                                 },
-                            ],
-                            count: 1,
-                        },
-                        { headers: { 'total-records-count': '1' } }
-                    );
+                                equipmentItem: {
+                                    id: 1,
+                                    name: 'Termómetro Central',
+                                    code: 'EQ-001',
+                                    status: 1,
+                                },
+                                sector: { id: 1, name: 'Sector Producción' },
+                                contractorCompany: null,
+                            },
+                        ],
+                        count: 1,
+                    });
                 })
             );
 
             const queryClient = createTestQueryClient();
-            queryClient.setQueryData(['devices', { Page: 1, PageSize: 10 }], {
-                data: [
-                    {
-                        id: 101,
-                        name: 'Termómetro Central',
-                        minTemperature: 15,
-                        maxTemperature: 28,
-                        minHumidity: 40,
-                        maxHumidity: 80,
-                        sleepSeconds: 300,
-                        recipients: [],
-                        sector: { id: 1, name: 'Sector Producción' },
-                    },
-                ],
-                rowCount: 1,
-            });
 
-            await renderWithRouter('/devices', {
+            await renderWithRouter('/equipmentMaintenances', {
                 queryClient,
-                user: {
-                    roles: ['admin'],
-                    permissions: [
-                        { module: 'general', role: 'admin', scope: null },
-                        { module: 'device', role: 'admin', scope: null },
-                        { module: 'device', role: 'reports', scope: null },
-                    ],
-                },
             });
 
-            expect(await screen.findByText('Termómetro Central')).toBeInTheDocument();
-            expect(screen.getByText('Sector Producción')).toBeInTheDocument();
-            expect(screen.getByText('1 registros encontrados. Mostrar')).toBeInTheDocument();
+            expect(
+                await screen.findByText('Termómetro Central')
+            ).toBeInTheDocument();
+            expect(screen.getByText('Pérez, Ana')).toBeInTheDocument();
         });
     });
 

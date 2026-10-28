@@ -7,6 +7,8 @@ using Itrion.Api.Features.Plants;
 using Itrion.Api.Features.Sectors;
 using Itrion.Api.Features.ContractorCompanies;
 using Itrion.Api.Features.ComboOptions;
+using Itrion.Api.Features.Persons;
+using Itrion.Api.Features.EquipmentItems;
 using Itrion.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,6 +35,8 @@ builder.Services.AddScoped<IPlantService, PlantService>();
 builder.Services.AddScoped<ISectorService, SectorService>();
 builder.Services.AddScoped<IContractorCompanyService, ContractorCompanyService>();
 builder.Services.AddScoped<IComboOptionService, ComboOptionService>();
+builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddScoped<IEquipmentItemService, EquipmentItemService>();
 
 // The only client of this local API is the Vite dev server.
 const string ViteDevOrigin = "ViteDev";

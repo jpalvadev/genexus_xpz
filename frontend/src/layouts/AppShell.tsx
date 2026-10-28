@@ -1,7 +1,5 @@
-import Loading from '@/components/Loading';
 import logoLight from '@/assets/itrion-logo.png';
 import logoDark from '@/assets/itrion-logo_dark.png';
-import UserMenu from '@/components/blocks/UserMenu';
 import {
     Collapsible,
     CollapsibleContent,
@@ -90,10 +88,7 @@ function RecursiveMenuItem({
 }
 
 const AppShell = ({ children }: AppShellProps) => {
-    // const logout = useLogout();
-    const { menu, isPending } = useMenuNavigation();
-
-    if (isPending) return <Loading />;
+    const { menu } = useMenuNavigation();
 
     return (
         <div className="flex min-h-dvh w-full">
@@ -144,9 +139,6 @@ const AppShell = ({ children }: AppShellProps) => {
                                     alt="Itrion"
                                     className="h-8 w-auto object-contain hidden dark:block"
                                 />
-                            </div>
-                            <div className="flex items-center gap-1.5">
-                                <UserMenu />
                             </div>
                         </div>
                     </header>
