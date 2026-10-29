@@ -18,7 +18,7 @@ import { securityObservationService } from '../services/securityObservation.serv
 import { plantService } from '@/modules/plants/plant.config';
 import { sectorService } from '@/modules/sectors/sector.config';
 import { contractorCompanyService } from '@/modules/contractorCompanies/contractorCompanies.config';
-import { comboOptionService } from '@/modules/comboOptions/services/comboOption.service';
+import { comboOptionService } from '@/modules/comboOptions/comboOptions.config';
 
 vi.mock('../services/securityObservation.service', () => ({
     securityObservationService: {
@@ -43,14 +43,19 @@ vi.mock(import('@/modules/contractorCompanies/contractorCompanies.config'), asyn
         contractorCompanyService: { ...real.contractorCompanyService, getAll: vi.fn(async () => fixtureCompanies) },
     };
 });
-vi.mock('@/modules/comboOptions/services/comboOption.service', () => ({
-    comboOptionService: {
-        getAll: vi.fn(async () => fixtureComboOptions),
-        getByKey: vi.fn(async (comboKey: string) =>
-            fixtureComboOptions.filter((item) => item.comboKey === comboKey),
-        ),
-    },
-}));
+vi.mock(import('@/modules/comboOptions/comboOptions.config'), async (importOriginal) => {
+    const real = await importOriginal();
+    return {
+        ...real,
+        comboOptionService: {
+            ...real.comboOptionService,
+            getAll: vi.fn(async () => fixtureComboOptions),
+            getByKey: vi.fn(async (comboKey: string) =>
+                fixtureComboOptions.filter((item) => item.comboKey === comboKey),
+            ),
+        },
+    };
+});
 vi.mock('@/modules/observers/services/observer.service', () => ({
     observerService: {
         lookup: vi.fn(async () => ({ data: fixtureObservers, rowCount: fixtureObservers.length })),

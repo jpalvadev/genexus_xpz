@@ -1,6 +1,7 @@
-import ComboOptionsTablePage from '@/modules/comboOptions/views/ComboOptionsTablePage';
 import { createFileRoute } from '@tanstack/react-router';
 
+import { ComboOptionTablePage } from '@/modules/comboOptions/comboOptions.config';
+
 export const Route = createFileRoute('/_layout/comboOptions/')({
-    component: ComboOptionsTablePage,
+    component: ComboOptionTablePage,
 });

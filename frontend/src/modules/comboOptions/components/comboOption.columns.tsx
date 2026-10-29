@@ -1,6 +1,5 @@
 import { type ColumnDef } from '@tanstack/react-table';
 
-import ComboOptionActionCell from './ComboOptionActionCell';
 import type { ComboOption } from '../types/comboOption.type';
 
 export const COMBO_OPTION_COLUMNS: ColumnDef<ComboOption>[] = [
@@ -23,11 +22,5 @@ export const COMBO_OPTION_COLUMNS: ColumnDef<ComboOption>[] = [
         id: 'order',
         accessorKey: 'order',
         header: () => <span>Orden</span>,
-    },
-    {
-        id: 'actions',
-        accessorKey: 'id',
-        header: () => <span>Acciones</span>,
-        cell: ({ row }) => <ComboOptionActionCell comboOption={row.original} />,
     },
 ];
