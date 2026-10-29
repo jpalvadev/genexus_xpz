@@ -23,13 +23,13 @@ grilling prototype).
 
 **Blocked by:** None (can start immediately)
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] `createMasterRecordModule` exists outside the per-feature module tree, config interface per spec
-- [ ] Sectors grid, create, edit, delete work through the produced module; sectors clones and shim deleted
-- [ ] Factory deep test suite green against the MSW seam (render pages, exercise CRUD, delete dialog names the record)
-- [ ] Sectors smoke test pins heading, columns, resource path, default order
-- [ ] Consumer imports (routes, Security Observation form) changed import lines only; export name `sectorService` unchanged
-- [ ] Spanish copy verbatim — parity diff shows no copy changes
-- [ ] Glossary term, CODING_STANDARDS guidance, and ADR-0003 landed
-- [ ] `tsc -b`, `eslint --max-warnings=0`, serial `vitest run` green; live-API parity via `scripts/with-api.sh`
+- [x] `createMasterRecordModule` exists outside the per-feature module tree, config interface per spec
+- [x] Sectors grid, create, edit, delete work through the produced module; sectors clones and shim deleted
+- [x] Factory deep test suite green against the MSW seam (render pages, exercise CRUD, delete dialog names the record)
+- [x] Sectors smoke test pins heading, columns, resource path, default order
+- [x] Consumer imports (routes, Security Observation form) changed import lines only; export name `sectorService` unchanged
+- [x] Spanish copy verbatim — parity diff shows no copy changes
+- [x] Glossary term, CODING_STANDARDS guidance, and ADR-0003 landed
+- [x] `tsc -b`, `eslint --max-warnings=0`, serial `vitest run` green; live-API parity via `scripts/with-api.sh`
