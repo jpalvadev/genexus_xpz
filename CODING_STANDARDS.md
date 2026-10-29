@@ -24,3 +24,10 @@ Read at review time. Judgement calls only — anything mechanical is already a g
 - **Contract tests read live-captured fixtures** (`frontend/src/test/fixtures/`, recaptured via `scripts/capture-fixtures.py`), asserted with zod parsers typed against the TS types; a type drift fails the build, not just the review.
 - **MSW handlers mirror live response shapes exactly** — master CRUD goes through the `crudMasterHandlers` factory in `frontend/src/test/msw/handlers.ts`; a new master module adds a factory call, not a copy-paste block. Combo endpoints return flat arrays, list endpoints `{count, data}` (+ `total-records-count` header).
 - **Forms tests mock services via `vi.mock`**: the mocked module must spread `importOriginal` and override only the feed methods — routes and sibling modules import the module's *other* named exports (pages, service), and a mock missing them fails collection with "No X export is defined on the mock". The router mock additionally adds `useCanGoBack: () => true`. MultiSelect items are cmdk `role=option`, not checkboxes.
+
+## Live-API scripts
+
+- **Parity/live-check scripts follow the `scripts/master-parity-sweep.sh` house style**: `check()` status-code harness, python3 asserts on the curl body file, `exit $((FAILS > 0))`.
+- **Extract ids only after a passed check** — a failed check leaves an error body in the file; parsing it yields empty ids and a cascade of false FAILs.
+- **ASCII request bodies** — the harness shells and python one-liners run under a plain locale.
+- **Cleanup in FK order** (Observation before Observer): the Observer FK is never cascaded (ADR-0002), so the child record goes first.

@@ -32,3 +32,11 @@ jobs:
         with:
           dotnet-version: '10.0.x'
       - run: dotnet build Genexus/Genexus.csproj -c Release
+
+  scripts:
+    # The harness scripts are executable behaviour (live-API parity pins); shellcheck
+    # ships on ubuntu-latest, so this guardrail costs one step.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: shellcheck scripts/*.sh

@@ -8,7 +8,7 @@ set -u
 export PATH="$HOME/.dotnet:$PATH" DOTNET_CLI_TELEMETRY_OPTOUT=1 DOTNET_NOLOGO=1 DOTNET_ROOT="$HOME/.dotnet"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PORT=5281
-cd "$ROOT/Genexus"
+cd "$ROOT/Genexus" || exit 1
 setsid nohup dotnet run --launch-profile http > /tmp/opencode/api.log 2>&1 < /dev/null &
 API=$!
 

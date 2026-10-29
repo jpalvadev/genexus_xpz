@@ -7,7 +7,7 @@
 # Usage: scripts/master-parity-sweep.sh [resource ...]   (default: the four gridify masters)
 set -u
 BASE="http://localhost:5281/api/v1"
-RESOURCES="${@:-sectors plants contractor-companies observers}"
+RESOURCES="${*:-sectors plants contractor-companies observers}"
 FAILS=0
 
 check() { # label expected method url [json]
