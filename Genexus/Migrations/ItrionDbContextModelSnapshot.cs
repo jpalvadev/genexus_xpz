@@ -91,126 +91,126 @@ namespace Genexus.Migrations
                         {
                             Id = 1,
                             ComboKey = "gestionRiesgo",
-                            Label = "Daily Risk Talk (DRT)",
+                            Label = "Charla de Riesgo Diario (DRT)",
                             Order = 1
                         },
                         new
                         {
                             Id = 2,
                             ComboKey = "gestionRiesgo",
-                            Label = "Job Safety Analysis (JSA)",
+                            Label = "Análisis de Seguridad del Trabajo (JSA)",
                             Order = 2
                         },
                         new
                         {
                             Id = 3,
                             ComboKey = "gestionRiesgo",
-                            Label = "Permit to Work",
+                            Label = "Permiso de Trabajo",
                             Order = 3
                         },
                         new
                         {
                             Id = 4,
                             ComboKey = "gestionRiesgo",
-                            Label = "Toolbox Talk",
+                            Label = "Charla de Toolbox",
                             Order = 4
                         },
                         new
                         {
                             Id = 5,
                             ComboKey = "protocolosMortales",
-                            Label = "Working at Height",
+                            Label = "Trabajo en Altura",
                             Order = 1
                         },
                         new
                         {
                             Id = 6,
                             ComboKey = "protocolosMortales",
-                            Label = "Energy Isolation (LOTO)",
+                            Label = "Aislamiento de Energía (LOTO)",
                             Order = 2
                         },
                         new
                         {
                             Id = 7,
                             ComboKey = "protocolosMortales",
-                            Label = "Confined Space Entry",
+                            Label = "Ingreso a Espacio Confinado",
                             Order = 3
                         },
                         new
                         {
                             Id = 8,
                             ComboKey = "protocolosMortales",
-                            Label = "Hot Work",
+                            Label = "Trabajo en Caliente",
                             Order = 4
                         },
                         new
                         {
                             Id = 9,
                             ComboKey = "protocolosMortales",
-                            Label = "Mobile Equipment in Motion",
+                            Label = "Equipo Móvil en Movimiento",
                             Order = 5
                         },
                         new
                         {
                             Id = 10,
                             ComboKey = "protocolosMortales",
-                            Label = "Excavation",
+                            Label = "Excavación",
                             Order = 6
                         },
                         new
                         {
                             Id = 11,
                             ComboKey = "clasificacionObservacion",
-                            Label = "Safe Act",
+                            Label = "Acto Seguro",
                             Order = 1
                         },
                         new
                         {
                             Id = 12,
                             ComboKey = "clasificacionObservacion",
-                            Label = "Safe Condition",
+                            Label = "Condición Segura",
                             Order = 2
                         },
                         new
                         {
                             Id = 13,
                             ComboKey = "clasificacionObservacion",
-                            Label = "At-Risk Act",
+                            Label = "Acto de Riesgo",
                             Order = 3
                         },
                         new
                         {
                             Id = 14,
                             ComboKey = "clasificacionObservacion",
-                            Label = "Defensive Control",
+                            Label = "Control Defensivo",
                             Order = 4
                         },
                         new
                         {
                             Id = 15,
                             ComboKey = "relacionObservacion",
-                            Label = "Related to APR",
+                            Label = "Relacionado con APR",
                             Order = 1
                         },
                         new
                         {
                             Id = 16,
                             ComboKey = "relacionObservacion",
-                            Label = "Related to ATR",
+                            Label = "Relacionado con ATR",
                             Order = 2
                         },
                         new
                         {
                             Id = 17,
                             ComboKey = "relacionObservacion",
-                            Label = "Related to Task",
+                            Label = "Relacionado con la Tarea",
                             Order = 3
                         },
                         new
                         {
                             Id = 18,
                             ComboKey = "relacionObservacion",
-                            Label = "Related to Site Conditions",
+                            Label = "Relacionado con Condiciones del Sitio",
                             Order = 4
                         });
                 });

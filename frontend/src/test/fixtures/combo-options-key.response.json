@@ -2,25 +2,25 @@
   {
     "id": 1,
     "comboKey": "gestionRiesgo",
-    "label": "Daily Risk Talk (DRT)",
+    "label": "Charla de Riesgo Diario (DRT)",
     "order": 1
   },
   {
     "id": 2,
     "comboKey": "gestionRiesgo",
-    "label": "Job Safety Analysis (JSA)",
+    "label": "Análisis de Seguridad del Trabajo (JSA)",
     "order": 2
   },
   {
     "id": 3,
     "comboKey": "gestionRiesgo",
-    "label": "Permit to Work",
+    "label": "Permiso de Trabajo",
     "order": 3
   },
   {
     "id": 4,
     "comboKey": "gestionRiesgo",
-    "label": "Toolbox Talk",
+    "label": "Charla de Toolbox",
     "order": 4
   }
 ]

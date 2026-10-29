@@ -23,10 +23,10 @@ public class ComboOptionService(ItrionDbContext db) : IComboOptionService {
             c.Label = r.Label;
             c.Order = r.Order;
         },
-        Validation = r => string.IsNullOrWhiteSpace(r.ComboKey) ? "ComboKey is required"
-            : string.IsNullOrWhiteSpace(r.Label) ? "Label is required"
+        Validation = r => string.IsNullOrWhiteSpace(r.ComboKey) ? "ComboKey es obligatorio"
+            : string.IsNullOrWhiteSpace(r.Label) ? "Label es obligatorio"
             : null,
-        ConflictMessage = "Combo option is referenced by security observations and cannot be deleted",
+        ConflictMessage = "La opción de combo está referenciada por observaciones de seguridad y no puede eliminarse",
         FlatOrder = q => q.OrderBy(c => c.ComboKey).ThenBy(c => c.Order).ThenBy(c => c.Id),
         KeyFeed = (q, key) => q.Where(c => c.ComboKey == key).OrderBy(c => c.Order).ThenBy(c => c.Id),
     };

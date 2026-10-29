@@ -67,12 +67,12 @@ check "getById($ID)" 200 GET "$BASE/combo-options/$ID"
 # Shared semantics the MasterCrud module owns (ticket 01 pins):
 # 404 get-by-id copy.
 check "not-found copy" 404 GET "$BASE/combo-options/999999"
-copy "not-found copy" "Combo option not found"
+copy "not-found copy" "Opción de combo no encontrada"
 # 400 validation copies: blank ComboKey, then blank Label.
 check "blank-comboKey 400" 400 POST "$BASE/combo-options" '{"comboKey":"","label":"Parity Sweep","order":0}'
-copy "blank-comboKey 400" "ComboKey is required"
+copy "blank-comboKey 400" "ComboKey es obligatorio"
 check "blank-label 400" 400 POST "$BASE/combo-options" '{"comboKey":"paritySweep","label":"","order":0}'
-copy "blank-label 400" "Label is required"
+copy "blank-label 400" "Label es obligatorio"
 # Create → 201, update → 204, delete → 204 on the record we created.
 check "create" 201 POST "$BASE/combo-options" '{"comboKey":"gestionRiesgo","label":"Parity Sweep","order":0}'
 NEW=$(python3 -c 'import json; print(json.load(open("/tmp/opencode/sweep-body.json"))["id"])')

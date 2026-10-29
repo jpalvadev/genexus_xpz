@@ -1,7 +1,7 @@
 {
   "id": 1,
   "observationDate": "2026-10-29",
-  "createdOn": "2026-10-29T16:35:53.6254157",
+  "createdOn": "2026-10-29T16:51:19.5635574",
   "task": "Prueba",
   "lugar": "planta",
   "aprReviewed": true,
@@ -18,16 +18,16 @@
   "electricalEquipmentCircuitBreaker": true,
   "controlesCriticos": "critico",
   "gestionRiesgo": [
-    "Daily Risk Talk (DRT)"
+    "Charla de Riesgo Diario (DRT)"
   ],
   "protocolosMortales": [
-    "Working at Height"
+    "Trabajo en Altura"
   ],
   "clasificacionObservacion": [
-    "Safe Condition"
+    "Condición Segura"
   ],
   "relacionObservacion": [
-    "Related to Task"
+    "Relacionado con la Tarea"
   ],
   "resumenObservacion": "PRueba",
   "detalleAI": "PRueba",
