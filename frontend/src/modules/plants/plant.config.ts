@@ -16,7 +16,7 @@ type PlantFormValues = {
 };
 
 const plantSchema = z.object({
-    name: z.string().trim().min(1, 'Name is required'),
+    name: z.string().trim().min(1, 'Nombre es obligatorio'),
 });
 
 const plantFields: FieldConfig<PlantFormValues>[] = [

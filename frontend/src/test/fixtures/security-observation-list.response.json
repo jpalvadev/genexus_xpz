@@ -4,7 +4,7 @@
     {
       "id": 1,
       "observationDate": "2026-10-29",
-      "createdOn": "2026-10-29T15:51:08.4822935",
+      "createdOn": "2026-10-29T16:06:24.877587",
       "task": "Prueba",
       "lugar": "planta",
       "aprReviewed": true,
@@ -37,7 +37,7 @@
       "descripcionAC": "PRueba",
       "plant": {
         "id": 1,
-        "name": "North Plant (RNV)"
+        "name": "Planta Norte (RNV)"
       },
       "sector": {
         "id": 2,

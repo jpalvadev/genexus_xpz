@@ -25,7 +25,7 @@ public class PlantsController(IPlantService service) : MasterCrudControllerBase<
 
     protected override Task<bool> DeleteAsync(int id) => _service.DeleteByIdAsync(id);
 
-    protected override string NotFoundMessage => "Plant not found";
+    protected override string NotFoundMessage => "Planta no encontrada";
 
     protected override int IdOf(PlantResponse response) => response.Id;
 

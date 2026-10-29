@@ -22,10 +22,10 @@ public static class SeedData {
     private static void SeedPlants(Microsoft.EntityFrameworkCore.ModelBuilder modelBuilder) =>
         // Legacy subtypes are baked into the label, e.g. "North Plant (RNV)".
         modelBuilder.Entity<Plant>().HasData(
-            new { Id = 1, Name = "North Plant (RNV)" },
-            new { Id = 2, Name = "South Plant (PLS)" },
-            new { Id = 3, Name = "Central Plant (TSS)" },
-            new { Id = 4, Name = "Dock Plant (VQG)" }
+            new { Id = 1, Name = "Planta Norte (RNV)" },
+            new { Id = 2, Name = "Planta Sur (PLS)" },
+            new { Id = 3, Name = "Planta Central (TSS)" },
+            new { Id = 4, Name = "Planta Muelle (VQG)" }
         );
 
     private static void SeedSectors(Microsoft.EntityFrameworkCore.ModelBuilder modelBuilder) =>

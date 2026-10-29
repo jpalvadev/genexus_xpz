@@ -25,6 +25,8 @@ describe('plant.config smoke', () => {
         await renderWithRouter('/plants');
 
         expect(await screen.findByRole('heading', { name: 'Plantas' })).toBeInTheDocument();
+        // Ticket spanish-ui/03: seeded values are Spanish end to end.
+        expect(await screen.findByText('Planta Norte (RNV)')).toBeInTheDocument();
         expect(screen.getByRole('columnheader', { name: 'Acciones' })).toBeInTheDocument();
         expect(screen.getByRole('link', { name: /Nueva Planta/ })).toBeInTheDocument();
         expect(PlantTablePage).toBeTypeOf('function');
