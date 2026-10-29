@@ -4,7 +4,7 @@
     {
       "id": 1,
       "observationDate": "2026-10-29",
-      "createdOn": "2026-10-29T16:21:01.0590739",
+      "createdOn": "2026-10-29T16:35:53.6254157",
       "task": "Prueba",
       "lugar": "planta",
       "aprReviewed": true,
@@ -50,13 +50,13 @@
       "observers": [
         {
           "id": 1,
-          "fullName": "Dana Herrera",
+          "fullName": "Elena Herrera",
           "legajo": 1001,
           "active": true
         },
         {
           "id": 2,
-          "fullName": "Owen Mercado",
+          "fullName": "Rubén Mercado",
           "legajo": 1002,
           "active": true
         }

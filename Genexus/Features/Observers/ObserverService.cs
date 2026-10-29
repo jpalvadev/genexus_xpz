@@ -37,7 +37,7 @@ public class ObserverService(ItrionDbContext db) : IObserverService {
     public async Task<ObserverResponse> CreateAsync(ObserverRequest request) {
         Validate(request);
         if (await _db.Observers.AnyAsync(o => o.Legajo == request.Legajo)) {
-            throw new ValidationException("Legajo already exists");
+            throw new ValidationException("El legajo ya existe");
         }
         var entity = new Observer {
             Legajo = request.Legajo,
@@ -55,7 +55,7 @@ public class ObserverService(ItrionDbContext db) : IObserverService {
     public async Task<ObserverResponse?> UpdateAsync(int id, ObserverRequest request) {
         Validate(request);
         if (await _db.Observers.AnyAsync(o => o.Legajo == request.Legajo && o.Id != id)) {
-            throw new ValidationException("Legajo already exists");
+            throw new ValidationException("El legajo ya existe");
         }
         var entity = await _db.Observers
             .Include(o => o.Plants)
@@ -82,17 +82,17 @@ public class ObserverService(ItrionDbContext db) : IObserverService {
         try {
             await _db.SaveChangesAsync();
         } catch (DbUpdateException) {
-            throw new ConflictException("Observer is referenced by security observations and cannot be deleted");
+            throw new ConflictException("El observador está referenciado por observaciones de seguridad y no puede eliminarse");
         }
         return true;
     }
 
     private static void Validate(ObserverRequest request) {
         if (string.IsNullOrWhiteSpace(request.FullName)) {
-            throw new ValidationException("FullName is required");
+            throw new ValidationException("Nombre completo es obligatorio");
         }
         if (string.IsNullOrWhiteSpace(request.Objective)) {
-            throw new ValidationException("Objective is required");
+            throw new ValidationException("Objetivo es obligatorio");
         }
     }
 
@@ -101,7 +101,7 @@ public class ObserverService(ItrionDbContext db) : IObserverService {
         var distinctIds = plantIds.Distinct().ToList();
         var existing = await _db.Plants.Where(p => distinctIds.Contains(p.Id)).Select(p => p.Id).ToListAsync();
         if (existing.Count != distinctIds.Count) {
-            throw new ValidationException("One or more Plant ids do not exist");
+            throw new ValidationException("Uno o más ids de Planta no existen");
         }
         _db.ObserverPlantAssignments.RemoveRange(entity.Plants);
         entity.Plants = distinctIds.Select(pid => new ObserverPlantAssignment { PlantId = pid }).ToList();

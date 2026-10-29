@@ -45,10 +45,10 @@ public static class SeedData {
 
     private static void SeedObservers(Microsoft.EntityFrameworkCore.ModelBuilder modelBuilder) {
         modelBuilder.Entity<Observer>().HasData(
-            new { Id = 1, Legajo = 1001, FullName = "Dana Herrera", Objective = "Perimeter patrol and access control", Post = ObserverPost.Jefe, Active = true },
-            new { Id = 2, Legajo = 1002, FullName = "Owen Mercado", Objective = "Fire and emergency response drills", Post = ObserverPost.Supervisor, Active = true },
-            new { Id = 3, Legajo = 1003, FullName = "Liam Sosa", Objective = "Contractor escort and gate checks", Post = ObserverPost.Supervisor, Active = true },
-            new { Id = 4, Legajo = 1004, FullName = "Nora Peralta", Objective = "Security program oversight", Post = ObserverPost.Gerente, Active = false }
+            new { Id = 1, Legajo = 1001, FullName = "Elena Herrera", Objective = "Ronda perimetral y control de accesos", Post = ObserverPost.Jefe, Active = true },
+            new { Id = 2, Legajo = 1002, FullName = "Rubén Mercado", Objective = "Simulacros de incendio y respuesta a emergencias", Post = ObserverPost.Supervisor, Active = true },
+            new { Id = 3, Legajo = 1003, FullName = "Javier Sosa", Objective = "Escolta de contratistas y control de portería", Post = ObserverPost.Supervisor, Active = true },
+            new { Id = 4, Legajo = 1004, FullName = "Nora Peralta", Objective = "Supervisión del programa de seguridad", Post = ObserverPost.Gerente, Active = false }
         );
 
         modelBuilder.Entity<ObserverPlantAssignment>().HasData(

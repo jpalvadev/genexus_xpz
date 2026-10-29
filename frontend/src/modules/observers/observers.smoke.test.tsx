@@ -30,6 +30,9 @@ describe('observers.config smoke', () => {
         await renderWithRouter('/observers');
 
         expect(await screen.findByRole('heading', { name: 'Observadores' })).toBeInTheDocument();
+        // Ticket spanish-ui/05: seeded values are Spanish end to end.
+        expect(await screen.findByText('Elena Herrera')).toBeInTheDocument();
+        expect(screen.getByText('Nora Peralta')).toBeInTheDocument();
         expect(ObserverTablePage).toBeTypeOf('function');
         expect(CreateObserverPage).toBeTypeOf('function');
         expect(UpdateObserverPage).toBeTypeOf('function');

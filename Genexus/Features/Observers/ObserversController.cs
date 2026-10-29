@@ -19,7 +19,7 @@ public class ObserversController(IObserverService service) : ControllerBase {
     public async Task<ActionResult<ObserverResponse>> GetById(int id) {
         var response = await _service.GetByIdAsync(id);
         if (response is null) {
-            return NotFound(new ErrorResponse("Observer not found"));
+            return NotFound(new ErrorResponse("Observador no encontrado"));
         }
         return Ok(response);
     }
