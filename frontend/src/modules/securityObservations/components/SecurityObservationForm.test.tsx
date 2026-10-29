@@ -56,11 +56,16 @@ vi.mock(import('@/modules/comboOptions/comboOptions.config'), async (importOrigi
         },
     };
 });
-vi.mock('@/modules/observers/services/observer.service', () => ({
-    observerService: {
-        lookup: vi.fn(async () => ({ data: fixtureObservers, rowCount: fixtureObservers.length })),
-    },
-}));
+vi.mock(import('@/modules/observers/observers.config'), async (importOriginal) => {
+    const real = await importOriginal();
+    return {
+        ...real,
+        observerService: {
+            ...real.observerService,
+            lookup: vi.fn(async () => ({ data: fixtureObservers, rowCount: fixtureObservers.length })),
+        },
+    };
+});
 
 const mockRouter = { invalidate: vi.fn(), navigate: vi.fn() };
 vi.mock('@tanstack/react-router', async (importOriginal) => ({

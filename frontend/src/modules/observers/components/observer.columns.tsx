@@ -1,6 +1,5 @@
 import { type ColumnDef } from '@tanstack/react-table';
 
-import ObserverActionCell from './ObserverActionCell';
 import { OBSERVER_POSTS, type Observer } from '../types/observer.type';
 
 export const OBSERVER_COLUMNS: ColumnDef<Observer>[] = [
@@ -34,11 +33,5 @@ export const OBSERVER_COLUMNS: ColumnDef<Observer>[] = [
         accessorKey: 'active',
         accessorFn: (row) => (row.active ? 'Sí' : 'No'),
         header: () => <span>Activo</span>,
-    },
-    {
-        id: 'actions',
-        accessorKey: 'id',
-        header: () => <span>Acciones</span>,
-        cell: ({ row }) => <ObserverActionCell observer={row.original} />,
     },
 ];
