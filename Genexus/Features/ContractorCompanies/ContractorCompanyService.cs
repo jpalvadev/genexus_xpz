@@ -1,71 +1,37 @@
 using Gridify;
 using Itrion.Api.Common;
+using Itrion.Api.Common.MasterCrud;
 using Itrion.Api.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Itrion.Api.Features.ContractorCompanies;
 
+/// <summary>
+/// Contractor Companies' MasterCrud adapter (ADR-0004): the thin class crossing the
+/// unchanged IContractorCompanyService seam onto the shared module. The adapter is
+/// config — entity set, default order, Id+Name projection, validation copy, conflict
+/// copy — and nothing that is not ContractorCompany-specific.
+/// </summary>
 public class ContractorCompanyService(ItrionDbContext db) : IContractorCompanyService {
 
-    private readonly ItrionDbContext _db = db;
+    private static readonly MasterCrudConfig<ContractorCompany, ContractorCompanyRequest, ContractorCompanyResponse> Adapter = new() {
+        Set = db => db.ContractorCompanies,
+        DefaultOrder = "name asc",
+        ToResponse = e => new ContractorCompanyResponse(e.Id, e.Name),
+        NewEntity = r => new ContractorCompany { Name = r.Name },
+        ApplyRequest = (e, r) => e.Name = r.Name,
+        Validation = r => string.IsNullOrWhiteSpace(r.Name) ? "Name is required" : null,
+        ConflictMessage = "ContractorCompany is referenced by security observations and cannot be deleted",
+    };
 
-    public async Task<Paging<ContractorCompanyResponse>> GetAllAsync(GridifyQuery query) {
-        var page = query.Page < 1 ? 1 : query.Page;
-        var size = query.PageSize < 1 ? 20 : query.PageSize;
+    private readonly MasterCrud<ContractorCompany, ContractorCompanyRequest, ContractorCompanyResponse> _crud = new(db, Adapter);
 
-        var q = _db.ContractorCompanies.AsNoTracking()
-            .ApplyFiltering(query.Filter)
-            .ApplyOrdering(string.IsNullOrWhiteSpace(query.OrderBy) ? "name asc" : query.OrderBy);
+    public Task<Paging<ContractorCompanyResponse>> GetAllAsync(GridifyQuery query) => _crud.GetAllAsync(query);
 
-        var count = await q.CountAsync();
-        var items = await q.Skip((page - 1) * size).Take(size).ToListAsync();
+    public Task<ContractorCompanyResponse?> GetByIdAsync(int id) => _crud.GetByIdAsync(id);
 
-        return new Paging<ContractorCompanyResponse> {
-            Count = count,
-            Data = items.Select(e => new ContractorCompanyResponse(e.Id, e.Name)).ToList()
-        };
-    }
+    public Task<ContractorCompanyResponse> CreateAsync(ContractorCompanyRequest request) => _crud.CreateAsync(request);
 
-    public async Task<ContractorCompanyResponse?> GetByIdAsync(int id) {
-        var entity = await _db.ContractorCompanies.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
-        return entity is null ? null : new ContractorCompanyResponse(entity.Id, entity.Name);
-    }
+    public Task<ContractorCompanyResponse?> UpdateAsync(int id, ContractorCompanyRequest request) => _crud.UpdateAsync(id, request);
 
-    public async Task<ContractorCompanyResponse> CreateAsync(ContractorCompanyRequest request) {
-        if (string.IsNullOrWhiteSpace(request.Name)) {
-            throw new ValidationException("Name is required");
-        }
-        var entity = new ContractorCompany { Name = request.Name };
-        _db.ContractorCompanies.Add(entity);
-        await _db.SaveChangesAsync();
-        return new ContractorCompanyResponse(entity.Id, entity.Name);
-    }
-
-    public async Task<ContractorCompanyResponse?> UpdateAsync(int id, ContractorCompanyRequest request) {
-        if (string.IsNullOrWhiteSpace(request.Name)) {
-            throw new ValidationException("Name is required");
-        }
-        var entity = await _db.ContractorCompanies.FirstOrDefaultAsync(e => e.Id == id);
-        if (entity is null) {
-            return null;
-        }
-        entity.Name = request.Name;
-        await _db.SaveChangesAsync();
-        return new ContractorCompanyResponse(entity.Id, entity.Name);
-    }
-
-    public async Task<bool> DeleteByIdAsync(int id) {
-        var entity = await _db.ContractorCompanies.FirstOrDefaultAsync(e => e.Id == id);
-        if (entity is null) {
-            return false;
-        }
-        _db.ContractorCompanies.Remove(entity);
-        try {
-            await _db.SaveChangesAsync();
-        } catch (DbUpdateException) {
-            throw new ConflictException("ContractorCompany is referenced by security observations and cannot be deleted");
-        }
-        return true;
-    }
-
+    public Task<bool> DeleteByIdAsync(int id) => _crud.DeleteByIdAsync(id);
 }
