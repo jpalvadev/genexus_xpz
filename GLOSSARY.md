@@ -29,23 +29,30 @@ Observadores, y puede opcionalmente nombrar una Empresa Contratista.
   admite varios valores a la vez. Las cuatro categorías de una Observación son campos
   multiselect: *Gestión de Riesgo*, *Protocolos Mortales*, *Clasificación de
   Observación* y *Relación de Observación*.
-- **Revisión de Seguridad (Safety Review)**: checklist de confirmaciones Sí/No sobre
-  las medidas de seguridad verificadas antes y durante la tarea: *APR revisado*,
+- **Revisión de Seguridad (Safety Review)**: checklist sobre las medidas de seguridad
+  verificadas antes y durante la tarea: *APR revisado*,
   *Tarea realizada según APR*, *Revisión de ATR necesaria*, *Riesgo TRC considerado*,
   *Riesgo de impacto controlado*, *Medidas de manos y lesiones*, *Medidas de lesiones*,
   *Herramientas revisadas*, *Equipos móviles revisados*, *Energía revisada*,
-  *Escaleras revisadas* y *Equipos eléctricos y disyuntores*.
+  *Escaleras revisadas* y *Equipos eléctricos y disyuntores*. Cada una de las doce
+  preguntas se responde con una **Respuesta de Revisión de Seguridad** tri-estado —
+  Sí, No o N/A — nunca con un checkbox de confirmación.
+- **Respuesta de Revisión de Seguridad (Safety Review Answer)**: respuesta de una
+  pregunta de la Revisión con valor **Sí**, **No** o **N/A**, presentada al usuario en
+  español (ADR-0005). En el wire y en las propiedades JSON usa los literales `"SI"`,
+  `"NO"`, `"N/A"` — valores en español con propiedad en inglés (ADR-0006) — y la
+  entidad los guarda como texto. **N/A es una respuesta válida** ("no aplica"); sin
+  respuesta es ausencia: NULL, y para Observaciones es error de completitud. Las doce
+  preguntas admiten N/A sin excepciones (la lista de preguntas que lo admiten es la
+  lista completa), y una Observación con las doce respuestas en N/A es válida: la
+  completitud exige que las doce respondan, no que haya al menos un Sí.
+  "N/A" ≠ sin respuesta.
 - **Controles Críticos (Critical Controls)**: texto libre del bloque de la Revisión de
   Seguridad que describe los controles críticos aplicados a la tarea.
-- **Inmediato (Immediate)**: el control de la situación *en el momento*, antes de que
-  se dispare cualquier proceso de gestión. Describe la primera acción tomada en el
-  terreno para neutralizar el riesgo, no la corrección posterior ni el seguimiento. Es
-  un atributo propio de la Observación (su campo `Inmediato`, visible "Inmediato"), no
-  un campo multiselect: admite texto libre.
 - **Acción Inmediata (Immediate Action)**: texto libre que describe la acción de
-  control de riesgo tomada *en el momento* de la observación. Complementa al campo
-  booleano *Inmediato*: el booleano declara **si** hubo control inmediato; la Acción
-  Inmediata declara **qué** se hizo.
+  control de riesgo tomada *en el momento* de la observación — la primera acción en el
+  terreno para neutralizar el riesgo, no la corrección posterior ni el seguimiento
+  (eso es la Acción Detallada). Es campo de texto libre, no multiselect.
 - **Resumen (Summary)**: texto libre que describe *qué* se observó: el hallazgo en sí.
 - **Acción Detallada (Detailed Action)**: texto libre que describe la acción
   correctiva tomada *después* del momento de la observación — el seguimiento de
@@ -55,8 +62,8 @@ Observadores, y puede opcionalmente nombrar una Empresa Contratista.
 - Es referenciada por la Planta y el Sector.
 - Puede referenciar opcionalmente a la Empresa Contratista.
 - Referencia a una lista de Observadores (entre 1 y 10).
-- Contiene exactamente una Revisión de Seguridad.
-- Contiene exactamente un valor booleano *Inmediato*.
+- Contiene exactamente una Revisión de Seguridad de doce Respuestas de Revisión de
+  Seguridad (Sí/No/N/A).
 - Referencia a una lista de Labels de *Gestión de Riesgo* (categoría `gestionRiesgo`).
 - Referencia a una lista de Labels de *Protocolos Mortales* (categoría `protocolosMortales`).
 - Referencia a una lista de Labels de *Clasificación de Observación* (categoría `clasificacionObservacion`).
@@ -445,7 +452,10 @@ Una variante de Mantenimiento de Equipo aplicada a prendas de vestir: agrega tal
 - **Contrato en inglés**: identificadores de código (C#, TypeScript), nombres de
   propiedades JSON, rutas de API, enums serializados (`Active`, `New`, `Planned`,
   `Active`/`Inactive`…), claves de Combo Option y el archivo `itrion.db` siguen en
-  inglés.
+  inglés. Nota: lo que sigue en inglés son los **nombres de propiedad**; los
+  **valores** de las Respuestas de Revisión de Seguridad viajan como literales en
+  español (`"SI"`, `"NO"`, `"N/A"`) — el valor respondido es copia visible y
+  pertenece al idioma visible (ADR-0006).
 - **Sin i18n**: no hay framework de localización ni selector de idioma; los literales
   se reemplazan en su lugar (ADR-0005).
 
