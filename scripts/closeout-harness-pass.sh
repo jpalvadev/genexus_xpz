@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Close-out harness pass: the fixture recapture, the three live pin scripts and
+# Close-out harness pass: the fixture recapture, the four live pin scripts and
 # wire spot checks the sweeps don't cover (paging clamp Page<1->1, PageSize<1->20,
 # OrderBy honored, Filter honored) — the whole live harness in ONE API boot.
 # Run under the harness (absolute path — with-api.sh runs commands from Genexus/):
@@ -45,6 +45,7 @@ echo "== pin scripts"
 "$ROOT/scripts/master-parity-sweep.sh" || FAILS=$((FAILS + 1))
 "$ROOT/scripts/combo-parity-check.sh" || FAILS=$((FAILS + 1))
 "$ROOT/scripts/observer-deactivation-check.sh" || FAILS=$((FAILS + 1))
+"$ROOT/scripts/spanish-visible-copy-check.sh" || FAILS=$((FAILS + 1))
 
 echo "== wire spot checks (clamp, order, filter)"
 check "clamp page/size" 200 GET "$BASE/sectors?Page=0&PageSize=0"
