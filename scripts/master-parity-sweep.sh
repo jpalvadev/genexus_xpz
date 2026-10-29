@@ -64,7 +64,12 @@ conflict_copy_for() {
 
 # The shared-semantics pins (ticket 01) run over the MasterCrud-migrated gridify
 # masters only; Observers keeps its own pins (observer-deactivation-check.sh).
-SHARED_MASTERS="sectors plants contractor-companies"
+is_shared_master() {
+  case "$1" in
+    sectors | plants | contractor-companies) return 0 ;;
+    *) return 1 ;;
+  esac
+}
 
 # Sweep fixtures: an SO must reference real records, and the sweep creates all of
 # them in-script (no pre-existing data assumptions). Cleaned up FK-order at the end.
@@ -117,7 +122,7 @@ for R in $RESOURCES; do
   check "update ($NEW_ID)" 204 PUT "$BASE/$R/$NEW_ID" "$RQ2"
   check "delete ($NEW_ID)" 204 DELETE "$BASE/$R/$NEW_ID"
 
-  if ! printf ' %s ' $SHARED_MASTERS | grep -q " $R "; then
+  if ! is_shared_master "$R"; then
     continue
   fi
 

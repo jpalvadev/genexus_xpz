@@ -17,7 +17,11 @@ public abstract class MasterCrudControllerBase<TResponse, TRequest> : Controller
     where TResponse : class
     where TRequest : class {
 
-    protected abstract Task<Paging<TResponse>> ListAsync(GridifyQuery query);
+    /// <summary>Gridify list — the capability of the gridify catalogs. Flat catalogs
+    /// (Combo Options) expose no gridify route, so this default marks the capability absent.</summary>
+    protected virtual Task<Paging<TResponse>> ListAsync(GridifyQuery query) =>
+        throw new InvalidOperationException("This catalog exposes no gridify list endpoint.");
+
     protected abstract Task<TResponse?> GetAsync(int id);
     protected abstract Task<TResponse> CreateAsync(TRequest request);
     protected abstract Task<TResponse?> UpdateAsync(int id, TRequest request);

@@ -1,4 +1,3 @@
-using Gridify;
 using Itrion.Api.Common.MasterCrud;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,9 +14,6 @@ namespace Itrion.Api.Features.ComboOptions;
 public class ComboOptionsController(IComboOptionService service) : MasterCrudControllerBase<ComboOptionResponse, ComboOptionRequest> {
 
     private readonly IComboOptionService _service = service;
-
-    protected override Task<Paging<ComboOptionResponse>> ListAsync(GridifyQuery query) =>
-        throw new InvalidOperationException("Combo Options has no gridify list; the flat GET is the list endpoint.");
 
     protected override Task<ComboOptionResponse?> GetAsync(int id) => _service.GetByIdAsync(id);
 
