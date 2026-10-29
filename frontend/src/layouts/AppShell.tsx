@@ -130,13 +130,13 @@ const AppShell = ({ children }: AppShellProps) => {
                                 {/* Se muestra en modo claro, se oculta en dark */}
                                 <img
                                     src={logoLight}
-                                    alt="Itrion"
+                                    alt="SHYMA"
                                     className="h-8 w-auto object-contain dark:hidden"
                                 />
                                 {/* Se oculta por defecto, se muestra en dark */}
                                 <img
                                     src={logoDark}
-                                    alt="Itrion"
+                                    alt="SHYMA"
                                     className="h-8 w-auto object-contain hidden dark:block"
                                 />
                             </div>
@@ -150,7 +150,7 @@ const AppShell = ({ children }: AppShellProps) => {
                     <footer className="print:hidden">
                         <div className="text-muted-foreground mx-auto flex size-full max-w-7xl items-center justify-center gap-3 px-4 py-3">
                             <p className="text-sm text-center">
-                                {`©${new Date().getFullYear()} `}Itrion. Todos
+                                {`©${new Date().getFullYear()} `}SHYMA. Todos
                                 los derechos reservados.
                             </p>
                         </div>

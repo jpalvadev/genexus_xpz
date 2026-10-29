@@ -6,6 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { FormBase, type FormControlProps } from './FormBase';
 import { useFieldContext } from './hooks';
 import { format, parseISO } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 export default function FormDate(
     props: FormControlProps & {
@@ -61,6 +62,7 @@ export default function FormDate(
                                 mode="single"
                                 selected={selectedDate}
                                 onSelect={handleDateSelect}
+                                locale={es}
                                 disabled={props.disabled}
                                 captionLayout="dropdown"
                                 startMonth={new Date()}

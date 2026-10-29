@@ -11,6 +11,7 @@
 
 import { useState } from 'react';
 import { Calendar } from '@/components/ui/calendar';
+import { es } from 'date-fns/locale';
 import { Label } from '@/components/ui/label';
 import { type FilterVariant, type Operator } from '@/utils/gridifyFilter';
 
@@ -85,6 +86,7 @@ export function DateRangeFilter({ label, filterKey, onFilterChange }: Props) {
                 selected={fromDate}
                 disabled={toDate ? { after: toDate } : undefined}
                 onSelect={handleFromSelect}
+                locale={es}
                 captionLayout="dropdown"
                 className="rounded-md border w-full"
             />
@@ -96,6 +98,7 @@ export function DateRangeFilter({ label, filterKey, onFilterChange }: Props) {
                 selected={toDate}
                 disabled={fromDate ? { before: fromDate } : undefined}
                 onSelect={handleToSelect}
+                locale={es}
                 captionLayout="dropdown"
                 className="rounded-md border w-full"
             />
