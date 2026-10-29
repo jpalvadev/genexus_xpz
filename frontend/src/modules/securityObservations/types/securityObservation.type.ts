@@ -1,12 +1,12 @@
 import { z } from 'zod';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import type { GridifySearchParams } from '@/hooks/useGridifyParams';
 import type { ComboOption } from '@/modules/comboOptions/types/comboOption.type';
 
 /**
  * Security Observation contracts (SHYMA_OPS). Types mirror SecurityObservationResponse /
- * SecurityObservationRequest; the zod schema mirrors SecurityObservationRules (spec: backend
- * enforces, frontend mirrors with the same English messages, same first-rule order).
+ * SecurityObservationRequest; the zod schema mirrors SecurityObservationRules (ADR-0005:
+ * backend enforces, frontend mirrors with the same Spanish messages, same first-rule order).
  */
 
 // ─── Response / payload ─────────────────────────────────────────────────────────────
@@ -96,28 +96,28 @@ export const OBSERVATION_DATE_BACK_DAYS = 7;
 export const OBSERVATION_DATE_FWD_DAYS = 1;
 
 export const SAFETY_REVIEW_FIELDS = [
-    { key: 'aprReviewed', label: 'APR reviewed' },
-    { key: 'taskRealized', label: 'Task realized as planned' },
-    { key: 'requiresAtrReview', label: 'Requires ATR review' },
-    { key: 'trcRisk', label: 'TRC risk' },
-    { key: 'impactRiskControlled', label: 'Impact risk controlled' },
-    { key: 'handInjuryMeasures', label: 'Hand injury measures' },
-    { key: 'injuryMeasures', label: 'Injury measures' },
-    { key: 'toolsReviewed', label: 'Tools reviewed' },
-    { key: 'mobileEquipmentReviewed', label: 'Mobile equipment reviewed' },
-    { key: 'energyReviewed', label: 'Energy reviewed' },
-    { key: 'ladderReviewed', label: 'Ladder reviewed' },
-    { key: 'electricalEquipmentCircuitBreaker', label: 'Electrical equipment circuit breaker' },
+    { key: 'aprReviewed', label: 'APR revisado' },
+    { key: 'taskRealized', label: 'Tarea realizada según APR' },
+    { key: 'requiresAtrReview', label: 'Revisión de ATR necesaria' },
+    { key: 'trcRisk', label: 'Riesgo TRC considerado' },
+    { key: 'impactRiskControlled', label: 'Riesgo de impacto controlado' },
+    { key: 'handInjuryMeasures', label: 'Medidas de manos y lesiones' },
+    { key: 'injuryMeasures', label: 'Medidas de lesiones' },
+    { key: 'toolsReviewed', label: 'Herramientas revisadas' },
+    { key: 'mobileEquipmentReviewed', label: 'Equipos móviles revisados' },
+    { key: 'energyReviewed', label: 'Energía revisada' },
+    { key: 'ladderReviewed', label: 'Escaleras revisadas' },
+    { key: 'electricalEquipmentCircuitBreaker', label: 'Equipos eléctricos y disyuntores' },
 ] as const;
 
 export type SafetyReviewKey = (typeof SAFETY_REVIEW_FIELDS)[number]['key'];
 
-/** English labels used verbatim in the "At least one label is required for …" rule. */
+/** Spanish labels used verbatim in the "Se requiere al menos un label para …" rule. */
 export const MULTI_SELECT_LABELS = {
-    gestionRiesgo: 'Risk Management',
-    protocolosMortales: 'Fatal-Risk Protocols',
-    clasificacionObservacion: 'Observation Classification',
-    relacionObservacion: 'Observation Relation',
+    gestionRiesgo: 'Gestión de Riesgo',
+    protocolosMortales: 'Protocolos Mortales',
+    clasificacionObservacion: 'Clasificación de Observación',
+    relacionObservacion: 'Relación de Observación',
 } as const;
 
 export type ComboFieldKey = keyof typeof MULTI_SELECT_LABELS;
@@ -178,12 +178,12 @@ const { min: WINDOW_MIN, max: WINDOW_MAX } = observationDateWindow();
 export const securityObservationSchema = z
     .object({
         observationDate: z.union([z.string(), z.date()]),
-        task: z.string().trim().min(1, 'Task is required'),
-        lugar: z.string().trim().min(1, 'Place is required'),
-        plantId: z.string().min(1, 'Plant is required'),
-        sectorId: z.string().min(1, 'Sector is required'),
+        task: z.string().trim().min(1, 'La tarea es obligatoria'),
+        lugar: z.string().trim().min(1, 'El lugar es obligatorio'),
+        plantId: z.string().min(1, 'La planta es obligatoria'),
+        sectorId: z.string().min(1, 'El sector es obligatorio'),
         contractorCompanyId: z.string(),
-        observers: z.array(z.string()).min(OBSERVERS_MIN, 'At least one observer is required'),
+        observers: z.array(z.string()).min(OBSERVERS_MIN, 'Se requiere al menos un observador'),
         aprReviewed: z.boolean().nullable(),
         taskRealized: z.boolean().nullable(),
         requiresAtrReview: z.boolean().nullable(),
@@ -201,9 +201,9 @@ export const securityObservationSchema = z
         protocolosMortales: z.array(z.string()),
         clasificacionObservacion: z.array(z.string()),
         relacionObservacion: z.array(z.string()),
-        resumenObservacion: z.string().trim().min(1, 'Summary is required'),
-        detalleAI: z.string().trim().min(1, 'Detailed Action is required'),
-        descripcionAC: z.string().trim().min(1, 'Immediate Action Description is required'),
+        resumenObservacion: z.string().trim().min(1, 'El resumen es obligatorio'),
+        detalleAI: z.string().trim().min(1, 'La acción detallada es obligatoria'),
+        descripcionAC: z.string().trim().min(1, 'La descripción de la acción inmediata es obligatoria'),
     })
     .superRefine((values, ctx) => {
         // Same order as SecurityObservationRules.FirstViolation
@@ -212,14 +212,14 @@ export const securityObservationSchema = z
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 path: ['observers'],
-                message: `The maximum number of observers is ${OBSERVERS_MAX}`,
+                message: `El máximo de observadores es ${OBSERVERS_MAX}`,
             });
         }
         if (new Set(values.observers).size !== observerCount) {
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 path: ['observers'],
-                message: 'The same observer cannot be named twice on one Security Observation',
+                message: 'El mismo observador no puede nombrarse dos veces en una Observación de Seguridad',
             });
         }
 
@@ -228,7 +228,7 @@ export const securityObservationSchema = z
                 ctx.addIssue({
                     code: z.ZodIssueCode.custom,
                     path: [key],
-                    message: 'Every Safety Review answer is required',
+                    message: 'Todas las respuestas de la Revisión de Seguridad son obligatorias',
                 });
             }
         }
@@ -238,7 +238,7 @@ export const securityObservationSchema = z
                 ctx.addIssue({
                     code: z.ZodIssueCode.custom,
                     path: [key],
-                    message: `At least one label is required for ${MULTI_SELECT_LABELS[key]}`,
+                    message: `Se requiere al menos un label para ${MULTI_SELECT_LABELS[key]}`,
                 });
             }
         }
@@ -248,13 +248,13 @@ export const securityObservationSchema = z
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 path: ['observationDate'],
-                message: 'Observation Date is required',
+                message: 'La fecha de observación es obligatoria',
             });
         } else if (iso < WINDOW_MIN || iso > WINDOW_MAX) {
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 path: ['observationDate'],
-                message: `Observation Date must be between ${WINDOW_MIN} and ${WINDOW_MAX}`,
+                message: `La fecha de observación debe estar entre ${format(parseISO(WINDOW_MIN), 'dd/MM/yyyy')} y ${format(parseISO(WINDOW_MAX), 'dd/MM/yyyy')}`,
             });
         }
     });

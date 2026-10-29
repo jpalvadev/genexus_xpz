@@ -130,14 +130,14 @@ public class SecurityObservationService : ISecurityObservationService {
     /// </summary>
     private async Task<string?> ValidateReferencesAsync(SecurityObservationRequest request, List<int> namedObserverIds) {
         if (!await _context.Plants.AnyAsync(p => p.Id == request.PlantId))
-            return "Plant not found";
+            return "Planta no encontrada";
 
         if (!await _context.Sectors.AnyAsync(s => s.Id == request.SectorId))
-            return "Sector not found";
+            return "Sector no encontrado";
 
         if (request.ContractorCompanyId is { } companyId &&
             !await _context.ContractorCompanies.AnyAsync(c => c.Id == companyId))
-            return "Contractor Company not found";
+            return "La empresa contratista no existe";
 
         var observerIds = ObserverIds(request);
         var observers = await _context.Observers
@@ -146,11 +146,11 @@ public class SecurityObservationService : ISecurityObservationService {
             .ToListAsync();
 
         if (observers.Count != observerIds.Count)
-            return "One or more Observers do not exist";
+            return "Uno o más Observadores no existen";
 
         var newlyNamed = observerIds.Except(namedObserverIds).ToList();
         if (observers.Where(o => newlyNamed.Contains(o.Id)).Any(o => !o.Active))
-            return "Only Active Observers may be named on a Security Observation";
+            return "Solo se pueden nombrar Observadores Activos en una Observación de Seguridad";
 
         return null;
     }

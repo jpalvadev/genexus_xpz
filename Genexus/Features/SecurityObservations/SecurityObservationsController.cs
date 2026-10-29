@@ -24,7 +24,7 @@ public class SecurityObservationsController : ControllerBase {
     public async Task<ActionResult<SecurityObservationResponse>> GetById(int id) {
         var response = await _securityObservationService.GetByIdAsync(id);
         if (response is null) {
-            return NotFound(new ErrorResponse("Security Observation not found"));
+            return NotFound(new ErrorResponse("Observación de Seguridad no encontrada"));
         }
         return Ok(response);
     }
@@ -51,7 +51,7 @@ public class SecurityObservationsController : ControllerBase {
             return BadRequest(new ErrorResponse(error));
         }
         if (response is null) {
-            return NotFound(new ErrorResponse("Security Observation not found"));
+            return NotFound(new ErrorResponse("Observación de Seguridad no encontrada"));
         }
         return NoContent();
     }
@@ -59,7 +59,7 @@ public class SecurityObservationsController : ControllerBase {
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteById(int id) {
         if (!await _securityObservationService.DeleteByIdAsync(id)) {
-            return NotFound(new ErrorResponse("Security Observation not found"));
+            return NotFound(new ErrorResponse("Observación de Seguridad no encontrada"));
         }
         return NoContent();
     }

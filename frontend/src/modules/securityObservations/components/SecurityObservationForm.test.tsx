@@ -96,10 +96,10 @@ describe('SecurityObservationForm', () => {
 
         expect(screen.getByText('Fecha de Observación')).toBeInTheDocument();
         expect(screen.getByText('Observadores')).toBeInTheDocument();
-        expect(screen.getByText('Safety Review')).toBeInTheDocument();
-        expect(screen.getByLabelText('APR reviewed')).toBeInTheDocument();
-        expect(screen.getByLabelText('Gestión de Riesgo (Risk Management)')).toBeInTheDocument();
-        expect(screen.getByText(/Rango permitido: \d{4}-\d{2}-\d{2} a \d{4}-\d{2}-\d{2}/)).toBeInTheDocument();
+        expect(screen.getByText('Revisión de Seguridad')).toBeInTheDocument();
+        expect(screen.getByLabelText('APR revisado')).toBeInTheDocument();
+        expect(screen.getByLabelText('Gestión de Riesgo')).toBeInTheDocument();
+        expect(screen.getByText(/Rango permitido: \d{2}\/\d{2}\/\d{4} a \d{2}\/\d{2}\/\d{4}/)).toBeInTheDocument();
     });
 
     it('create: rechaza la vacía con los mensajes de regla y no llama al servicio', async () => {
@@ -111,12 +111,12 @@ describe('SecurityObservationForm', () => {
 
         fireEvent.submit(screen.getByRole('button', { name: 'Guardar' }).closest('form')!);
 
-        expect(await screen.findByText('Task is required')).toBeInTheDocument();
-        expect(await screen.findByText('Plant is required')).toBeInTheDocument();
-        expect(await screen.findByText('At least one observer is required')).toBeInTheDocument();
-        expect(await screen.findAllByText('Every Safety Review answer is required')).toHaveLength(12);
-        expect(await screen.findByText('At least one label is required for Risk Management')).toBeInTheDocument();
-        expect(await screen.findByText('Summary is required')).toBeInTheDocument();
+        expect(await screen.findByText('La tarea es obligatoria')).toBeInTheDocument();
+        expect(await screen.findByText('La planta es obligatoria')).toBeInTheDocument();
+        expect(await screen.findByText('Se requiere al menos un observador')).toBeInTheDocument();
+        expect(await screen.findAllByText('Todas las respuestas de la Revisión de Seguridad son obligatorias')).toHaveLength(12);
+        expect(await screen.findByText('Se requiere al menos un label para Gestión de Riesgo')).toBeInTheDocument();
+        expect(await screen.findByText('El resumen es obligatorio')).toBeInTheDocument();
 
         expect(securityObservationService.create).not.toHaveBeenCalled();
     });
@@ -148,18 +148,18 @@ describe('SecurityObservationForm', () => {
 
         // Safety Review completo
         for (const label of [
-            'APR reviewed',
-            'Task realized as planned',
-            'Requires ATR review',
-            'TRC risk',
-            'Impact risk controlled',
-            'Hand injury measures',
-            'Injury measures',
-            'Tools reviewed',
-            'Mobile equipment reviewed',
-            'Energy reviewed',
-            'Ladder reviewed',
-            'Electrical equipment circuit breaker',
+            'APR revisado',
+            'Tarea realizada según APR',
+            'Revisión de ATR necesaria',
+            'Riesgo TRC considerado',
+            'Riesgo de impacto controlado',
+            'Medidas de manos y lesiones',
+            'Medidas de lesiones',
+            'Herramientas revisadas',
+            'Equipos móviles revisados',
+            'Energía revisada',
+            'Escaleras revisadas',
+            'Equipos eléctricos y disyuntores',
         ]) {
             await user.click(screen.getByLabelText(label));
         }
@@ -170,10 +170,10 @@ describe('SecurityObservationForm', () => {
             await user.click(await screen.findByRole('option', { name: itemLabel }));
             await user.keyboard('{Escape}');
         };
-        await pickCombo('Gestión de Riesgo (Risk Management)', 'Charla de Riesgo Diario (DRT)');
-        await pickCombo('Protocolos Mortales (Fatal-Risk Protocols)', 'Trabajo en Altura');
-        await pickCombo('Clasificación de Observación (Observation Classification)', 'Condición Segura');
-        await pickCombo('Relación de Observación (Observation Relation)', 'Relacionado con la Tarea');
+        await pickCombo('Gestión de Riesgo', 'Charla de Riesgo Diario (DRT)');
+        await pickCombo('Protocolos Mortales', 'Trabajo en Altura');
+        await pickCombo('Clasificación de Observación', 'Condición Segura');
+        await pickCombo('Relación de Observación', 'Relacionado con la Tarea');
 
         // Textareas de detalle
         await user.type(screen.getByLabelText('Resumen de la Observación'), 'Se detectó disco vencido');
@@ -267,7 +267,7 @@ describe('SecurityObservationForm', () => {
         fireEvent.submit(screen.getByRole('button', { name: 'Guardar' }).closest('form')!);
 
         expect(
-            await screen.findByText(/Observation Date must be between \d{4}-\d{2}-\d{2} and \d{4}-\d{2}-\d{2}/),
+            await screen.findByText(/La fecha de observación debe estar entre \d{2}\/\d{2}\/\d{4} y \d{2}\/\d{2}\/\d{4}/),
         ).toBeInTheDocument();
 
         expect(securityObservationService.update).not.toHaveBeenCalled();
