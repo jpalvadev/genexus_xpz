@@ -36,15 +36,6 @@ type SecurityObservationFormProps = {
     mode: FormMode;
 };
 
-/** Field labels for the combo MultiSelects; they match the Spanish rule labels used
- *  verbatim in "Se requiere al menos un label para …" messages. */
-const COMBO_FIELD_LABELS: Record<keyof typeof MULTI_SELECT_LABELS, string> = {
-    gestionRiesgo: 'Gestión de Riesgo',
-    protocolosMortales: 'Protocolos Mortales',
-    clasificacionObservacion: 'Clasificación de Observación',
-    relacionObservacion: 'Relación de Observación',
-};
-
 /** Combo MultiSelects work on the combo catalogue (GET /combo-options/{key}). */
 function comboFetchFn(comboKey: string) {
     return async () => {
@@ -205,7 +196,7 @@ export default function SecurityObservationForm({
             Object.keys(MULTI_SELECT_LABELS) as (keyof typeof MULTI_SELECT_LABELS)[]
         ).map((key) => ({
             name: key,
-            label: COMBO_FIELD_LABELS[key],
+            label: MULTI_SELECT_LABELS[key],
             formField: 'multi-select' as const,
             colSpan: 6,
             children: (
