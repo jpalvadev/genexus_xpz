@@ -6,7 +6,7 @@ import { plantService } from '@/modules/plants/plant.config';
 import { sectorService } from '@/modules/sectors/sector.config';
 import { contractorCompanyService } from '@/modules/contractorCompanies/contractorCompanies.config';
 import { comboOptionService } from '@/modules/comboOptions/comboOptions.config';
-import { observerService } from '@/modules/observers/services/observer.service';
+import { observerService } from '@/modules/observers/observers.config';
 import type { FormMode } from '@/types/FormMode.type';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';

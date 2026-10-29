@@ -12,9 +12,9 @@ must keep hiding it from the picker while leaving Observations that name it inta
 
 **Blocked by:** 01 (Sectors pilot)
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] Observers config: nameField fullName, listOrder fullName asc, labels verbatim
-- [ ] `extraService` composes `lookup`; Security Observation picker search/paging/active-only unchanged
-- [ ] Clones and shim deleted; smoke test green through the MSW seam
-- [ ] Gates green: `tsc -b`, `eslint --max-warnings=0`, serial `vitest run`
+- [x] Observers config: nameField fullName, listOrder fullName asc, labels verbatim
+- [x] `extraService` composes `lookup`; Security Observation picker search/paging/active-only unchanged
+- [x] Clones and shim deleted; smoke test green through the MSW seam
+- [x] Gates green: `tsc -b`, `eslint --max-warnings=0`, serial `vitest run`
