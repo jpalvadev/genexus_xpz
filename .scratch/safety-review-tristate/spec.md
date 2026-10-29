@@ -167,16 +167,21 @@ answer: it stays a boolean.
   numbers, visible domain **values** — Combo Option labels, these answers — are Spanish).
 - `docs/adr/0006-…`: tri-state answers serialized as Spanish strings, with the rejected
   alternatives (nullable bool, unvalidated string, enum-at-DTO) and the Combo Option
-  precedent for Spanish domain values. Docs ship with ticket 01, the ticket that fixes the
-  contract.
+  precedent for Spanish domain values. Docs ship with ticket 01, the ticket that names the
+  domain term and the ADR before any field moves.
 
 **Ship (Q15, Q26, Q32)**
-- One integration branch `integration/safety-review-tristate`, two commits
-  (ticket 01: backend + wire + migration + pins + glossary + ADR; ticket 02:
-  `toggle-group` + form + fixtures + tests), one harness boot
-  (`scripts/with-api.sh "$PWD/scripts/closeout-harness-pass.sh"`), merge into `master`,
-  push `master` with the full suite, then delete the branch on `origin` and locally.
-  Backend and UI cannot ship as separate green pushes: the frontend suite reads the wire.
+- Four tickets in a dependency chain, `expand → trace → migrate batch → contract`
+  (`issues/01` … `issues/04`): the wide refactor (12 fields retyped) cannot land as one
+  vertical slice, and each of its tickets stays green on its own — the additive prefactor
+  first, one field traced end to end to prove the pattern, the remaining eleven fields as
+  the mechanical batch, then the contract step that deletes the boolean world and pins the
+  invalid-value 400.
+- All four share integration branch `integration/safety-review-tristate`; tickets 02 and 03
+  change the wire and push green by construction (the tree is consistent field by field),
+  and **one** harness boot (`scripts/with-api.sh "$PWD/scripts/closeout-harness-pass.sh"`)
+  plus **one** merge into `master` happen when ticket 04 closes, followed by pushing
+  `master` with the full suite and deleting the branch on `origin` and locally.
 
 ## Testing Decisions
 
