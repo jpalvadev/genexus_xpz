@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# Close-out harness pass (master-crud ticket 06): the three live pin scripts in
-# one run, plus wire spot checks the sweeps don't cover: paging clamp
-# (Page<1->1, PageSize<1->20), OrderBy honored, Filter honored.
-# Run under the harness: scripts/with-api.sh scripts/closeout-harness-pass.sh
+# Close-out harness pass: the fixture recapture, the three live pin scripts and
+# wire spot checks the sweeps don't cover (paging clamp Page<1->1, PageSize<1->20,
+# OrderBy honored, Filter honored) — the whole live harness in ONE API boot.
+# Run under the harness (absolute path — with-api.sh runs commands from Genexus/):
+#   scripts/with-api.sh "$PWD/scripts/closeout-harness-pass.sh"   (from repo root)
 set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 BASE="http://localhost:5281/api/v1"
@@ -36,6 +37,9 @@ sys.exit(0 if ($expr) else 1)" "$BODY" "$@"; then
     FAILS=$((FAILS + 1))
   fi
 }
+
+echo "== fixture recapture"
+python3 "$ROOT/scripts/capture-fixtures.py" || FAILS=$((FAILS + 1))
 
 echo "== pin scripts"
 "$ROOT/scripts/master-parity-sweep.sh" || FAILS=$((FAILS + 1))

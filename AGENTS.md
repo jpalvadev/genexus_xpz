@@ -18,16 +18,18 @@ delegation. This overrides any skill instruction that suggests subagents.
 - **Backend code layout**: `Genexus/Features/<module>/`, `Controllers/`, `Models/`, `Common/` — there is no `Genexus/src/`.
 - **API**: `dotnet run --launch-profile http` from `Genexus/` → `http://localhost:5281/api/v1` (port from `Properties/launchSettings.json`). Stop it by port owner: `ss -lptn 'sport = :5281'` → kill that pid.
 - **Harness scripts**: `scripts/with-api.sh <cmd>` runs `<cmd>` against a temporary live API on a **freshly seeded DB** (it deletes `itrion.db*` at start — no manual rm ritual); `scripts/capture-fixtures.py` recaptures MSW fixtures from the live API; backend master-catalog files (`Genexus/Features/{Sectors,Plants,ContractorCompanies,ComboOptions}/`, `Genexus/Common/MasterCrud/`) are gated by `scripts/master-parity-sweep.sh` (+ `scripts/combo-parity-check.sh`) run under the harness; `scripts/observer-deactivation-check.sh` pins the Observer-deactivation rule (GLOSSARY "Active", ADR-0002) live — the data half the observers smoke test can't reach.
-- **vitest runs serially by config** (`pool: 'forks'` + `singleFork` in `vitest.config.ts`): a plain `npx vitest run` is already serial — never run two suites at once on this box. Legacy component/hook suites keep per-file `isolate: true`; the Master record integration suites (deep suite, catalog smokes, Security Observation form) run `isolate: false` in a `shared` project. Full run ≈ 2 min with `--reporter=dot` — pre-commit gates tsc + staged lint only, the suite runs in **pre-push**: commit freely, let the push run the suite, and give push tool-calls ≥5 min.
+- **Per-ticket ship flow**: one harness boot per ticket — `scripts/with-api.sh "$PWD/scripts/closeout-harness-pass.sh"` (from repo root; absolute path — the harness runs commands from `Genexus/`) recaptures MSW fixtures, runs the three pin scripts and the wire spot checks in a single boot; no manual full `vitest run` (pre-push runs it); once master's hooked push is green, push the identical integration tree with `git push --no-verify`.
+- **vitest runs serially by config** (`pool: 'forks'` + `singleFork` in `vitest.config.ts`): a plain `npx vitest run` is already serial — never run two suites at once on this box. Legacy component/hook suites keep per-file `isolate: true`; the Master record integration suites (deep suite, catalog smokes, Security Observation form) run `isolate: false` in a `shared` project. Full run ≈ 2 min with `--reporter=dot` — pre-commit gates tsc + staged lint only, the suite runs in **pre-push**: commit freely, let the push run the suite, and give push tool-calls ≥5 min. A hooked push failing 1–2 tests while a loose `vitest run` is green is a box flake: re-push.
 - **Frontend gates** (wired in `.githooks` pre-commit/pre-push): `tsc -b`, `eslint --max-warnings=0` on staged TS files, `vitest run`. Ad-hoc lint of staged files: `scripts/lint-staged-ts.sh` — never a bare `npx eslint` (the legacy baseline is red and floods).
 - **New reference catalog** → factory in `frontend/src/master-records/`, pattern in ADR-0003 (`docs/adr/`); a catalog is a config file, never a clone.
 
 ## Ship work
 
 When the tickets in scope are resolved, always finish the job: commit each ticket
-(gates green, hooks on), merge the integration branch into `master`, and push both
-`master` and the integration branch to `origin` (GitHub). Don't stop at a green
-local commit — the work isn't done until it's on GitHub.
+(gates green, hooks on), merge the integration branch into `master`, and push
+`master` to `origin` (GitHub — its hooks run the full suite). Then delete the merged
+integration branch, on `origin` and locally. Don't stop at a green local commit —
+the work isn't done until it's on GitHub.
 
 ## Agent skills
 
