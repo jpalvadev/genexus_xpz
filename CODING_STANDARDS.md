@@ -6,6 +6,13 @@ Read at review time. Judgement calls only — anything mechanical is already a g
 ## Frontend conventions
 
 - **Module shape**: `src/modules/<module>/` with `<entity>.service.ts` (+ `<plural>.service.ts` alias for master modules), `<entity>.type.ts` for types, components under `components/`.
+- **A reference catalog is a config, never a clone** (ADR-0003): master modules (Sectors, Plants,
+  Observers, Contractor Companies, Combo Options) are one `<entity>.config.*` file handed to
+  `createMasterRecordModule` in `frontend/src/master-records/` — resource, copy strings, columns,
+  schema and fields as data. The factory produces service/grid/form/pages; catalog-specific
+  queries (`lookup`, `getByKey`) compose through the config's `extraService`, and gridify-vs-flat
+  list wiring is the config's `list` mode. Don't hand-roll a second CRUD clone; Equipment
+  Maintenance and Security Observations keep their hand-rolled views (their wire is not CRUD-only).
 - **Types are type aliases, not interfaces** — response/entity types use `type X = {...}`.
 - **Forms**: TanStack `useAppForm` from the shared GenericForm; dropdown options are supplied via `FieldConfig.children` JSX. API calls go through the axios `apiClient` from `@/api/apiClient` (no auth headers).
 - **Gridify binding**: list controllers bind the filter parameter as `Filter` (singular) — the convention across master modules and equipment. Binding `Filters` (plural, via `buildGridifyParams`) is the documented exception in `frontend/src/utils/gridifyFilter.ts` (see the header comment).

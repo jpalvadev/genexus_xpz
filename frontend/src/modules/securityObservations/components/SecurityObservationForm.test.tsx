@@ -16,7 +16,7 @@ import {
 import SecurityObservationForm from './SecurityObservationForm';
 import { securityObservationService } from '../services/securityObservation.service';
 import { plantService } from '@/modules/plants/services/plant.service';
-import { sectorService } from '@/modules/sectors/services/sector.service';
+import { sectorService } from '@/modules/sectors/sector.config';
 import { contractorCompanyService } from '@/modules/contractorCompanies/services/contractorCompany.service';
 import { comboOptionService } from '@/modules/comboOptions/services/comboOption.service';
 
@@ -29,7 +29,7 @@ vi.mock('../services/securityObservation.service', () => ({
 vi.mock('@/modules/plants/services/plant.service', () => ({
     plantService: { getAll: vi.fn(async () => fixturePlants) },
 }));
-vi.mock('@/modules/sectors/services/sector.service', () => ({
+vi.mock('@/modules/sectors/sector.config', () => ({
     sectorService: { getAll: vi.fn(async () => fixtureSectors) },
 }));
 vi.mock('@/modules/contractorCompanies/services/contractorCompany.service', () => ({

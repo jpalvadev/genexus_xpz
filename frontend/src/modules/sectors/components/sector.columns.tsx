@@ -1,6 +1,5 @@
 import { type ColumnDef } from '@tanstack/react-table';
 
-import SectorActionCell from './SectorActionCell';
 import type { Sector } from '../types/sector.type';
 
 export const SECTOR_COLUMNS: ColumnDef<Sector>[] = [
@@ -15,11 +14,5 @@ export const SECTOR_COLUMNS: ColumnDef<Sector>[] = [
         accessorKey: 'name',
         header: () => <span>Nombre</span>,
         meta: { filterKey: 'name', filterVariant: 'string' },
-    },
-    {
-        id: 'actions',
-        accessorKey: 'id',
-        header: () => <span>Acciones</span>,
-        cell: ({ row }) => <SectorActionCell sector={row.original} />,
     },
 ];

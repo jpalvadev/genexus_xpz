@@ -3,7 +3,7 @@ import Loading from '@/components/Loading';
 import { SelectItem } from '@/components/ui/select';
 import { MultiSelectItems } from '@/components/form/FormMultiSelect';
 import { plantService } from '@/modules/plants/services/plant.service';
-import { sectorService } from '@/modules/sectors/services/sector.service';
+import { sectorService } from '@/modules/sectors/sector.config';
 import { contractorCompanyService } from '@/modules/contractorCompanies/services/contractorCompany.service';
 import { comboOptionService } from '@/modules/comboOptions/services/comboOption.service';
 import { observerService } from '@/modules/observers/services/observer.service';
