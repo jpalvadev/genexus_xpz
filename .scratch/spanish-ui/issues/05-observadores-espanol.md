@@ -15,15 +15,29 @@ Observaciones).
 
 **Blocked by:** 01 (Contrato de idioma).
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] Migración EF nueva con UpdateData sobre los HasData de Observer (IDs, legajos,
+- [x] Migración EF nueva con UpdateData sobre los HasData de Observer (IDs, legajos,
       asignaciones Observer–Planta intactos; FullName, Objective en español).
-- [ ] Mensajes visibles del backend de Observadores en español.
-- [ ] Config del Registro Maestro de Observadores: labels, encabezados, placeholders,
+- [x] Mensajes visibles del backend de Observadores en español.
+- [x] Config del Registro Maestro de Observadores: labels, encabezados, placeholders,
       zod en español.
-- [ ] Fixtures MSW de observers recapturados desde la API viva.
-- [ ] Smoke test de observers en español; barrido de paridad verde para observers;
+- [x] Fixtures MSW de observers recapturados desde la API viva.
+- [x] Smoke test de observers en español; barrido de paridad verde para observers;
       scripts/observer-deactivation-check.sh repineado con los valores españoles
       (regla GLOSSARY "Active"/observador inactivo, ADR-0002 intacta).
-- [ ] Suite completa verde; commit, merge a master, push.
+- [x] Suite completa verde; commit, merge a master, push.
+
+## Answer
+
+Migración `SpanishObserversSeed` (UpdateData x8: FullName+Objective de los 4 seeds;
+IDs, legajos y asignaciones Observer–Planta intactos): Elena Herrera (1001), Rubén
+Mercado (1002), Javier Sosa (1003), Nora Peralta (1004, inactiva). Backend: "El legajo
+ya existe" (x2), "Nombre completo es obligatorio", "Objetivo es obligatorio", "Uno o más
+ids de Planta no existen", "El observador está referenciado por observaciones de
+seguridad y no puede eliminarse", "Observador no encontrado". Zod del config: "Legajo
+debe ser un número", "Nombre completo es obligatorio", "Objetivo es obligatorio", "El
+cargo es obligatorio". Sweep observers: 0 fallos; `observer-deactivation-check.sh`
+repineado con valores españoles (regla "Active"/ADR-0002 intacta: 0 fallos). Fixtures
+recapturados; smoke observers asserta "Elena Herrera"/"Nora Peralta"; form test
+repineado a "Elena Herrera — 1001". Suite verde (175 tests).

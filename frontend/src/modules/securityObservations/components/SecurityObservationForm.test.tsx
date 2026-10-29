@@ -142,7 +142,7 @@ describe('SecurityObservationForm', () => {
 
         // Observadores: un solo checkbox
         await user.click(screen.getByRole('combobox', { name: 'Observadores' }));
-        const observerOption = await screen.findByRole('option', { name: 'Dana Herrera — 1001' });
+        const observerOption = await screen.findByRole('option', { name: 'Elena Herrera — 1001' });
         await user.click(observerOption);
         await user.keyboard('{Escape}');
 

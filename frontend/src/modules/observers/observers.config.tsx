@@ -34,13 +34,13 @@ type ObserverFormValues = {
  *  required"), Objective required (model binding), Legajo unique ("Legajo already
  *  exists"). Legajo is numeric; Post is limited to the ObserverPost enum values. */
 const observerSchema = z.object({
-    legajo: z.string().trim().regex(/^\d+$/, 'Legajo must be a number'),
-    fullName: z.string().trim().min(1, 'FullName is required'),
-    objective: z.string().trim().min(1, 'Objective is required'),
+    legajo: z.string().trim().regex(/^\d+$/, 'Legajo debe ser un número'),
+    fullName: z.string().trim().min(1, 'Nombre completo es obligatorio'),
+    objective: z.string().trim().min(1, 'Objetivo es obligatorio'),
     post: z
         .string()
         .refine((v) => v === '1' || v === '2' || v === '3', {
-            message: 'Post is required',
+            message: 'El cargo es obligatorio',
         }),
     active: z.boolean(),
     plantIds: z.array(z.string()),

@@ -11,7 +11,7 @@ set -u
 BASE="http://localhost:5281/api/v1"
 TODAY=$(date +%F)
 LEGAJO=99998
-NAME="Deactivation Check"
+NAME="Verificación de Desactivación"
 BODY=/tmp/opencode/observer-check-body.json
 FAILS=0
 
@@ -46,7 +46,7 @@ echo "== observer deactivation rule (GLOSSARY 'Active', ADR-0002)"
 
 # 1. Active Observer -> 201, and it shows up in the picker.
 check "create observer" 201 POST "$BASE/observers" \
-  "{\"legajo\":$LEGAJO,\"fullName\":\"$NAME\",\"objective\":\"Deactivation check record - delete me\",\"post\":1,\"active\":true,\"plantIds\":[]}"
+  "{\"legajo\":$LEGAJO,\"fullName\":\"$NAME\",\"objective\":\"Registro de verificación de desactivación - eliminar\",\"post\":1,\"active\":true,\"plantIds\":[]}"
 OBSERVER=$(python3 -c "import json; print(json.load(open('$BODY'))['id'])")
 if [ "$(named "$(picker)" "$OBSERVER")" = yes ]; then
   echo "PASS observer $OBSERVER visible in picker while active"
@@ -58,13 +58,13 @@ fi
 # 2. A Security Observation naming that Observer -> 201 (the picker writes
 #    observers: [{observerId}], the form's exact payload shape).
 check "create observation naming observer $OBSERVER" 201 POST "$BASE/security-observations" \
-  "{\"observationDate\":\"$TODAY\",\"task\":\"Deactivation check\",\"lugar\":\"planta\",\"plantId\":$PLANT,\"sectorId\":$SECTOR,\"contractorCompanyId\":null,\"observers\":[{\"observerId\":$OBSERVER}],\"aprReviewed\":true,\"taskRealized\":true,\"requiresAtrReview\":false,\"trcRisk\":true,\"impactRiskControlled\":true,\"handInjuryMeasures\":false,\"injuryMeasures\":true,\"toolsReviewed\":true,\"mobileEquipmentReviewed\":false,\"energyReviewed\":true,\"ladderReviewed\":false,\"electricalEquipmentCircuitBreaker\":true,\"controlesCriticos\":\"deactivation check\",\"gestionRiesgo\":[\"deactivation check label\"],\"protocolosMortales\":[\"deactivation check label\"],\"clasificacionObservacion\":[\"deactivation check label\"],\"relacionObservacion\":[\"deactivation check label\"],\"resumenObservacion\":\"deactivation check\",\"detalleAI\":\"deactivation check\",\"descripcionAC\":\"deactivation check\"}"
+  "{\"observationDate\":\"$TODAY\",\"task\":\"Verificación de desactivación\",\"lugar\":\"planta\",\"plantId\":$PLANT,\"sectorId\":$SECTOR,\"contractorCompanyId\":null,\"observers\":[{\"observerId\":$OBSERVER}],\"aprReviewed\":true,\"taskRealized\":true,\"requiresAtrReview\":false,\"trcRisk\":true,\"impactRiskControlled\":true,\"handInjuryMeasures\":false,\"injuryMeasures\":true,\"toolsReviewed\":true,\"mobileEquipmentReviewed\":false,\"energyReviewed\":true,\"ladderReviewed\":false,\"electricalEquipmentCircuitBreaker\":true,\"controlesCriticos\":\"verificación de desactivación\",\"gestionRiesgo\":[\"etiqueta de verificación\"],\"protocolosMortales\":[\"etiqueta de verificación\"],\"clasificacionObservacion\":[\"etiqueta de verificación\"],\"relacionObservacion\":[\"etiqueta de verificación\"],\"resumenObservacion\":\"verificación de desactivación\",\"detalleAI\":\"verificación de desactivación\",\"descripcionAC\":\"verificación de desactivación\"}"
 SO=$(python3 -c "import json; print(json.load(open('$BODY'))['id'])")
 
 # 3. Deactivate: PUT with the full body the Master record module update sends,
 #    active flipped to false.
 check "deactivate observer ($OBSERVER)" 204 PUT "$BASE/observers/$OBSERVER" \
-  "{\"legajo\":$LEGAJO,\"fullName\":\"$NAME\",\"objective\":\"Deactivation check record - delete me\",\"post\":1,\"active\":false,\"plantIds\":[]}"
+  "{\"legajo\":$LEGAJO,\"fullName\":\"$NAME\",\"objective\":\"Registro de verificación de desactivación - eliminar\",\"post\":1,\"active\":false,\"plantIds\":[]}"
 
 # 4. The Observation stays intact: detail 200 and its observer reference keeps
 #    resolving to the same Observer (join row untouched, no cascade).

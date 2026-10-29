@@ -4,8 +4,8 @@
     {
       "id": 1,
       "legajo": 1001,
-      "fullName": "Dana Herrera",
-      "objective": "Perimeter patrol and access control",
+      "fullName": "Elena Herrera",
+      "objective": "Ronda perimetral y control de accesos",
       "post": 2,
       "active": true,
       "plantIds": [
@@ -16,8 +16,8 @@
     {
       "id": 2,
       "legajo": 1002,
-      "fullName": "Owen Mercado",
-      "objective": "Fire and emergency response drills",
+      "fullName": "Rubén Mercado",
+      "objective": "Simulacros de incendio y respuesta a emergencias",
       "post": 3,
       "active": true,
       "plantIds": [
@@ -27,8 +27,8 @@
     {
       "id": 3,
       "legajo": 1003,
-      "fullName": "Liam Sosa",
-      "objective": "Contractor escort and gate checks",
+      "fullName": "Javier Sosa",
+      "objective": "Escolta de contratistas y control de portería",
       "post": 3,
       "active": true,
       "plantIds": [
@@ -39,7 +39,7 @@
       "id": 4,
       "legajo": 1004,
       "fullName": "Nora Peralta",
-      "objective": "Security program oversight",
+      "objective": "Supervisión del programa de seguridad",
       "post": 1,
       "active": false,
       "plantIds": [

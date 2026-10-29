@@ -342,27 +342,27 @@ namespace Genexus.Migrations
                         {
                             Id = 1,
                             Active = true,
-                            FullName = "Dana Herrera",
+                            FullName = "Elena Herrera",
                             Legajo = 1001,
-                            Objective = "Perimeter patrol and access control",
+                            Objective = "Ronda perimetral y control de accesos",
                             Post = 2
                         },
                         new
                         {
                             Id = 2,
                             Active = true,
-                            FullName = "Owen Mercado",
+                            FullName = "Rubén Mercado",
                             Legajo = 1002,
-                            Objective = "Fire and emergency response drills",
+                            Objective = "Simulacros de incendio y respuesta a emergencias",
                             Post = 3
                         },
                         new
                         {
                             Id = 3,
                             Active = true,
-                            FullName = "Liam Sosa",
+                            FullName = "Javier Sosa",
                             Legajo = 1003,
-                            Objective = "Contractor escort and gate checks",
+                            Objective = "Escolta de contratistas y control de portería",
                             Post = 3
                         },
                         new
@@ -371,7 +371,7 @@ namespace Genexus.Migrations
                             Active = false,
                             FullName = "Nora Peralta",
                             Legajo = 1004,
-                            Objective = "Security program oversight",
+                            Objective = "Supervisión del programa de seguridad",
                             Post = 1
                         });
                 });
