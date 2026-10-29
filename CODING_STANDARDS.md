@@ -19,6 +19,19 @@ Read at review time. Judgement calls only — anything mechanical is already a g
 - **Rule messages are English** end to end: backend validator messages arrive verbatim in the UI; translating them at the frontend is a violation.
 - **Date windows**: business windows (e.g. observation date `[today−7, today+1]`) are enforced by the backend validator; the form mirrors them in its zod schema. Divergence between the two is a finding.
 
+## Backend conventions
+
+- **A backend master catalog is a MasterCrud adapter, not a clone** (ADR-0004): the CRUD
+  semantics (paging clamp, gridify filter/order, `{count, data}` envelope, NotFound contract,
+  FK-conflict 409 copy, validation 400 copy, 201 `CreatedAtAction`) live once in
+  `Genexus/Common/MasterCrud/` — `MasterCrud<TEntity, TRequest, TResponse>` plus
+  `MasterCrudControllerBase`. A catalog contributes its delta through a config-scale
+  `MasterCrudConfig` (entity set, default order, projection, request↔entity mapping,
+  validation copy, conflict copy; flat-feed extras ride the config) and a thin service class
+  implementing its existing interface — no per-entity `if` in the module body, keep the
+  service interface and DI registration unchanged. Observers, Persons, EquipmentItems,
+  Equipment Maintenance and Security Observations are deliberate exclusions (see ADR-0004).
+
 ## Test conventions
 
 - **Contract tests read live-captured fixtures** (`frontend/src/test/fixtures/`, recaptured via `scripts/capture-fixtures.py`), asserted with zod parsers typed against the TS types; a type drift fails the build, not just the review.
