@@ -12,7 +12,7 @@ siempre; quien construye un formulario ya tiene el ButtonGroup.
 
 **Blocked by:** None (can start immediately).
 
-**Status:** ready-for-agent
+**Status:** resolved
 
 - [ ] El glosario describe la Revisión de Seguridad como checklist Sí/No/N/A, define
       **Respuesta de Revisión de Seguridad**, afirma "N/A ≠ sin respuesta", elimina el
