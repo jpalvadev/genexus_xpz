@@ -43,21 +43,21 @@ namespace Genexus.Migrations
                         {
                             Id = 1,
                             Code = "EQ-001",
-                            Name = "Conveyor Line A",
+                            Name = "Línea Transportadora A",
                             Status = 1
                         },
                         new
                         {
                             Id = 2,
                             Code = "EQ-002",
-                            Name = "Forklift 12",
+                            Name = "Montacargas 12",
                             Status = 2
                         },
                         new
                         {
                             Id = 3,
                             Code = "EQ-003",
-                            Name = "Boiler 3",
+                            Name = "Caldera 3",
                             Status = 3
                         });
                 });
@@ -287,7 +287,7 @@ namespace Genexus.Migrations
                         new
                         {
                             Id = 1,
-                            Activity = "Belt tension and roller inspection",
+                            Activity = "Inspección de tensión de bandas y rodillos",
                             ClosedAt = new DateOnly(2026, 5, 6),
                             Date = new DateOnly(2026, 5, 4),
                             EquipmentItemId = 1,
@@ -298,7 +298,7 @@ namespace Genexus.Migrations
                         new
                         {
                             Id = 2,
-                            Activity = "Hydraulic pump replacement",
+                            Activity = "Reemplazo de bomba hidráulica",
                             Date = new DateOnly(2026, 6, 18),
                             EquipmentItemId = 2,
                             PersonId = 2,
@@ -453,23 +453,23 @@ namespace Genexus.Migrations
                             Id = 1,
                             Dni = 30112233,
                             Email = "ivan.quiroga@example.com",
-                            FirstName = "Ivan",
+                            FirstName = "Iván",
                             LastName = "Quiroga"
                         },
                         new
                         {
                             Id = 2,
                             Dni = 31445566,
-                            FirstName = "Sela",
+                            FirstName = "Selva",
                             LastName = "Rivas"
                         },
                         new
                         {
                             Id = 3,
                             Dni = 32778899,
-                            Email = "tom.bermudez@example.com",
-                            FirstName = "Tom",
-                            LastName = "Bermudez"
+                            Email = "tomas.bermudez@example.com",
+                            FirstName = "Tomás",
+                            LastName = "Bermúdez"
                         });
                 });
 

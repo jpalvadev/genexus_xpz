@@ -80,15 +80,15 @@ public static class SeedData {
 
     private static void SeedEquipmentReference(Microsoft.EntityFrameworkCore.ModelBuilder modelBuilder) {
         modelBuilder.Entity<Person>().HasData(
-            new { Id = 1, FirstName = "Ivan", LastName = "Quiroga", Dni = 30112233, Email = "ivan.quiroga@example.com" },
-            new { Id = 2, FirstName = "Sela", LastName = "Rivas", Dni = 31445566, Email = (string?)null },
-            new { Id = 3, FirstName = "Tom", LastName = "Bermudez", Dni = 32778899, Email = "tom.bermudez@example.com" }
+            new { Id = 1, FirstName = "Iván", LastName = "Quiroga", Dni = 30112233, Email = "ivan.quiroga@example.com" },
+            new { Id = 2, FirstName = "Selva", LastName = "Rivas", Dni = 31445566, Email = (string?)null },
+            new { Id = 3, FirstName = "Tomás", LastName = "Bermúdez", Dni = 32778899, Email = "tomas.bermudez@example.com" }
         );
 
         modelBuilder.Entity<EquipmentItem>().HasData(
-            new { Id = 1, Name = "Conveyor Line A", Code = "EQ-001", Status = EquipmentItemStatus.Operational },
-            new { Id = 2, Name = "Forklift 12", Code = "EQ-002", Status = EquipmentItemStatus.InRepair },
-            new { Id = 3, Name = "Boiler 3", Code = "EQ-003", Status = EquipmentItemStatus.OutOfService }
+            new { Id = 1, Name = "Línea Transportadora A", Code = "EQ-001", Status = EquipmentItemStatus.Operational },
+            new { Id = 2, Name = "Montacargas 12", Code = "EQ-002", Status = EquipmentItemStatus.InRepair },
+            new { Id = 3, Name = "Caldera 3", Code = "EQ-003", Status = EquipmentItemStatus.OutOfService }
         );
 
         modelBuilder.Entity<EquipmentMaintenance>().HasData(
@@ -97,7 +97,7 @@ public static class SeedData {
                 Date = new DateOnly(2026, 5, 4),
                 Type = EquipmentMaintenanceType.Preventive,
                 Status = EquipmentMaintenanceStatus.Completed,
-                Activity = "Belt tension and roller inspection",
+                Activity = "Inspección de tensión de bandas y rodillos",
                 ClosedAt = new DateOnly(2026, 5, 6),
                 EquipmentItemId = 1,
                 PersonId = 1,
@@ -107,7 +107,7 @@ public static class SeedData {
                 Date = new DateOnly(2026, 6, 18),
                 Type = EquipmentMaintenanceType.Corrective,
                 Status = EquipmentMaintenanceStatus.Pending,
-                Activity = "Hydraulic pump replacement",
+                Activity = "Reemplazo de bomba hidráulica",
                 ClosedAt = (DateOnly?)null,
                 EquipmentItemId = 2,
                 PersonId = 2,

@@ -24,7 +24,7 @@ public class PersonsController(IPersonService service) : ControllerBase {
     public async Task<ActionResult<PersonResponse>> GetById(int id) {
         var response = await _service.GetByIdAsync(id);
         if (response is null) {
-            return NotFound(new ErrorResponse("Person not found"));
+            return NotFound(new ErrorResponse("Persona no encontrada"));
         }
         return Ok(response);
     }
