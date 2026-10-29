@@ -12,9 +12,9 @@ the shipped backend, confirming behavior parity — Spanish copy verbatim.
 
 **Blocked by:** 02, 03, 04, 05, 06
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] Residual check: zero clone views, master form wrappers, master service files, shims
-- [ ] Full serial `vitest run` + `tsc -b` + `eslint --max-warnings=0` green
-- [ ] Live-API parity sweep green for all five catalogs
-- [ ] Security Observation form regression green (its existing form + rules tests pass unmodified in behavior)
+- [x] Residual check: zero clone views, master form wrappers, master service files, shims
+- [x] Full serial `vitest run` + `tsc -b` + `eslint --max-warnings=0` green
+- [x] Live-API parity sweep green for all five catalogs
+- [x] Security Observation form regression green (its existing form + rules tests pass unmodified in behavior)
