@@ -491,22 +491,22 @@ namespace Genexus.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "North Plant (RNV)"
+                            Name = "Planta Norte (RNV)"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "South Plant (PLS)"
+                            Name = "Planta Sur (PLS)"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Central Plant (TSS)"
+                            Name = "Planta Central (TSS)"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Dock Plant (VQG)"
+                            Name = "Planta Muelle (VQG)"
                         });
                 });
 

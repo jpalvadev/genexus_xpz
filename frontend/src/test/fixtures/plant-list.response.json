@@ -3,19 +3,19 @@
   "data": [
     {
       "id": 1,
-      "name": "North Plant (RNV)"
+      "name": "Planta Norte (RNV)"
     },
     {
       "id": 2,
-      "name": "South Plant (PLS)"
+      "name": "Planta Sur (PLS)"
     },
     {
       "id": 3,
-      "name": "Central Plant (TSS)"
+      "name": "Planta Central (TSS)"
     },
     {
       "id": 4,
-      "name": "Dock Plant (VQG)"
+      "name": "Planta Muelle (VQG)"
     }
   ]
 }
