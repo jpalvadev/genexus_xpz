@@ -1,8 +1,9 @@
 namespace Itrion.Api.Features.SecurityObservations;
 
 /// <summary>
-/// The GeneXus <c>CheckRequiredFields</c> rules for SHYMA_OPS, in English (spec: backend enforces,
-/// frontend mirrors for UX). Returns the first rule the record breaks, the way the export's
+/// The GeneXus <c>CheckRequiredFields</c> rules for SHYMA_OPS, in Spanish (ADR-0005:
+/// visible copy is Spanish, contract stays English; backend enforces, frontend mirrors
+/// for UX). Returns the first rule the record breaks, the way the export's
 /// chained checks did.
 /// </summary>
 public static class SecurityObservationRules {
@@ -12,34 +13,34 @@ public static class SecurityObservationRules {
     public const int ObserversForwardsWindowDays = 1;
 
     public static string? FirstViolation(SecurityObservationRequest request, DateOnly today) {
-        if (IsBlank(request.Task)) return "Task is required";
-        if (request.PlantId <= 0) return "Plant is required";
-        if (request.SectorId <= 0) return "Sector is required";
-        if (IsBlank(request.Lugar)) return "Place is required";
+        if (IsBlank(request.Task)) return "La tarea es obligatoria";
+        if (request.PlantId <= 0) return "La planta es obligatoria";
+        if (request.SectorId <= 0) return "El sector es obligatorio";
+        if (IsBlank(request.Lugar)) return "El lugar es obligatorio";
 
         var observerIds = (request.Observers ?? []).Select(o => o.ObserverId).ToList();
-        if (observerIds.Count < MinObservers) return "At least one observer is required";
-        if (observerIds.Count > MaxObservers) return "The maximum number of observers is 10";
+        if (observerIds.Count < MinObservers) return "Se requiere al menos un observador";
+        if (observerIds.Count > MaxObservers) return "El máximo de observadores es 10";
         if (observerIds.Distinct().Count() != observerIds.Count)
-            return "The same observer cannot be named twice on one Security Observation";
+            return "El mismo observador no puede nombrarse dos veces en una Observación de Seguridad";
 
         if (SafetyReviewAnswers(request).Any(answer => answer is null))
-            return "Every Safety Review answer is required";
+            return "Todas las respuestas de la Revisión de Seguridad son obligatorias";
 
         foreach (var (label, values) in MultiSelects(request))
             if (values.Count == 0)
-                return $"At least one label is required for {label}";
+                return $"Se requiere al menos un label para {label}";
 
-        if (IsBlank(request.ResumenObservacion)) return "Summary is required";
-        if (IsBlank(request.DetalleAI)) return "Detailed Action is required";
-        if (IsBlank(request.DescripcionAC)) return "Immediate Action Description is required";
+        if (IsBlank(request.ResumenObservacion)) return "El resumen es obligatorio";
+        if (IsBlank(request.DetalleAI)) return "La acción detallada es obligatoria";
+        if (IsBlank(request.DescripcionAC)) return "La descripción de la acción inmediata es obligatoria";
 
         if (request.ObservationDate == default)
-            return "Observation Date is required";
+            return "La fecha de observación es obligatoria";
 
         var (min, max) = ObservationDateWindow(today);
         if (request.ObservationDate < min || request.ObservationDate > max)
-            return $"Observation Date must be between {min:yyyy-MM-dd} and {max:yyyy-MM-dd}";
+            return $"La fecha de observación debe estar entre {min:dd/MM/yyyy} y {max:dd/MM/yyyy}";
 
         return null;
     }
@@ -64,10 +65,10 @@ public static class SecurityObservationRules {
     ];
 
     private static IEnumerable<(string Label, List<string> Labels)> MultiSelects(SecurityObservationRequest request) => [
-        ("Risk Management", request.GestionRiesgo ?? []),
-        ("Fatal-Risk Protocols", request.ProtocolosMortales ?? []),
-        ("Observation Classification", request.ClasificacionObservacion ?? []),
-        ("Observation Relation", request.RelacionObservacion ?? []),
+        ("Gestión de Riesgo", request.GestionRiesgo ?? []),
+        ("Protocolos Mortales", request.ProtocolosMortales ?? []),
+        ("Clasificación de Observación", request.ClasificacionObservacion ?? []),
+        ("Relación de Observación", request.RelacionObservacion ?? []),
     ];
 
     private static bool IsBlank(string? value) => string.IsNullOrWhiteSpace(value);

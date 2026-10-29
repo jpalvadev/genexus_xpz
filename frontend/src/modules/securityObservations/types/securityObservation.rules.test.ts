@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 
 import type { SecurityObservationFormValues } from './securityObservation.type';
 import {
@@ -57,25 +57,25 @@ describe('securityObservationSchema (mirror de SecurityObservationRules)', () =>
 
     it('rechaza más de 10 observadores con el límite exacto', () => {
         const values = { ...validValues(), observers: Array.from({ length: 11 }, (_, i) => String(i + 1)) };
-        expect(messagesOf(values)).toContain(`The maximum number of observers is ${OBSERVERS_MAX}`);
+        expect(messagesOf(values)).toContain(`El máximo de observadores es ${OBSERVERS_MAX}`);
         expect(securityObservationSchema.safeParse({ ...validValues(), observers: Array.from({ length: 10 }, (_, i) => String(i + 1)) }).success).toBe(true);
     });
 
     it('rechaza el mismo observador repetido', () => {
         expect(messagesOf({ ...validValues(), observers: ['1', '1'] })).toContain(
-            'The same observer cannot be named twice on one Security Observation',
+            'El mismo observador no puede nombrarse dos veces en una Observación de Seguridad',
         );
     });
 
     it('exige todos los checkboxes de Safety Review respondidos', () => {
         const messages = messagesOf({ ...validValues(), trcRisk: null, energyReviewed: null });
-        expect(messages.filter((m: string) => m === 'Every Safety Review answer is required')).toHaveLength(2);
+        expect(messages.filter((m: string) => m === 'Todas las respuestas de la Revisión de Seguridad son obligatorias')).toHaveLength(2);
     });
 
     it('exige al menos una etiqueta por cada familia de combos', () => {
         const messages = messagesOf({ ...validValues(), protocolosMortales: [], relacionObservacion: [] });
-        expect(messages).toContain('At least one label is required for Fatal-Risk Protocols');
-        expect(messages).toContain('At least one label is required for Observation Relation');
+        expect(messages).toContain('Se requiere al menos un label para Protocolos Mortales');
+        expect(messages).toContain('Se requiere al menos un label para Relación de Observación');
     });
 
     it('exige resumen, acción detallada y descripción de acción inmediata', () => {
@@ -85,9 +85,9 @@ describe('securityObservationSchema (mirror de SecurityObservationRules)', () =>
             detalleAI: '   ',
             descripcionAC: '',
         });
-        expect(messages).toContain('Summary is required');
-        expect(messages).toContain('Detailed Action is required');
-        expect(messages).toContain('Immediate Action Description is required');
+        expect(messages).toContain('El resumen es obligatorio');
+        expect(messages).toContain('La acción detallada es obligatoria');
+        expect(messages).toContain('La descripción de la acción inmediata es obligatoria');
     });
 
     it('ventana de Fecha de Observación: [hoy-7, hoy+1] inclusive', () => {
@@ -95,21 +95,21 @@ describe('securityObservationSchema (mirror de SecurityObservationRules)', () =>
         expect(toIsoDate(min)).toBe(min);
 
         expect(messagesOf({ ...validValues(), observationDate: min })).not.toContain(
-            expect.stringMatching(/must be between/) as never,
+            expect.stringMatching(/debe estar entre/) as never,
         );
         expect(securityObservationSchema.safeParse({ ...validValues(), observationDate: min }).success).toBe(true);
         expect(securityObservationSchema.safeParse({ ...validValues(), observationDate: max }).success).toBe(true);
 
         const beforeMin = messagesOf({ ...validValues(), observationDate: '2020-01-01' });
-        expect(beforeMin).toContain(`Observation Date must be between ${min} and ${max}`);
+        expect(beforeMin).toContain(`La fecha de observación debe estar entre ${format(parseISO(min), 'dd/MM/yyyy')} y ${format(parseISO(max), 'dd/MM/yyyy')}`);
 
         const tomorrowPlus7 = format(new Date(new Date().getTime() + 8 * 86400000), 'yyyy-MM-dd');
         expect(messagesOf({ ...validValues(), observationDate: tomorrowPlus7 })).toContain(
-            `Observation Date must be between ${min} and ${max}`,
+            `La fecha de observación debe estar entre ${format(parseISO(min), 'dd/MM/yyyy')} y ${format(parseISO(max), 'dd/MM/yyyy')}`,
         );
 
         expect(messagesOf({ ...validValues(), observationDate: '' })).toContain(
-            'Observation Date is required',
+            'La fecha de observación es obligatoria',
         );
     });
 

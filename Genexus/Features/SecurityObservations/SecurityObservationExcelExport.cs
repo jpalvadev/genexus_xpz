@@ -6,13 +6,13 @@ public class SecurityObservationExcelExport {
     public static Task<byte[]> ExportAsync(IList<SecurityObservationResponse> data, byte[]? logoBytes = null) =>
         ExcelExporter.ExportAsync(
             data: data,
-            sheetName: "Security Observations",
-            title: "Security Observations Register",
+            sheetName: "Observaciones de Seguridad",
+            title: "Registro de Observaciones de Seguridad",
             headers: [
-                "Observation Date", "Created On", "Plant", "Sector", "Place", "Task",
-                "Contractor Company", "Observers", "Risk Management", "Fatal-Risk Protocols",
-                "Classification", "Relation", "Critical Controls", "Summary",
-                "Detailed Action", "Immediate Action",
+                "Fecha de Observación", "Creado El", "Planta", "Sector", "Lugar", "Tarea",
+                "Empresa Contratista", "Observadores", "Gestión de Riesgo", "Protocolos Mortales",
+                "Clasificación", "Relación", "Controles Críticos", "Resumen",
+                "Acción Detallada", "Acción Inmediata",
             ],
             documentMetadata: ["CODE: SHYMA-OPS", "VERSION: 01", "DATE: 2026"],
             mapRow: item =>

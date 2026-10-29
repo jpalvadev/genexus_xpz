@@ -11,6 +11,7 @@ import type { FormMode } from '@/types/FormMode.type';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';
 import { toast } from 'sonner';
+import { format, parseISO } from 'date-fns';
 import { useMemo } from 'react';
 import type { AxiosError } from 'axios';
 import extractErrors from '@/utils/extractErrors';
@@ -35,8 +36,8 @@ type SecurityObservationFormProps = {
     mode: FormMode;
 };
 
-/** Spanish labels for the combo MultiSelect fields; the English rule label is shown
- *  beside it so validation messages ("At least one label is required for …") read true. */
+/** Field labels for the combo MultiSelects; they match the Spanish rule labels used
+ *  verbatim in "Se requiere al menos un label para …" messages. */
 const COMBO_FIELD_LABELS: Record<keyof typeof MULTI_SELECT_LABELS, string> = {
     gestionRiesgo: 'Gestión de Riesgo',
     protocolosMortales: 'Protocolos Mortales',
@@ -124,7 +125,7 @@ export default function SecurityObservationForm({
             label: 'Fecha de Observación',
             formField: 'date',
             colSpan: 6,
-            description: `Rango permitido: ${min} a ${max}`,
+            description: `Rango permitido: ${format(parseISO(min), 'dd/MM/yyyy')} a ${format(parseISO(max), 'dd/MM/yyyy')}`,
         },
         {
             name: 'plantId',
@@ -187,7 +188,7 @@ export default function SecurityObservationForm({
 
         {
             name: 'sepSafety',
-            label: 'Safety Review',
+            label: 'Revisión de Seguridad',
             formField: 'separator',
             colSpan: 12,
             description: 'Todas las preguntas deben responderse (Sí/No)',
@@ -199,12 +200,12 @@ export default function SecurityObservationForm({
             colSpan: 4,
         })),
 
-        { name: 'sepLabels', label: 'Labels', formField: 'separator', colSpan: 12 } as unknown as FieldConfig<SecurityObservationFormValues>,
+        { name: 'sepLabels', label: 'Campos de Selección', formField: 'separator', colSpan: 12 } as unknown as FieldConfig<SecurityObservationFormValues>,
         ...(
             Object.keys(MULTI_SELECT_LABELS) as (keyof typeof MULTI_SELECT_LABELS)[]
         ).map((key) => ({
             name: key,
-            label: `${COMBO_FIELD_LABELS[key]} (${MULTI_SELECT_LABELS[key]})`,
+            label: COMBO_FIELD_LABELS[key],
             formField: 'multi-select' as const,
             colSpan: 6,
             children: (
