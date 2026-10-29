@@ -1,71 +1,37 @@
 using Gridify;
 using Itrion.Api.Common;
+using Itrion.Api.Common.MasterCrud;
 using Itrion.Api.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Itrion.Api.Features.Plants;
 
+/// <summary>
+/// Plants' MasterCrud adapter (ADR-0004): the thin class crossing the unchanged
+/// IPlantService seam onto the shared module. The adapter is config — entity set,
+/// default order, Id+Name projection, validation copy, conflict copy — and nothing
+/// that is not Plants-specific.
+/// </summary>
 public class PlantService(ItrionDbContext db) : IPlantService {
 
-    private readonly ItrionDbContext _db = db;
+    private static readonly MasterCrudConfig<Plant, PlantRequest, PlantResponse> Adapter = new() {
+        Set = db => db.Plants,
+        DefaultOrder = "name asc",
+        ToResponse = e => new PlantResponse(e.Id, e.Name),
+        NewEntity = r => new Plant { Name = r.Name },
+        ApplyRequest = (e, r) => e.Name = r.Name,
+        Validation = r => string.IsNullOrWhiteSpace(r.Name) ? "Name is required" : null,
+        ConflictMessage = "Plant is referenced by security observations and cannot be deleted",
+    };
 
-    public async Task<Paging<PlantResponse>> GetAllAsync(GridifyQuery query) {
-        var page = query.Page < 1 ? 1 : query.Page;
-        var size = query.PageSize < 1 ? 20 : query.PageSize;
+    private readonly MasterCrud<Plant, PlantRequest, PlantResponse> _crud = new(db, Adapter);
 
-        var q = _db.Plants.AsNoTracking()
-            .ApplyFiltering(query.Filter)
-            .ApplyOrdering(string.IsNullOrWhiteSpace(query.OrderBy) ? "name asc" : query.OrderBy);
+    public Task<Paging<PlantResponse>> GetAllAsync(GridifyQuery query) => _crud.GetAllAsync(query);
 
-        var count = await q.CountAsync();
-        var items = await q.Skip((page - 1) * size).Take(size).ToListAsync();
+    public Task<PlantResponse?> GetByIdAsync(int id) => _crud.GetByIdAsync(id);
 
-        return new Paging<PlantResponse> {
-            Count = count,
-            Data = items.Select(e => new PlantResponse(e.Id, e.Name)).ToList()
-        };
-    }
+    public Task<PlantResponse> CreateAsync(PlantRequest request) => _crud.CreateAsync(request);
 
-    public async Task<PlantResponse?> GetByIdAsync(int id) {
-        var entity = await _db.Plants.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
-        return entity is null ? null : new PlantResponse(entity.Id, entity.Name);
-    }
+    public Task<PlantResponse?> UpdateAsync(int id, PlantRequest request) => _crud.UpdateAsync(id, request);
 
-    public async Task<PlantResponse> CreateAsync(PlantRequest request) {
-        if (string.IsNullOrWhiteSpace(request.Name)) {
-            throw new ValidationException("Name is required");
-        }
-        var entity = new Plant { Name = request.Name };
-        _db.Plants.Add(entity);
-        await _db.SaveChangesAsync();
-        return new PlantResponse(entity.Id, entity.Name);
-    }
-
-    public async Task<PlantResponse?> UpdateAsync(int id, PlantRequest request) {
-        if (string.IsNullOrWhiteSpace(request.Name)) {
-            throw new ValidationException("Name is required");
-        }
-        var entity = await _db.Plants.FirstOrDefaultAsync(e => e.Id == id);
-        if (entity is null) {
-            return null;
-        }
-        entity.Name = request.Name;
-        await _db.SaveChangesAsync();
-        return new PlantResponse(entity.Id, entity.Name);
-    }
-
-    public async Task<bool> DeleteByIdAsync(int id) {
-        var entity = await _db.Plants.FirstOrDefaultAsync(e => e.Id == id);
-        if (entity is null) {
-            return false;
-        }
-        _db.Plants.Remove(entity);
-        try {
-            await _db.SaveChangesAsync();
-        } catch (DbUpdateException) {
-            throw new ConflictException("Plant is referenced by security observations and cannot be deleted");
-        }
-        return true;
-    }
-
+    public Task<bool> DeleteByIdAsync(int id) => _crud.DeleteByIdAsync(id);
 }
