@@ -30,10 +30,10 @@ public static class SeedData {
 
     private static void SeedSectors(Microsoft.EntityFrameworkCore.ModelBuilder modelBuilder) =>
         modelBuilder.Entity<Sector>().HasData(
-            new { Id = 1, Name = "Preventive Security" },
-            new { Id = 2, Name = "Access Control" },
-            new { Id = 3, Name = "Patrol and Surveillance" },
-            new { Id = 4, Name = "Emergency Response" }
+            new { Id = 1, Name = "Seguridad Preventiva" },
+            new { Id = 2, Name = "Control de Acceso" },
+            new { Id = 3, Name = "Ronda y Vigilancia" },
+            new { Id = 4, Name = "Respuesta a Emergencias" }
         );
 
     private static void SeedContractorCompanies(Microsoft.EntityFrameworkCore.ModelBuilder modelBuilder) =>

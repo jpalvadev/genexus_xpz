@@ -25,7 +25,7 @@ public class SectorsController(ISectorService service) : MasterCrudControllerBas
 
     protected override Task<bool> DeleteAsync(int id) => _service.DeleteByIdAsync(id);
 
-    protected override string NotFoundMessage => "Sector not found";
+    protected override string NotFoundMessage => "Sector no encontrado";
 
     protected override int IdOf(SectorResponse response) => response.Id;
 

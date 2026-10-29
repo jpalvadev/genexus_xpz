@@ -56,9 +56,17 @@ order_for() {
 # Conflict copy per master (verbatim backend copy strings).
 conflict_copy_for() {
   case "$1" in
-    sectors) echo 'Sector is referenced by security observations and cannot be deleted' ;;
+    sectors) echo 'El sector está referenciado por observaciones de seguridad y no puede eliminarse' ;;
     plants) echo 'Plant is referenced by security observations and cannot be deleted' ;;
     contractor-companies) echo 'ContractorCompany is referenced by security observations and cannot be deleted' ;;
+  esac
+}
+
+# Blank-name validation copy per master (verbatim backend copy strings).
+validation_copy_for() {
+  case "$1" in
+    sectors) echo 'Nombre es obligatorio' ;;
+    *) echo 'Name is required' ;;
   esac
 }
 
@@ -129,7 +137,7 @@ for R in $RESOURCES; do
   # Shared semantics the MasterCrud module owns (ticket 01 pins):
   # 404 get-by-id copy.
   case "$R" in
-    sectors) NOT_FOUND="Sector not found" ;;
+    sectors) NOT_FOUND="Sector no encontrado" ;;
     plants) NOT_FOUND="Plant not found" ;;
     contractor-companies) NOT_FOUND="ContractorCompany not found" ;;
   esac
@@ -137,7 +145,7 @@ for R in $RESOURCES; do
   copy "not-found copy" "$NOT_FOUND"
   # 400 validation copy (blank required field).
   check "blank-name 400" 400 POST "$BASE/$R" "$REQ_BLANK"
-  copy "blank-name 400" "Name is required"
+  copy "blank-name 400" "$(validation_copy_for "$R")"
   # 409 FK-conflict: delete a record a fresh in-script Security Observation references.
   CONF_COPY=$(conflict_copy_for "$R")
   REF_ID=$(create POST "$BASE/$R" "$REQ_REF")

@@ -19,8 +19,8 @@ public class SectorService(ItrionDbContext db) : ISectorService {
         ToResponse = e => new SectorResponse(e.Id, e.Name),
         NewEntity = r => new Sector { Name = r.Name },
         ApplyRequest = (e, r) => e.Name = r.Name,
-        Validation = r => string.IsNullOrWhiteSpace(r.Name) ? "Name is required" : null,
-        ConflictMessage = "Sector is referenced by security observations and cannot be deleted",
+        Validation = r => string.IsNullOrWhiteSpace(r.Name) ? "Nombre es obligatorio" : null,
+        ConflictMessage = "El sector está referenciado por observaciones de seguridad y no puede eliminarse",
     };
 
     private readonly MasterCrud<Sector, SectorRequest, SectorResponse> _crud = new(db, Adapter);

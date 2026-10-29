@@ -136,7 +136,7 @@ describe('SecurityObservationForm', () => {
         await user.click(screen.getByRole('combobox', { name: 'Planta' }));
         await user.click(await screen.findByRole('option', { name: 'North Plant (RNV)' }));
         await user.click(screen.getByRole('combobox', { name: 'Sector' }));
-        await user.click(await screen.findByRole('option', { name: 'Access Control' }));
+        await user.click(await screen.findByRole('option', { name: 'Control de Acceso' }));
         await user.click(screen.getByRole('combobox', { name: 'Empresa Contratista' }));
         await user.click(await screen.findByRole('option', { name: 'Apex Facility Protection' }));
 

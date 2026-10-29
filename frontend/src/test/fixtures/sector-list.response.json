@@ -3,19 +3,19 @@
   "data": [
     {
       "id": 1,
-      "name": "Preventive Security"
+      "name": "Seguridad Preventiva"
     },
     {
       "id": 2,
-      "name": "Access Control"
+      "name": "Control de Acceso"
     },
     {
       "id": 3,
-      "name": "Patrol and Surveillance"
+      "name": "Ronda y Vigilancia"
     },
     {
       "id": 4,
-      "name": "Emergency Response"
+      "name": "Respuesta a Emergencias"
     }
   ]
 }
