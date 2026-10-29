@@ -37,7 +37,7 @@ public class EquipmentItemService(ItrionDbContext db) : IEquipmentItemService {
             return false;
         }
         if (!Enum.IsDefined(typeof(EquipmentItemStatus), status)) {
-            throw new ValidationException("Invalid equipment item status");
+            throw new ValidationException("Estado de ítem de equipo inválido");
         }
         entity.Status = (EquipmentItemStatus)status;
         await _db.SaveChangesAsync();
@@ -51,7 +51,7 @@ public class EquipmentItemService(ItrionDbContext db) : IEquipmentItemService {
 
     public async Task<EquipmentItemResponse> CreateAsync(EquipmentItemRequest request) {
         if (string.IsNullOrWhiteSpace(request.Name)) {
-            throw new ValidationException("Name is required");
+            throw new ValidationException("Nombre es obligatorio");
         }
         var entity = new EquipmentItem { Name = request.Name, Code = request.Code, Status = (EquipmentItemStatus)request.Status };
         _db.EquipmentItems.Add(entity);
@@ -61,7 +61,7 @@ public class EquipmentItemService(ItrionDbContext db) : IEquipmentItemService {
 
     public async Task<EquipmentItemResponse?> UpdateAsync(int id, EquipmentItemRequest request) {
         if (string.IsNullOrWhiteSpace(request.Name)) {
-            throw new ValidationException("Name is required");
+            throw new ValidationException("Nombre es obligatorio");
         }
         var entity = await _db.EquipmentItems.FirstOrDefaultAsync(e => e.Id == id);
         if (entity is null) {
@@ -83,7 +83,7 @@ public class EquipmentItemService(ItrionDbContext db) : IEquipmentItemService {
         try {
             await _db.SaveChangesAsync();
         } catch (DbUpdateException) {
-            throw new ConflictException("Equipment item is referenced by equipment maintenances and cannot be deleted");
+            throw new ConflictException("El ítem de equipo está referenciado por mantenimientos de equipos y no puede eliminarse");
         }
         return true;
     }

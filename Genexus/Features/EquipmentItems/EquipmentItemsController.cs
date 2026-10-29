@@ -23,7 +23,7 @@ public class EquipmentItemsController(IEquipmentItemService service) : Controlle
     [HttpPatch("{id:int}/status")]
     public async Task<IActionResult> UpdateStatus(int id, [FromBody] int status) {
         if (!await _service.UpdateStatusAsync(id, status)) {
-            return NotFound(new ErrorResponse("EquipmentItem not found"));
+            return NotFound(new ErrorResponse("Ítem de equipo no encontrado"));
         }
         return NoContent();
     }
@@ -32,7 +32,7 @@ public class EquipmentItemsController(IEquipmentItemService service) : Controlle
     public async Task<ActionResult<EquipmentItemResponse>> GetById(int id) {
         var response = await _service.GetByIdAsync(id);
         if (response is null) {
-            return NotFound(new ErrorResponse("EquipmentItem not found"));
+            return NotFound(new ErrorResponse("Ítem de equipo no encontrado"));
         }
         return Ok(response);
     }

@@ -38,7 +38,7 @@ public class PersonService(ItrionDbContext db) : IPersonService {
 
     public async Task<PersonResponse> CreateAsync(PersonRequest request) {
         if (string.IsNullOrWhiteSpace(request.FirstName) || string.IsNullOrWhiteSpace(request.LastName)) {
-            throw new ValidationException("FirstName and LastName are required");
+            throw new ValidationException("Nombre y apellido son obligatorios");
         }
         var entity = new Person { FirstName = request.FirstName, LastName = request.LastName, Dni = request.Dni, Email = request.Email };
         _db.Persons.Add(entity);
@@ -48,7 +48,7 @@ public class PersonService(ItrionDbContext db) : IPersonService {
 
     public async Task<PersonResponse?> UpdateAsync(int id, PersonRequest request) {
         if (string.IsNullOrWhiteSpace(request.FirstName) || string.IsNullOrWhiteSpace(request.LastName)) {
-            throw new ValidationException("FirstName and LastName are required");
+            throw new ValidationException("Nombre y apellido son obligatorios");
         }
         var entity = await _db.Persons.FirstOrDefaultAsync(e => e.Id == id);
         if (entity is null) {
@@ -71,7 +71,7 @@ public class PersonService(ItrionDbContext db) : IPersonService {
         try {
             await _db.SaveChangesAsync();
         } catch (DbUpdateException) {
-            throw new ConflictException("Person is referenced by equipment maintenances and cannot be deleted");
+            throw new ConflictException("La persona está referenciada por mantenimientos de equipos y no puede eliminarse");
         }
         return true;
     }
