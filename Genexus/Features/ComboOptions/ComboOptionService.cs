@@ -1,78 +1,47 @@
 using Itrion.Api.Common;
-using Microsoft.EntityFrameworkCore;
+using Itrion.Api.Common.MasterCrud;
 using Itrion.Api.Models;
 
 namespace Itrion.Api.Features.ComboOptions;
 
+/// <summary>
+/// Combo Options' MasterCrud adapter (ADR-0004): the thin class crossing the unchanged
+/// IComboOptionService seam onto the shared module. The catalog's quirks are adapter
+/// config — flat-catalogue order (ComboKey → Order → Id), the comboKey-scoped feed,
+/// the Id+ComboKey+Label+Order projection, the two-field validation copies and the
+/// conflict copy. No per-entity branch in the module.
+/// </summary>
 public class ComboOptionService(ItrionDbContext db) : IComboOptionService {
 
-    private readonly ItrionDbContext _db = db;
+    private static readonly MasterCrudConfig<ComboOption, ComboOptionRequest, ComboOptionResponse> Adapter = new() {
+        Set = db => db.ComboOptions,
+        DefaultOrder = "comboKey asc", // no gridify consumer today; adapter-required field
+        ToResponse = c => new ComboOptionResponse(c.Id, c.ComboKey, c.Label, c.Order),
+        NewEntity = r => new ComboOption { ComboKey = r.ComboKey, Label = r.Label, Order = r.Order },
+        ApplyRequest = (c, r) => {
+            c.ComboKey = r.ComboKey;
+            c.Label = r.Label;
+            c.Order = r.Order;
+        },
+        Validation = r => string.IsNullOrWhiteSpace(r.ComboKey) ? "ComboKey is required"
+            : string.IsNullOrWhiteSpace(r.Label) ? "Label is required"
+            : null,
+        ConflictMessage = "Combo option is referenced by security observations and cannot be deleted",
+        FlatOrder = q => q.OrderBy(c => c.ComboKey).ThenBy(c => c.Order).ThenBy(c => c.Id),
+        KeyFeed = (q, key) => q.Where(c => c.ComboKey == key).OrderBy(c => c.Order).ThenBy(c => c.Id),
+    };
 
-    public async Task<List<ComboOptionResponse>> GetAllAsync() {
-        var items = await _db.ComboOptions.AsNoTracking()
-            .OrderBy(c => c.ComboKey).ThenBy(c => c.Order).ThenBy(c => c.Id)
-            .ToListAsync();
-        return items.Select(ToResponse).ToList();
-    }
+    private readonly MasterCrud<ComboOption, ComboOptionRequest, ComboOptionResponse> _crud = new(db, Adapter);
 
-    public async Task<List<ComboOptionResponse>> GetByKeyAsync(string comboKey) {
-        var items = await _db.ComboOptions.AsNoTracking()
-            .Where(c => c.ComboKey == comboKey)
-            .OrderBy(c => c.Order).ThenBy(c => c.Id)
-            .ToListAsync();
-        return items.Select(ToResponse).ToList();
-    }
+    public Task<List<ComboOptionResponse>> GetAllAsync() => _crud.GetFlatAsync();
 
-    public async Task<ComboOptionResponse?> GetByIdAsync(int id) {
-        var entity = await _db.ComboOptions.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
-        return entity is null ? null : ToResponse(entity);
-    }
+    public Task<List<ComboOptionResponse>> GetByKeyAsync(string comboKey) => _crud.GetByKeyAsync(comboKey);
 
-    public async Task<ComboOptionResponse> CreateAsync(ComboOptionRequest request) {
-        Validate(request);
-        var entity = new ComboOption { ComboKey = request.ComboKey, Label = request.Label, Order = request.Order };
-        _db.ComboOptions.Add(entity);
-        await _db.SaveChangesAsync();
-        return ToResponse(entity);
-    }
+    public Task<ComboOptionResponse?> GetByIdAsync(int id) => _crud.GetByIdAsync(id);
 
-    public async Task<ComboOptionResponse?> UpdateAsync(int id, ComboOptionRequest request) {
-        Validate(request);
-        var entity = await _db.ComboOptions.FirstOrDefaultAsync(c => c.Id == id);
-        if (entity is null) {
-            return null;
-        }
-        entity.ComboKey = request.ComboKey;
-        entity.Label = request.Label;
-        entity.Order = request.Order;
-        await _db.SaveChangesAsync();
-        return ToResponse(entity);
-    }
+    public Task<ComboOptionResponse> CreateAsync(ComboOptionRequest request) => _crud.CreateAsync(request);
 
-    public async Task<bool> DeleteByIdAsync(int id) {
-        var entity = await _db.ComboOptions.FirstOrDefaultAsync(c => c.Id == id);
-        if (entity is null) {
-            return false;
-        }
-        _db.ComboOptions.Remove(entity);
-        try {
-            await _db.SaveChangesAsync();
-        } catch (DbUpdateException) {
-            throw new ConflictException("Combo option is referenced by security observations and cannot be deleted");
-        }
-        return true;
-    }
+    public Task<ComboOptionResponse?> UpdateAsync(int id, ComboOptionRequest request) => _crud.UpdateAsync(id, request);
 
-    private static void Validate(ComboOptionRequest request) {
-        if (string.IsNullOrWhiteSpace(request.ComboKey)) {
-            throw new ValidationException("ComboKey is required");
-        }
-        if (string.IsNullOrWhiteSpace(request.Label)) {
-            throw new ValidationException("Label is required");
-        }
-    }
-
-    private static ComboOptionResponse ToResponse(ComboOption c) =>
-        new(c.Id, c.ComboKey, c.Label, c.Order);
-
+    public Task<bool> DeleteByIdAsync(int id) => _crud.DeleteByIdAsync(id);
 }
