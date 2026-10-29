@@ -17,7 +17,7 @@ import SecurityObservationForm from './SecurityObservationForm';
 import { securityObservationService } from '../services/securityObservation.service';
 import { plantService } from '@/modules/plants/plant.config';
 import { sectorService } from '@/modules/sectors/sector.config';
-import { contractorCompanyService } from '@/modules/contractorCompanies/services/contractorCompany.service';
+import { contractorCompanyService } from '@/modules/contractorCompanies/contractorCompanies.config';
 import { comboOptionService } from '@/modules/comboOptions/services/comboOption.service';
 
 vi.mock('../services/securityObservation.service', () => ({
@@ -36,9 +36,13 @@ vi.mock(import('@/modules/sectors/sector.config'), async (importOriginal) => {
     const real = await importOriginal();
     return { ...real, sectorService: { ...real.sectorService, getAll: vi.fn(async () => fixtureSectors) } };
 });
-vi.mock('@/modules/contractorCompanies/services/contractorCompany.service', () => ({
-    contractorCompanyService: { getAll: vi.fn(async () => fixtureCompanies) },
-}));
+vi.mock(import('@/modules/contractorCompanies/contractorCompanies.config'), async (importOriginal) => {
+    const real = await importOriginal();
+    return {
+        ...real,
+        contractorCompanyService: { ...real.contractorCompanyService, getAll: vi.fn(async () => fixtureCompanies) },
+    };
+});
 vi.mock('@/modules/comboOptions/services/comboOption.service', () => ({
     comboOptionService: {
         getAll: vi.fn(async () => fixtureComboOptions),

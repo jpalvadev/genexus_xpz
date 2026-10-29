@@ -4,7 +4,7 @@ import { SelectItem } from '@/components/ui/select';
 import { MultiSelectItems } from '@/components/form/FormMultiSelect';
 import { plantService } from '@/modules/plants/plant.config';
 import { sectorService } from '@/modules/sectors/sector.config';
-import { contractorCompanyService } from '@/modules/contractorCompanies/services/contractorCompany.service';
+import { contractorCompanyService } from '@/modules/contractorCompanies/contractorCompanies.config';
 import { comboOptionService } from '@/modules/comboOptions/services/comboOption.service';
 import { observerService } from '@/modules/observers/services/observer.service';
 import type { FormMode } from '@/types/FormMode.type';

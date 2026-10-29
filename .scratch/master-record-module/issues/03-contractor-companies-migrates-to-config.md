@@ -9,10 +9,10 @@ test pins heading, columns, resource path, and default order. Spanish copy verba
 
 **Blocked by:** 01 (Sectors pilot)
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] Contractor Companies config per spec shape
-- [ ] Clones and shim deleted; grid/create/edit/delete behave as before
-- [ ] Smoke test green through the MSW seam
-- [ ] Security Observation form's optional-Company dropdown behaves identically (leave-off allowed per GLOSSARY.md)
-- [ ] Gates green: `tsc -b`, `eslint --max-warnings=0`, serial `vitest run`
+- [x] Contractor Companies config per spec shape
+- [x] Clones and shim deleted; grid/create/edit/delete behave as before
+- [x] Smoke test green through the MSW seam
+- [x] Security Observation form's optional-Company dropdown behaves identically (leave-off allowed per GLOSSARY.md)
+- [x] Gates green: `tsc -b`, `eslint --max-warnings=0`, serial `vitest run`
