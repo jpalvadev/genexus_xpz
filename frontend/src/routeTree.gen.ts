@@ -9,1678 +9,578 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AuthRouteImport } from './routes/_auth'
-import { Route as ChangePasswordRouteImport } from './routes/change-password'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as AuthIndexRouteImport } from './routes/_auth/index'
-import { Route as AuthAboutRouteImport } from './routes/_auth/about'
-import { Route as AuthCleaningIndexRouteImport } from './routes/_auth/cleaning/index'
-import { Route as AuthDevicesIndexRouteImport } from './routes/_auth/devices/index'
-import { Route as AuthElementsIndexRouteImport } from './routes/_auth/elements/index'
-import { Route as AuthElementsNewRouteImport } from './routes/_auth/elements/new'
-import { Route as AuthEquipmentItemsIndexRouteImport } from './routes/_auth/equipmentItems/index'
-import { Route as AuthEquipmentItemsNewRouteImport } from './routes/_auth/equipmentItems/new'
-import { Route as AuthEquipmentMaintenancesIndexRouteImport } from './routes/_auth/equipmentMaintenances/index'
-import { Route as AuthEquipmentMaintenancesNewRouteImport } from './routes/_auth/equipmentMaintenances/new'
-import { Route as AuthExpirationsIndexRouteImport } from './routes/_auth/expirations/index'
-import { Route as AuthExpirationsNewRouteImport } from './routes/_auth/expirations/new'
-import { Route as AuthFormsIndexRouteImport } from './routes/_auth/forms/index'
-import { Route as AuthFormsNewRouteImport } from './routes/_auth/forms/new'
-import { Route as AuthModulesIndexRouteImport } from './routes/_auth/modules/index'
-import { Route as AuthModulesNewRouteImport } from './routes/_auth/modules/new'
-import { Route as AuthPersonsIndexRouteImport } from './routes/_auth/persons/index'
-import { Route as AuthPersonsNewRouteImport } from './routes/_auth/persons/new'
-import { Route as AuthProfileIndexRouteImport } from './routes/_auth/profile/index'
-import { Route as AuthProfileChangePasswordRouteImport } from './routes/_auth/profile/change-password'
-import { Route as AuthReadingsIndexRouteImport } from './routes/_auth/readings/index'
-import { Route as AuthReadingsChartsRouteImport } from './routes/_auth/readings/charts'
-import { Route as AuthRolesIndexRouteImport } from './routes/_auth/roles/index'
-import { Route as AuthRolesNewRouteImport } from './routes/_auth/roles/new'
-import { Route as AuthScopesIndexRouteImport } from './routes/_auth/scopes/index'
-import { Route as AuthScopesNewRouteImport } from './routes/_auth/scopes/new'
-import { Route as AuthSectorsIndexRouteImport } from './routes/_auth/sectors/index'
-import { Route as AuthSectorsNewRouteImport } from './routes/_auth/sectors/new'
-import { Route as AuthTenantsIndexRouteImport } from './routes/_auth/tenants/index'
-import { Route as AuthTenantsNewRouteImport } from './routes/_auth/tenants/new'
-import { Route as AuthUsersIndexRouteImport } from './routes/_auth/users/index'
-import { Route as AuthUsersNewRouteImport } from './routes/_auth/users/new'
-import { Route as AuthDevicesIdIndexRouteImport } from './routes/_auth/devices/$id/index'
-import { Route as AuthDevicesIdEditRouteImport } from './routes/_auth/devices/$id/edit'
-import { Route as AuthElementsIdEditRouteImport } from './routes/_auth/elements/$id/edit'
-import { Route as AuthEquipmentItemsIdIndexRouteImport } from './routes/_auth/equipmentItems/$id/index'
-import { Route as AuthEquipmentItemsIdEditRouteImport } from './routes/_auth/equipmentItems/$id/edit'
-import { Route as AuthEquipmentMaintenancesIdIndexRouteImport } from './routes/_auth/equipmentMaintenances/$id/index'
-import { Route as AuthEquipmentMaintenancesIdEditRouteImport } from './routes/_auth/equipmentMaintenances/$id/edit'
-import { Route as AuthExpirationsIdIndexRouteImport } from './routes/_auth/expirations/$id/index'
-import { Route as AuthExpirationsIdEditRouteImport } from './routes/_auth/expirations/$id/edit'
-import { Route as AuthFormsIdEditRouteImport } from './routes/_auth/forms/$id/edit'
-import { Route as AuthFormsIdFillRouteImport } from './routes/_auth/forms/$id/fill'
-import { Route as AuthInventoryBatchesIndexRouteImport } from './routes/_auth/inventory/batches/index'
-import { Route as AuthInventoryBatchesNewRouteImport } from './routes/_auth/inventory/batches/new'
-import { Route as AuthInventoryItemsIndexRouteImport } from './routes/_auth/inventory/items/index'
-import { Route as AuthInventoryItemsNewRouteImport } from './routes/_auth/inventory/items/new'
-import { Route as AuthModulesIdIndexRouteImport } from './routes/_auth/modules/$id/index'
-import { Route as AuthModulesIdEditRouteImport } from './routes/_auth/modules/$id/edit'
-import { Route as AuthPersonsIdIndexRouteImport } from './routes/_auth/persons/$id/index'
-import { Route as AuthPersonsIdEditRouteImport } from './routes/_auth/persons/$id/edit'
-import { Route as AuthRolesIdIndexRouteImport } from './routes/_auth/roles/$id/index'
-import { Route as AuthRolesIdEditRouteImport } from './routes/_auth/roles/$id/edit'
-import { Route as AuthScopesIdIndexRouteImport } from './routes/_auth/scopes/$id/index'
-import { Route as AuthScopesIdEditRouteImport } from './routes/_auth/scopes/$id/edit'
-import { Route as AuthSectorsIdIndexRouteImport } from './routes/_auth/sectors/$id/index'
-import { Route as AuthSectorsIdEditRouteImport } from './routes/_auth/sectors/$id/edit'
-import { Route as AuthSectorsIdPrintRouteImport } from './routes/_auth/sectors/$id/print'
-import { Route as AuthTenantsIdIndexRouteImport } from './routes/_auth/tenants/$id/index'
-import { Route as AuthTenantsIdEditRouteImport } from './routes/_auth/tenants/$id/edit'
-import { Route as AuthUsersIdIndexRouteImport } from './routes/_auth/users/$id/index'
-import { Route as AuthUsersIdEditRouteImport } from './routes/_auth/users/$id/edit'
-import { Route as AuthFormsIdSubmissionsIndexRouteImport } from './routes/_auth/forms/$id/submissions/index'
-import { Route as AuthInventoryBatchesIdIndexRouteImport } from './routes/_auth/inventory/batches/$id/index'
-import { Route as AuthInventoryBatchesIdMovementRouteImport } from './routes/_auth/inventory/batches/$id/movement'
-import { Route as AuthInventoryBatchesIdTransferRouteImport } from './routes/_auth/inventory/batches/$id/transfer'
-import { Route as AuthInventoryItemsIdIndexRouteImport } from './routes/_auth/inventory/items/$id/index'
-import { Route as AuthInventoryItemsIdEditRouteImport } from './routes/_auth/inventory/items/$id/edit'
-import { Route as AuthSectorsIdCleaningIndexRouteImport } from './routes/_auth/sectors/$id/cleaning/index'
-import { Route as AuthFormsIdSubmissionsSubmissionIdIndexRouteImport } from './routes/_auth/forms/$id/submissions/$submissionId/index'
-import { Route as AuthFormsIdSubmissionsSubmissionIdEmailRouteImport } from './routes/_auth/forms/$id/submissions/$submissionId/email'
-import { Route as AuthSectorsIdCleaningExecuteElementIdRouteImport } from './routes/_auth/sectors/$id/cleaning/execute/$elementId'
-import { Route as AuthSectorsIdCleaningVerifyExecutionIdRouteImport } from './routes/_auth/sectors/$id/cleaning/verify/$executionId'
-import { Route as AuthSectorsIdCleaningVoidExecutionIdRouteImport } from './routes/_auth/sectors/$id/cleaning/void/$executionId'
+import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
+import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
+import { Route as LayoutComboOptionsIndexRouteImport } from './routes/_layout/comboOptions/index'
+import { Route as LayoutComboOptionsNewRouteImport } from './routes/_layout/comboOptions/new'
+import { Route as LayoutContractorCompaniesIndexRouteImport } from './routes/_layout/contractorCompanies/index'
+import { Route as LayoutContractorCompaniesNewRouteImport } from './routes/_layout/contractorCompanies/new'
+import { Route as LayoutEquipmentMaintenancesIndexRouteImport } from './routes/_layout/equipmentMaintenances/index'
+import { Route as LayoutEquipmentMaintenancesNewRouteImport } from './routes/_layout/equipmentMaintenances/new'
+import { Route as LayoutObserversIndexRouteImport } from './routes/_layout/observers/index'
+import { Route as LayoutObserversNewRouteImport } from './routes/_layout/observers/new'
+import { Route as LayoutPlantsIndexRouteImport } from './routes/_layout/plants/index'
+import { Route as LayoutPlantsNewRouteImport } from './routes/_layout/plants/new'
+import { Route as LayoutSectorsIndexRouteImport } from './routes/_layout/sectors/index'
+import { Route as LayoutSectorsNewRouteImport } from './routes/_layout/sectors/new'
+import { Route as LayoutSecurityObservationsIndexRouteImport } from './routes/_layout/securityObservations/index'
+import { Route as LayoutSecurityObservationsNewRouteImport } from './routes/_layout/securityObservations/new'
+import { Route as LayoutComboOptionsIdEditRouteImport } from './routes/_layout/comboOptions/$id/edit'
+import { Route as LayoutContractorCompaniesIdEditRouteImport } from './routes/_layout/contractorCompanies/$id/edit'
+import { Route as LayoutEquipmentMaintenancesIdIndexRouteImport } from './routes/_layout/equipmentMaintenances/$id/index'
+import { Route as LayoutEquipmentMaintenancesEditLegajoRouteImport } from './routes/_layout/equipmentMaintenances/edit.$legajo'
+import { Route as LayoutObserversIdEditRouteImport } from './routes/_layout/observers/$id/edit'
+import { Route as LayoutPlantsIdEditRouteImport } from './routes/_layout/plants/$id/edit'
+import { Route as LayoutSectorsIdEditRouteImport } from './routes/_layout/sectors/$id/edit'
+import { Route as LayoutSecurityObservationsIdIndexRouteImport } from './routes/_layout/securityObservations/$id/index'
+import { Route as LayoutSecurityObservationsIdEditRouteImport } from './routes/_layout/securityObservations/$id/edit'
 
-const AuthRoute = AuthRouteImport.update({
-  id: '/_auth',
+const LayoutRouteRoute = LayoutRouteRouteImport.update({
+  id: '/_layout',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ChangePasswordRoute = ChangePasswordRouteImport.update({
-  id: '/change-password',
-  path: '/change-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthIndexRoute = AuthIndexRouteImport.update({
+const LayoutIndexRoute = LayoutIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AuthRoute,
+  getParentRoute: () => LayoutRouteRoute,
 } as any)
-const AuthAboutRoute = AuthAboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => AuthRoute,
+const LayoutComboOptionsIndexRoute = LayoutComboOptionsIndexRouteImport.update({
+  id: '/comboOptions/',
+  path: '/comboOptions/',
+  getParentRoute: () => LayoutRouteRoute,
 } as any)
-const AuthCleaningIndexRoute = AuthCleaningIndexRouteImport.update({
-  id: '/cleaning/',
-  path: '/cleaning/',
-  getParentRoute: () => AuthRoute,
+const LayoutComboOptionsNewRoute = LayoutComboOptionsNewRouteImport.update({
+  id: '/comboOptions/new',
+  path: '/comboOptions/new',
+  getParentRoute: () => LayoutRouteRoute,
 } as any)
-const AuthDevicesIndexRoute = AuthDevicesIndexRouteImport.update({
-  id: '/devices/',
-  path: '/devices/',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthElementsIndexRoute = AuthElementsIndexRouteImport.update({
-  id: '/elements/',
-  path: '/elements/',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthElementsNewRoute = AuthElementsNewRouteImport.update({
-  id: '/elements/new',
-  path: '/elements/new',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthEquipmentItemsIndexRoute = AuthEquipmentItemsIndexRouteImport.update({
-  id: '/equipmentItems/',
-  path: '/equipmentItems/',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthEquipmentItemsNewRoute = AuthEquipmentItemsNewRouteImport.update({
-  id: '/equipmentItems/new',
-  path: '/equipmentItems/new',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthEquipmentMaintenancesIndexRoute =
-  AuthEquipmentMaintenancesIndexRouteImport.update({
+const LayoutContractorCompaniesIndexRoute =
+  LayoutContractorCompaniesIndexRouteImport.update({
+    id: '/contractorCompanies/',
+    path: '/contractorCompanies/',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutContractorCompaniesNewRoute =
+  LayoutContractorCompaniesNewRouteImport.update({
+    id: '/contractorCompanies/new',
+    path: '/contractorCompanies/new',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutEquipmentMaintenancesIndexRoute =
+  LayoutEquipmentMaintenancesIndexRouteImport.update({
     id: '/equipmentMaintenances/',
     path: '/equipmentMaintenances/',
-    getParentRoute: () => AuthRoute,
+    getParentRoute: () => LayoutRouteRoute,
   } as any)
-const AuthEquipmentMaintenancesNewRoute =
-  AuthEquipmentMaintenancesNewRouteImport.update({
+const LayoutEquipmentMaintenancesNewRoute =
+  LayoutEquipmentMaintenancesNewRouteImport.update({
     id: '/equipmentMaintenances/new',
     path: '/equipmentMaintenances/new',
-    getParentRoute: () => AuthRoute,
+    getParentRoute: () => LayoutRouteRoute,
   } as any)
-const AuthExpirationsIndexRoute = AuthExpirationsIndexRouteImport.update({
-  id: '/expirations/',
-  path: '/expirations/',
-  getParentRoute: () => AuthRoute,
+const LayoutObserversIndexRoute = LayoutObserversIndexRouteImport.update({
+  id: '/observers/',
+  path: '/observers/',
+  getParentRoute: () => LayoutRouteRoute,
 } as any)
-const AuthExpirationsNewRoute = AuthExpirationsNewRouteImport.update({
-  id: '/expirations/new',
-  path: '/expirations/new',
-  getParentRoute: () => AuthRoute,
+const LayoutObserversNewRoute = LayoutObserversNewRouteImport.update({
+  id: '/observers/new',
+  path: '/observers/new',
+  getParentRoute: () => LayoutRouteRoute,
 } as any)
-const AuthFormsIndexRoute = AuthFormsIndexRouteImport.update({
-  id: '/forms/',
-  path: '/forms/',
-  getParentRoute: () => AuthRoute,
+const LayoutPlantsIndexRoute = LayoutPlantsIndexRouteImport.update({
+  id: '/plants/',
+  path: '/plants/',
+  getParentRoute: () => LayoutRouteRoute,
 } as any)
-const AuthFormsNewRoute = AuthFormsNewRouteImport.update({
-  id: '/forms/new',
-  path: '/forms/new',
-  getParentRoute: () => AuthRoute,
+const LayoutPlantsNewRoute = LayoutPlantsNewRouteImport.update({
+  id: '/plants/new',
+  path: '/plants/new',
+  getParentRoute: () => LayoutRouteRoute,
 } as any)
-const AuthModulesIndexRoute = AuthModulesIndexRouteImport.update({
-  id: '/modules/',
-  path: '/modules/',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthModulesNewRoute = AuthModulesNewRouteImport.update({
-  id: '/modules/new',
-  path: '/modules/new',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthPersonsIndexRoute = AuthPersonsIndexRouteImport.update({
-  id: '/persons/',
-  path: '/persons/',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthPersonsNewRoute = AuthPersonsNewRouteImport.update({
-  id: '/persons/new',
-  path: '/persons/new',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthProfileIndexRoute = AuthProfileIndexRouteImport.update({
-  id: '/profile/',
-  path: '/profile/',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthProfileChangePasswordRoute =
-  AuthProfileChangePasswordRouteImport.update({
-    id: '/profile/change-password',
-    path: '/profile/change-password',
-    getParentRoute: () => AuthRoute,
-  } as any)
-const AuthReadingsIndexRoute = AuthReadingsIndexRouteImport.update({
-  id: '/readings/',
-  path: '/readings/',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthReadingsChartsRoute = AuthReadingsChartsRouteImport.update({
-  id: '/readings/charts',
-  path: '/readings/charts',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthRolesIndexRoute = AuthRolesIndexRouteImport.update({
-  id: '/roles/',
-  path: '/roles/',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthRolesNewRoute = AuthRolesNewRouteImport.update({
-  id: '/roles/new',
-  path: '/roles/new',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthScopesIndexRoute = AuthScopesIndexRouteImport.update({
-  id: '/scopes/',
-  path: '/scopes/',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthScopesNewRoute = AuthScopesNewRouteImport.update({
-  id: '/scopes/new',
-  path: '/scopes/new',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthSectorsIndexRoute = AuthSectorsIndexRouteImport.update({
+const LayoutSectorsIndexRoute = LayoutSectorsIndexRouteImport.update({
   id: '/sectors/',
   path: '/sectors/',
-  getParentRoute: () => AuthRoute,
+  getParentRoute: () => LayoutRouteRoute,
 } as any)
-const AuthSectorsNewRoute = AuthSectorsNewRouteImport.update({
+const LayoutSectorsNewRoute = LayoutSectorsNewRouteImport.update({
   id: '/sectors/new',
   path: '/sectors/new',
-  getParentRoute: () => AuthRoute,
+  getParentRoute: () => LayoutRouteRoute,
 } as any)
-const AuthTenantsIndexRoute = AuthTenantsIndexRouteImport.update({
-  id: '/tenants/',
-  path: '/tenants/',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthTenantsNewRoute = AuthTenantsNewRouteImport.update({
-  id: '/tenants/new',
-  path: '/tenants/new',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthUsersIndexRoute = AuthUsersIndexRouteImport.update({
-  id: '/users/',
-  path: '/users/',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthUsersNewRoute = AuthUsersNewRouteImport.update({
-  id: '/users/new',
-  path: '/users/new',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthDevicesIdIndexRoute = AuthDevicesIdIndexRouteImport.update({
-  id: '/devices/$id/',
-  path: '/devices/$id/',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthDevicesIdEditRoute = AuthDevicesIdEditRouteImport.update({
-  id: '/devices/$id/edit',
-  path: '/devices/$id/edit',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthElementsIdEditRoute = AuthElementsIdEditRouteImport.update({
-  id: '/elements/$id/edit',
-  path: '/elements/$id/edit',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthEquipmentItemsIdIndexRoute =
-  AuthEquipmentItemsIdIndexRouteImport.update({
-    id: '/equipmentItems/$id/',
-    path: '/equipmentItems/$id/',
-    getParentRoute: () => AuthRoute,
+const LayoutSecurityObservationsIndexRoute =
+  LayoutSecurityObservationsIndexRouteImport.update({
+    id: '/securityObservations/',
+    path: '/securityObservations/',
+    getParentRoute: () => LayoutRouteRoute,
   } as any)
-const AuthEquipmentItemsIdEditRoute =
-  AuthEquipmentItemsIdEditRouteImport.update({
-    id: '/equipmentItems/$id/edit',
-    path: '/equipmentItems/$id/edit',
-    getParentRoute: () => AuthRoute,
+const LayoutSecurityObservationsNewRoute =
+  LayoutSecurityObservationsNewRouteImport.update({
+    id: '/securityObservations/new',
+    path: '/securityObservations/new',
+    getParentRoute: () => LayoutRouteRoute,
   } as any)
-const AuthEquipmentMaintenancesIdIndexRoute =
-  AuthEquipmentMaintenancesIdIndexRouteImport.update({
+const LayoutComboOptionsIdEditRoute =
+  LayoutComboOptionsIdEditRouteImport.update({
+    id: '/comboOptions/$id/edit',
+    path: '/comboOptions/$id/edit',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutContractorCompaniesIdEditRoute =
+  LayoutContractorCompaniesIdEditRouteImport.update({
+    id: '/contractorCompanies/$id/edit',
+    path: '/contractorCompanies/$id/edit',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutEquipmentMaintenancesIdIndexRoute =
+  LayoutEquipmentMaintenancesIdIndexRouteImport.update({
     id: '/equipmentMaintenances/$id/',
     path: '/equipmentMaintenances/$id/',
-    getParentRoute: () => AuthRoute,
+    getParentRoute: () => LayoutRouteRoute,
   } as any)
-const AuthEquipmentMaintenancesIdEditRoute =
-  AuthEquipmentMaintenancesIdEditRouteImport.update({
-    id: '/equipmentMaintenances/$id/edit',
-    path: '/equipmentMaintenances/$id/edit',
-    getParentRoute: () => AuthRoute,
+const LayoutEquipmentMaintenancesEditLegajoRoute =
+  LayoutEquipmentMaintenancesEditLegajoRouteImport.update({
+    id: '/equipmentMaintenances/edit/$legajo',
+    path: '/equipmentMaintenances/edit/$legajo',
+    getParentRoute: () => LayoutRouteRoute,
   } as any)
-const AuthExpirationsIdIndexRoute = AuthExpirationsIdIndexRouteImport.update({
-  id: '/expirations/$id/',
-  path: '/expirations/$id/',
-  getParentRoute: () => AuthRoute,
+const LayoutObserversIdEditRoute = LayoutObserversIdEditRouteImport.update({
+  id: '/observers/$id/edit',
+  path: '/observers/$id/edit',
+  getParentRoute: () => LayoutRouteRoute,
 } as any)
-const AuthExpirationsIdEditRoute = AuthExpirationsIdEditRouteImport.update({
-  id: '/expirations/$id/edit',
-  path: '/expirations/$id/edit',
-  getParentRoute: () => AuthRoute,
+const LayoutPlantsIdEditRoute = LayoutPlantsIdEditRouteImport.update({
+  id: '/plants/$id/edit',
+  path: '/plants/$id/edit',
+  getParentRoute: () => LayoutRouteRoute,
 } as any)
-const AuthFormsIdEditRoute = AuthFormsIdEditRouteImport.update({
-  id: '/forms/$id/edit',
-  path: '/forms/$id/edit',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthFormsIdFillRoute = AuthFormsIdFillRouteImport.update({
-  id: '/forms/$id/fill',
-  path: '/forms/$id/fill',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthInventoryBatchesIndexRoute =
-  AuthInventoryBatchesIndexRouteImport.update({
-    id: '/inventory/batches/',
-    path: '/inventory/batches/',
-    getParentRoute: () => AuthRoute,
-  } as any)
-const AuthInventoryBatchesNewRoute = AuthInventoryBatchesNewRouteImport.update({
-  id: '/inventory/batches/new',
-  path: '/inventory/batches/new',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthInventoryItemsIndexRoute = AuthInventoryItemsIndexRouteImport.update({
-  id: '/inventory/items/',
-  path: '/inventory/items/',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthInventoryItemsNewRoute = AuthInventoryItemsNewRouteImport.update({
-  id: '/inventory/items/new',
-  path: '/inventory/items/new',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthModulesIdIndexRoute = AuthModulesIdIndexRouteImport.update({
-  id: '/modules/$id/',
-  path: '/modules/$id/',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthModulesIdEditRoute = AuthModulesIdEditRouteImport.update({
-  id: '/modules/$id/edit',
-  path: '/modules/$id/edit',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthPersonsIdIndexRoute = AuthPersonsIdIndexRouteImport.update({
-  id: '/persons/$id/',
-  path: '/persons/$id/',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthPersonsIdEditRoute = AuthPersonsIdEditRouteImport.update({
-  id: '/persons/$id/edit',
-  path: '/persons/$id/edit',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthRolesIdIndexRoute = AuthRolesIdIndexRouteImport.update({
-  id: '/roles/$id/',
-  path: '/roles/$id/',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthRolesIdEditRoute = AuthRolesIdEditRouteImport.update({
-  id: '/roles/$id/edit',
-  path: '/roles/$id/edit',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthScopesIdIndexRoute = AuthScopesIdIndexRouteImport.update({
-  id: '/scopes/$id/',
-  path: '/scopes/$id/',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthScopesIdEditRoute = AuthScopesIdEditRouteImport.update({
-  id: '/scopes/$id/edit',
-  path: '/scopes/$id/edit',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthSectorsIdIndexRoute = AuthSectorsIdIndexRouteImport.update({
-  id: '/sectors/$id/',
-  path: '/sectors/$id/',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthSectorsIdEditRoute = AuthSectorsIdEditRouteImport.update({
+const LayoutSectorsIdEditRoute = LayoutSectorsIdEditRouteImport.update({
   id: '/sectors/$id/edit',
   path: '/sectors/$id/edit',
-  getParentRoute: () => AuthRoute,
+  getParentRoute: () => LayoutRouteRoute,
 } as any)
-const AuthSectorsIdPrintRoute = AuthSectorsIdPrintRouteImport.update({
-  id: '/sectors/$id/print',
-  path: '/sectors/$id/print',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthTenantsIdIndexRoute = AuthTenantsIdIndexRouteImport.update({
-  id: '/tenants/$id/',
-  path: '/tenants/$id/',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthTenantsIdEditRoute = AuthTenantsIdEditRouteImport.update({
-  id: '/tenants/$id/edit',
-  path: '/tenants/$id/edit',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthUsersIdIndexRoute = AuthUsersIdIndexRouteImport.update({
-  id: '/users/$id/',
-  path: '/users/$id/',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthUsersIdEditRoute = AuthUsersIdEditRouteImport.update({
-  id: '/users/$id/edit',
-  path: '/users/$id/edit',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthFormsIdSubmissionsIndexRoute =
-  AuthFormsIdSubmissionsIndexRouteImport.update({
-    id: '/forms/$id/submissions/',
-    path: '/forms/$id/submissions/',
-    getParentRoute: () => AuthRoute,
+const LayoutSecurityObservationsIdIndexRoute =
+  LayoutSecurityObservationsIdIndexRouteImport.update({
+    id: '/securityObservations/$id/',
+    path: '/securityObservations/$id/',
+    getParentRoute: () => LayoutRouteRoute,
   } as any)
-const AuthInventoryBatchesIdIndexRoute =
-  AuthInventoryBatchesIdIndexRouteImport.update({
-    id: '/inventory/batches/$id/',
-    path: '/inventory/batches/$id/',
-    getParentRoute: () => AuthRoute,
-  } as any)
-const AuthInventoryBatchesIdMovementRoute =
-  AuthInventoryBatchesIdMovementRouteImport.update({
-    id: '/inventory/batches/$id/movement',
-    path: '/inventory/batches/$id/movement',
-    getParentRoute: () => AuthRoute,
-  } as any)
-const AuthInventoryBatchesIdTransferRoute =
-  AuthInventoryBatchesIdTransferRouteImport.update({
-    id: '/inventory/batches/$id/transfer',
-    path: '/inventory/batches/$id/transfer',
-    getParentRoute: () => AuthRoute,
-  } as any)
-const AuthInventoryItemsIdIndexRoute =
-  AuthInventoryItemsIdIndexRouteImport.update({
-    id: '/inventory/items/$id/',
-    path: '/inventory/items/$id/',
-    getParentRoute: () => AuthRoute,
-  } as any)
-const AuthInventoryItemsIdEditRoute =
-  AuthInventoryItemsIdEditRouteImport.update({
-    id: '/inventory/items/$id/edit',
-    path: '/inventory/items/$id/edit',
-    getParentRoute: () => AuthRoute,
-  } as any)
-const AuthSectorsIdCleaningIndexRoute =
-  AuthSectorsIdCleaningIndexRouteImport.update({
-    id: '/sectors/$id/cleaning/',
-    path: '/sectors/$id/cleaning/',
-    getParentRoute: () => AuthRoute,
-  } as any)
-const AuthFormsIdSubmissionsSubmissionIdIndexRoute =
-  AuthFormsIdSubmissionsSubmissionIdIndexRouteImport.update({
-    id: '/forms/$id/submissions/$submissionId/',
-    path: '/forms/$id/submissions/$submissionId/',
-    getParentRoute: () => AuthRoute,
-  } as any)
-const AuthFormsIdSubmissionsSubmissionIdEmailRoute =
-  AuthFormsIdSubmissionsSubmissionIdEmailRouteImport.update({
-    id: '/forms/$id/submissions/$submissionId/email',
-    path: '/forms/$id/submissions/$submissionId/email',
-    getParentRoute: () => AuthRoute,
-  } as any)
-const AuthSectorsIdCleaningExecuteElementIdRoute =
-  AuthSectorsIdCleaningExecuteElementIdRouteImport.update({
-    id: '/sectors/$id/cleaning/execute/$elementId',
-    path: '/sectors/$id/cleaning/execute/$elementId',
-    getParentRoute: () => AuthRoute,
-  } as any)
-const AuthSectorsIdCleaningVerifyExecutionIdRoute =
-  AuthSectorsIdCleaningVerifyExecutionIdRouteImport.update({
-    id: '/sectors/$id/cleaning/verify/$executionId',
-    path: '/sectors/$id/cleaning/verify/$executionId',
-    getParentRoute: () => AuthRoute,
-  } as any)
-const AuthSectorsIdCleaningVoidExecutionIdRoute =
-  AuthSectorsIdCleaningVoidExecutionIdRouteImport.update({
-    id: '/sectors/$id/cleaning/void/$executionId',
-    path: '/sectors/$id/cleaning/void/$executionId',
-    getParentRoute: () => AuthRoute,
+const LayoutSecurityObservationsIdEditRoute =
+  LayoutSecurityObservationsIdEditRouteImport.update({
+    id: '/securityObservations/$id/edit',
+    path: '/securityObservations/$id/edit',
+    getParentRoute: () => LayoutRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof AuthIndexRoute
-  '/change-password': typeof ChangePasswordRoute
-  '/login': typeof LoginRoute
-  '/about': typeof AuthAboutRoute
-  '/elements/new': typeof AuthElementsNewRoute
-  '/equipmentItems/new': typeof AuthEquipmentItemsNewRoute
-  '/equipmentMaintenances/new': typeof AuthEquipmentMaintenancesNewRoute
-  '/expirations/new': typeof AuthExpirationsNewRoute
-  '/forms/new': typeof AuthFormsNewRoute
-  '/modules/new': typeof AuthModulesNewRoute
-  '/persons/new': typeof AuthPersonsNewRoute
-  '/profile/change-password': typeof AuthProfileChangePasswordRoute
-  '/readings/charts': typeof AuthReadingsChartsRoute
-  '/roles/new': typeof AuthRolesNewRoute
-  '/scopes/new': typeof AuthScopesNewRoute
-  '/sectors/new': typeof AuthSectorsNewRoute
-  '/tenants/new': typeof AuthTenantsNewRoute
-  '/users/new': typeof AuthUsersNewRoute
-  '/cleaning/': typeof AuthCleaningIndexRoute
-  '/devices/': typeof AuthDevicesIndexRoute
-  '/elements/': typeof AuthElementsIndexRoute
-  '/equipmentItems/': typeof AuthEquipmentItemsIndexRoute
-  '/equipmentMaintenances/': typeof AuthEquipmentMaintenancesIndexRoute
-  '/expirations/': typeof AuthExpirationsIndexRoute
-  '/forms/': typeof AuthFormsIndexRoute
-  '/modules/': typeof AuthModulesIndexRoute
-  '/persons/': typeof AuthPersonsIndexRoute
-  '/profile/': typeof AuthProfileIndexRoute
-  '/readings/': typeof AuthReadingsIndexRoute
-  '/roles/': typeof AuthRolesIndexRoute
-  '/scopes/': typeof AuthScopesIndexRoute
-  '/sectors/': typeof AuthSectorsIndexRoute
-  '/tenants/': typeof AuthTenantsIndexRoute
-  '/users/': typeof AuthUsersIndexRoute
-  '/devices/$id/edit': typeof AuthDevicesIdEditRoute
-  '/elements/$id/edit': typeof AuthElementsIdEditRoute
-  '/equipmentItems/$id/edit': typeof AuthEquipmentItemsIdEditRoute
-  '/equipmentMaintenances/$id/edit': typeof AuthEquipmentMaintenancesIdEditRoute
-  '/expirations/$id/edit': typeof AuthExpirationsIdEditRoute
-  '/forms/$id/edit': typeof AuthFormsIdEditRoute
-  '/forms/$id/fill': typeof AuthFormsIdFillRoute
-  '/inventory/batches/new': typeof AuthInventoryBatchesNewRoute
-  '/inventory/items/new': typeof AuthInventoryItemsNewRoute
-  '/modules/$id/edit': typeof AuthModulesIdEditRoute
-  '/persons/$id/edit': typeof AuthPersonsIdEditRoute
-  '/roles/$id/edit': typeof AuthRolesIdEditRoute
-  '/scopes/$id/edit': typeof AuthScopesIdEditRoute
-  '/sectors/$id/edit': typeof AuthSectorsIdEditRoute
-  '/sectors/$id/print': typeof AuthSectorsIdPrintRoute
-  '/tenants/$id/edit': typeof AuthTenantsIdEditRoute
-  '/users/$id/edit': typeof AuthUsersIdEditRoute
-  '/devices/$id/': typeof AuthDevicesIdIndexRoute
-  '/equipmentItems/$id/': typeof AuthEquipmentItemsIdIndexRoute
-  '/equipmentMaintenances/$id/': typeof AuthEquipmentMaintenancesIdIndexRoute
-  '/expirations/$id/': typeof AuthExpirationsIdIndexRoute
-  '/inventory/batches/': typeof AuthInventoryBatchesIndexRoute
-  '/inventory/items/': typeof AuthInventoryItemsIndexRoute
-  '/modules/$id/': typeof AuthModulesIdIndexRoute
-  '/persons/$id/': typeof AuthPersonsIdIndexRoute
-  '/roles/$id/': typeof AuthRolesIdIndexRoute
-  '/scopes/$id/': typeof AuthScopesIdIndexRoute
-  '/sectors/$id/': typeof AuthSectorsIdIndexRoute
-  '/tenants/$id/': typeof AuthTenantsIdIndexRoute
-  '/users/$id/': typeof AuthUsersIdIndexRoute
-  '/inventory/batches/$id/movement': typeof AuthInventoryBatchesIdMovementRoute
-  '/inventory/batches/$id/transfer': typeof AuthInventoryBatchesIdTransferRoute
-  '/inventory/items/$id/edit': typeof AuthInventoryItemsIdEditRoute
-  '/forms/$id/submissions/': typeof AuthFormsIdSubmissionsIndexRoute
-  '/inventory/batches/$id/': typeof AuthInventoryBatchesIdIndexRoute
-  '/inventory/items/$id/': typeof AuthInventoryItemsIdIndexRoute
-  '/sectors/$id/cleaning/': typeof AuthSectorsIdCleaningIndexRoute
-  '/forms/$id/submissions/$submissionId/email': typeof AuthFormsIdSubmissionsSubmissionIdEmailRoute
-  '/sectors/$id/cleaning/execute/$elementId': typeof AuthSectorsIdCleaningExecuteElementIdRoute
-  '/sectors/$id/cleaning/verify/$executionId': typeof AuthSectorsIdCleaningVerifyExecutionIdRoute
-  '/sectors/$id/cleaning/void/$executionId': typeof AuthSectorsIdCleaningVoidExecutionIdRoute
-  '/forms/$id/submissions/$submissionId/': typeof AuthFormsIdSubmissionsSubmissionIdIndexRoute
+  '/': typeof LayoutIndexRoute
+  '/comboOptions/new': typeof LayoutComboOptionsNewRoute
+  '/contractorCompanies/new': typeof LayoutContractorCompaniesNewRoute
+  '/equipmentMaintenances/new': typeof LayoutEquipmentMaintenancesNewRoute
+  '/observers/new': typeof LayoutObserversNewRoute
+  '/plants/new': typeof LayoutPlantsNewRoute
+  '/sectors/new': typeof LayoutSectorsNewRoute
+  '/securityObservations/new': typeof LayoutSecurityObservationsNewRoute
+  '/comboOptions/': typeof LayoutComboOptionsIndexRoute
+  '/contractorCompanies/': typeof LayoutContractorCompaniesIndexRoute
+  '/equipmentMaintenances/': typeof LayoutEquipmentMaintenancesIndexRoute
+  '/observers/': typeof LayoutObserversIndexRoute
+  '/plants/': typeof LayoutPlantsIndexRoute
+  '/sectors/': typeof LayoutSectorsIndexRoute
+  '/securityObservations/': typeof LayoutSecurityObservationsIndexRoute
+  '/comboOptions/$id/edit': typeof LayoutComboOptionsIdEditRoute
+  '/contractorCompanies/$id/edit': typeof LayoutContractorCompaniesIdEditRoute
+  '/equipmentMaintenances/edit/$legajo': typeof LayoutEquipmentMaintenancesEditLegajoRoute
+  '/observers/$id/edit': typeof LayoutObserversIdEditRoute
+  '/plants/$id/edit': typeof LayoutPlantsIdEditRoute
+  '/sectors/$id/edit': typeof LayoutSectorsIdEditRoute
+  '/securityObservations/$id/edit': typeof LayoutSecurityObservationsIdEditRoute
+  '/equipmentMaintenances/$id/': typeof LayoutEquipmentMaintenancesIdIndexRoute
+  '/securityObservations/$id/': typeof LayoutSecurityObservationsIdIndexRoute
 }
 export interface FileRoutesByTo {
-  '/change-password': typeof ChangePasswordRoute
-  '/login': typeof LoginRoute
-  '/about': typeof AuthAboutRoute
-  '/': typeof AuthIndexRoute
-  '/elements/new': typeof AuthElementsNewRoute
-  '/equipmentItems/new': typeof AuthEquipmentItemsNewRoute
-  '/equipmentMaintenances/new': typeof AuthEquipmentMaintenancesNewRoute
-  '/expirations/new': typeof AuthExpirationsNewRoute
-  '/forms/new': typeof AuthFormsNewRoute
-  '/modules/new': typeof AuthModulesNewRoute
-  '/persons/new': typeof AuthPersonsNewRoute
-  '/profile/change-password': typeof AuthProfileChangePasswordRoute
-  '/readings/charts': typeof AuthReadingsChartsRoute
-  '/roles/new': typeof AuthRolesNewRoute
-  '/scopes/new': typeof AuthScopesNewRoute
-  '/sectors/new': typeof AuthSectorsNewRoute
-  '/tenants/new': typeof AuthTenantsNewRoute
-  '/users/new': typeof AuthUsersNewRoute
-  '/cleaning': typeof AuthCleaningIndexRoute
-  '/devices': typeof AuthDevicesIndexRoute
-  '/elements': typeof AuthElementsIndexRoute
-  '/equipmentItems': typeof AuthEquipmentItemsIndexRoute
-  '/equipmentMaintenances': typeof AuthEquipmentMaintenancesIndexRoute
-  '/expirations': typeof AuthExpirationsIndexRoute
-  '/forms': typeof AuthFormsIndexRoute
-  '/modules': typeof AuthModulesIndexRoute
-  '/persons': typeof AuthPersonsIndexRoute
-  '/profile': typeof AuthProfileIndexRoute
-  '/readings': typeof AuthReadingsIndexRoute
-  '/roles': typeof AuthRolesIndexRoute
-  '/scopes': typeof AuthScopesIndexRoute
-  '/sectors': typeof AuthSectorsIndexRoute
-  '/tenants': typeof AuthTenantsIndexRoute
-  '/users': typeof AuthUsersIndexRoute
-  '/devices/$id/edit': typeof AuthDevicesIdEditRoute
-  '/elements/$id/edit': typeof AuthElementsIdEditRoute
-  '/equipmentItems/$id/edit': typeof AuthEquipmentItemsIdEditRoute
-  '/equipmentMaintenances/$id/edit': typeof AuthEquipmentMaintenancesIdEditRoute
-  '/expirations/$id/edit': typeof AuthExpirationsIdEditRoute
-  '/forms/$id/edit': typeof AuthFormsIdEditRoute
-  '/forms/$id/fill': typeof AuthFormsIdFillRoute
-  '/inventory/batches/new': typeof AuthInventoryBatchesNewRoute
-  '/inventory/items/new': typeof AuthInventoryItemsNewRoute
-  '/modules/$id/edit': typeof AuthModulesIdEditRoute
-  '/persons/$id/edit': typeof AuthPersonsIdEditRoute
-  '/roles/$id/edit': typeof AuthRolesIdEditRoute
-  '/scopes/$id/edit': typeof AuthScopesIdEditRoute
-  '/sectors/$id/edit': typeof AuthSectorsIdEditRoute
-  '/sectors/$id/print': typeof AuthSectorsIdPrintRoute
-  '/tenants/$id/edit': typeof AuthTenantsIdEditRoute
-  '/users/$id/edit': typeof AuthUsersIdEditRoute
-  '/devices/$id': typeof AuthDevicesIdIndexRoute
-  '/equipmentItems/$id': typeof AuthEquipmentItemsIdIndexRoute
-  '/equipmentMaintenances/$id': typeof AuthEquipmentMaintenancesIdIndexRoute
-  '/expirations/$id': typeof AuthExpirationsIdIndexRoute
-  '/inventory/batches': typeof AuthInventoryBatchesIndexRoute
-  '/inventory/items': typeof AuthInventoryItemsIndexRoute
-  '/modules/$id': typeof AuthModulesIdIndexRoute
-  '/persons/$id': typeof AuthPersonsIdIndexRoute
-  '/roles/$id': typeof AuthRolesIdIndexRoute
-  '/scopes/$id': typeof AuthScopesIdIndexRoute
-  '/sectors/$id': typeof AuthSectorsIdIndexRoute
-  '/tenants/$id': typeof AuthTenantsIdIndexRoute
-  '/users/$id': typeof AuthUsersIdIndexRoute
-  '/inventory/batches/$id/movement': typeof AuthInventoryBatchesIdMovementRoute
-  '/inventory/batches/$id/transfer': typeof AuthInventoryBatchesIdTransferRoute
-  '/inventory/items/$id/edit': typeof AuthInventoryItemsIdEditRoute
-  '/forms/$id/submissions': typeof AuthFormsIdSubmissionsIndexRoute
-  '/inventory/batches/$id': typeof AuthInventoryBatchesIdIndexRoute
-  '/inventory/items/$id': typeof AuthInventoryItemsIdIndexRoute
-  '/sectors/$id/cleaning': typeof AuthSectorsIdCleaningIndexRoute
-  '/forms/$id/submissions/$submissionId/email': typeof AuthFormsIdSubmissionsSubmissionIdEmailRoute
-  '/sectors/$id/cleaning/execute/$elementId': typeof AuthSectorsIdCleaningExecuteElementIdRoute
-  '/sectors/$id/cleaning/verify/$executionId': typeof AuthSectorsIdCleaningVerifyExecutionIdRoute
-  '/sectors/$id/cleaning/void/$executionId': typeof AuthSectorsIdCleaningVoidExecutionIdRoute
-  '/forms/$id/submissions/$submissionId': typeof AuthFormsIdSubmissionsSubmissionIdIndexRoute
+  '/': typeof LayoutIndexRoute
+  '/comboOptions/new': typeof LayoutComboOptionsNewRoute
+  '/contractorCompanies/new': typeof LayoutContractorCompaniesNewRoute
+  '/equipmentMaintenances/new': typeof LayoutEquipmentMaintenancesNewRoute
+  '/observers/new': typeof LayoutObserversNewRoute
+  '/plants/new': typeof LayoutPlantsNewRoute
+  '/sectors/new': typeof LayoutSectorsNewRoute
+  '/securityObservations/new': typeof LayoutSecurityObservationsNewRoute
+  '/comboOptions': typeof LayoutComboOptionsIndexRoute
+  '/contractorCompanies': typeof LayoutContractorCompaniesIndexRoute
+  '/equipmentMaintenances': typeof LayoutEquipmentMaintenancesIndexRoute
+  '/observers': typeof LayoutObserversIndexRoute
+  '/plants': typeof LayoutPlantsIndexRoute
+  '/sectors': typeof LayoutSectorsIndexRoute
+  '/securityObservations': typeof LayoutSecurityObservationsIndexRoute
+  '/comboOptions/$id/edit': typeof LayoutComboOptionsIdEditRoute
+  '/contractorCompanies/$id/edit': typeof LayoutContractorCompaniesIdEditRoute
+  '/equipmentMaintenances/edit/$legajo': typeof LayoutEquipmentMaintenancesEditLegajoRoute
+  '/observers/$id/edit': typeof LayoutObserversIdEditRoute
+  '/plants/$id/edit': typeof LayoutPlantsIdEditRoute
+  '/sectors/$id/edit': typeof LayoutSectorsIdEditRoute
+  '/securityObservations/$id/edit': typeof LayoutSecurityObservationsIdEditRoute
+  '/equipmentMaintenances/$id': typeof LayoutEquipmentMaintenancesIdIndexRoute
+  '/securityObservations/$id': typeof LayoutSecurityObservationsIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_auth': typeof AuthRouteWithChildren
-  '/change-password': typeof ChangePasswordRoute
-  '/login': typeof LoginRoute
-  '/_auth/about': typeof AuthAboutRoute
-  '/_auth/': typeof AuthIndexRoute
-  '/_auth/elements/new': typeof AuthElementsNewRoute
-  '/_auth/equipmentItems/new': typeof AuthEquipmentItemsNewRoute
-  '/_auth/equipmentMaintenances/new': typeof AuthEquipmentMaintenancesNewRoute
-  '/_auth/expirations/new': typeof AuthExpirationsNewRoute
-  '/_auth/forms/new': typeof AuthFormsNewRoute
-  '/_auth/modules/new': typeof AuthModulesNewRoute
-  '/_auth/persons/new': typeof AuthPersonsNewRoute
-  '/_auth/profile/change-password': typeof AuthProfileChangePasswordRoute
-  '/_auth/readings/charts': typeof AuthReadingsChartsRoute
-  '/_auth/roles/new': typeof AuthRolesNewRoute
-  '/_auth/scopes/new': typeof AuthScopesNewRoute
-  '/_auth/sectors/new': typeof AuthSectorsNewRoute
-  '/_auth/tenants/new': typeof AuthTenantsNewRoute
-  '/_auth/users/new': typeof AuthUsersNewRoute
-  '/_auth/cleaning/': typeof AuthCleaningIndexRoute
-  '/_auth/devices/': typeof AuthDevicesIndexRoute
-  '/_auth/elements/': typeof AuthElementsIndexRoute
-  '/_auth/equipmentItems/': typeof AuthEquipmentItemsIndexRoute
-  '/_auth/equipmentMaintenances/': typeof AuthEquipmentMaintenancesIndexRoute
-  '/_auth/expirations/': typeof AuthExpirationsIndexRoute
-  '/_auth/forms/': typeof AuthFormsIndexRoute
-  '/_auth/modules/': typeof AuthModulesIndexRoute
-  '/_auth/persons/': typeof AuthPersonsIndexRoute
-  '/_auth/profile/': typeof AuthProfileIndexRoute
-  '/_auth/readings/': typeof AuthReadingsIndexRoute
-  '/_auth/roles/': typeof AuthRolesIndexRoute
-  '/_auth/scopes/': typeof AuthScopesIndexRoute
-  '/_auth/sectors/': typeof AuthSectorsIndexRoute
-  '/_auth/tenants/': typeof AuthTenantsIndexRoute
-  '/_auth/users/': typeof AuthUsersIndexRoute
-  '/_auth/devices/$id/edit': typeof AuthDevicesIdEditRoute
-  '/_auth/elements/$id/edit': typeof AuthElementsIdEditRoute
-  '/_auth/equipmentItems/$id/edit': typeof AuthEquipmentItemsIdEditRoute
-  '/_auth/equipmentMaintenances/$id/edit': typeof AuthEquipmentMaintenancesIdEditRoute
-  '/_auth/expirations/$id/edit': typeof AuthExpirationsIdEditRoute
-  '/_auth/forms/$id/edit': typeof AuthFormsIdEditRoute
-  '/_auth/forms/$id/fill': typeof AuthFormsIdFillRoute
-  '/_auth/inventory/batches/new': typeof AuthInventoryBatchesNewRoute
-  '/_auth/inventory/items/new': typeof AuthInventoryItemsNewRoute
-  '/_auth/modules/$id/edit': typeof AuthModulesIdEditRoute
-  '/_auth/persons/$id/edit': typeof AuthPersonsIdEditRoute
-  '/_auth/roles/$id/edit': typeof AuthRolesIdEditRoute
-  '/_auth/scopes/$id/edit': typeof AuthScopesIdEditRoute
-  '/_auth/sectors/$id/edit': typeof AuthSectorsIdEditRoute
-  '/_auth/sectors/$id/print': typeof AuthSectorsIdPrintRoute
-  '/_auth/tenants/$id/edit': typeof AuthTenantsIdEditRoute
-  '/_auth/users/$id/edit': typeof AuthUsersIdEditRoute
-  '/_auth/devices/$id/': typeof AuthDevicesIdIndexRoute
-  '/_auth/equipmentItems/$id/': typeof AuthEquipmentItemsIdIndexRoute
-  '/_auth/equipmentMaintenances/$id/': typeof AuthEquipmentMaintenancesIdIndexRoute
-  '/_auth/expirations/$id/': typeof AuthExpirationsIdIndexRoute
-  '/_auth/inventory/batches/': typeof AuthInventoryBatchesIndexRoute
-  '/_auth/inventory/items/': typeof AuthInventoryItemsIndexRoute
-  '/_auth/modules/$id/': typeof AuthModulesIdIndexRoute
-  '/_auth/persons/$id/': typeof AuthPersonsIdIndexRoute
-  '/_auth/roles/$id/': typeof AuthRolesIdIndexRoute
-  '/_auth/scopes/$id/': typeof AuthScopesIdIndexRoute
-  '/_auth/sectors/$id/': typeof AuthSectorsIdIndexRoute
-  '/_auth/tenants/$id/': typeof AuthTenantsIdIndexRoute
-  '/_auth/users/$id/': typeof AuthUsersIdIndexRoute
-  '/_auth/inventory/batches/$id/movement': typeof AuthInventoryBatchesIdMovementRoute
-  '/_auth/inventory/batches/$id/transfer': typeof AuthInventoryBatchesIdTransferRoute
-  '/_auth/inventory/items/$id/edit': typeof AuthInventoryItemsIdEditRoute
-  '/_auth/forms/$id/submissions/': typeof AuthFormsIdSubmissionsIndexRoute
-  '/_auth/inventory/batches/$id/': typeof AuthInventoryBatchesIdIndexRoute
-  '/_auth/inventory/items/$id/': typeof AuthInventoryItemsIdIndexRoute
-  '/_auth/sectors/$id/cleaning/': typeof AuthSectorsIdCleaningIndexRoute
-  '/_auth/forms/$id/submissions/$submissionId/email': typeof AuthFormsIdSubmissionsSubmissionIdEmailRoute
-  '/_auth/sectors/$id/cleaning/execute/$elementId': typeof AuthSectorsIdCleaningExecuteElementIdRoute
-  '/_auth/sectors/$id/cleaning/verify/$executionId': typeof AuthSectorsIdCleaningVerifyExecutionIdRoute
-  '/_auth/sectors/$id/cleaning/void/$executionId': typeof AuthSectorsIdCleaningVoidExecutionIdRoute
-  '/_auth/forms/$id/submissions/$submissionId/': typeof AuthFormsIdSubmissionsSubmissionIdIndexRoute
+  '/_layout': typeof LayoutRouteRouteWithChildren
+  '/_layout/': typeof LayoutIndexRoute
+  '/_layout/comboOptions/new': typeof LayoutComboOptionsNewRoute
+  '/_layout/contractorCompanies/new': typeof LayoutContractorCompaniesNewRoute
+  '/_layout/equipmentMaintenances/new': typeof LayoutEquipmentMaintenancesNewRoute
+  '/_layout/observers/new': typeof LayoutObserversNewRoute
+  '/_layout/plants/new': typeof LayoutPlantsNewRoute
+  '/_layout/sectors/new': typeof LayoutSectorsNewRoute
+  '/_layout/securityObservations/new': typeof LayoutSecurityObservationsNewRoute
+  '/_layout/comboOptions/': typeof LayoutComboOptionsIndexRoute
+  '/_layout/contractorCompanies/': typeof LayoutContractorCompaniesIndexRoute
+  '/_layout/equipmentMaintenances/': typeof LayoutEquipmentMaintenancesIndexRoute
+  '/_layout/observers/': typeof LayoutObserversIndexRoute
+  '/_layout/plants/': typeof LayoutPlantsIndexRoute
+  '/_layout/sectors/': typeof LayoutSectorsIndexRoute
+  '/_layout/securityObservations/': typeof LayoutSecurityObservationsIndexRoute
+  '/_layout/comboOptions/$id/edit': typeof LayoutComboOptionsIdEditRoute
+  '/_layout/contractorCompanies/$id/edit': typeof LayoutContractorCompaniesIdEditRoute
+  '/_layout/equipmentMaintenances/edit/$legajo': typeof LayoutEquipmentMaintenancesEditLegajoRoute
+  '/_layout/observers/$id/edit': typeof LayoutObserversIdEditRoute
+  '/_layout/plants/$id/edit': typeof LayoutPlantsIdEditRoute
+  '/_layout/sectors/$id/edit': typeof LayoutSectorsIdEditRoute
+  '/_layout/securityObservations/$id/edit': typeof LayoutSecurityObservationsIdEditRoute
+  '/_layout/equipmentMaintenances/$id/': typeof LayoutEquipmentMaintenancesIdIndexRoute
+  '/_layout/securityObservations/$id/': typeof LayoutSecurityObservationsIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/change-password'
-    | '/login'
-    | '/about'
-    | '/elements/new'
-    | '/equipmentItems/new'
+    | '/comboOptions/new'
+    | '/contractorCompanies/new'
     | '/equipmentMaintenances/new'
-    | '/expirations/new'
-    | '/forms/new'
-    | '/modules/new'
-    | '/persons/new'
-    | '/profile/change-password'
-    | '/readings/charts'
-    | '/roles/new'
-    | '/scopes/new'
+    | '/observers/new'
+    | '/plants/new'
     | '/sectors/new'
-    | '/tenants/new'
-    | '/users/new'
-    | '/cleaning/'
-    | '/devices/'
-    | '/elements/'
-    | '/equipmentItems/'
+    | '/securityObservations/new'
+    | '/comboOptions/'
+    | '/contractorCompanies/'
     | '/equipmentMaintenances/'
-    | '/expirations/'
-    | '/forms/'
-    | '/modules/'
-    | '/persons/'
-    | '/profile/'
-    | '/readings/'
-    | '/roles/'
-    | '/scopes/'
+    | '/observers/'
+    | '/plants/'
     | '/sectors/'
-    | '/tenants/'
-    | '/users/'
-    | '/devices/$id/edit'
-    | '/elements/$id/edit'
-    | '/equipmentItems/$id/edit'
-    | '/equipmentMaintenances/$id/edit'
-    | '/expirations/$id/edit'
-    | '/forms/$id/edit'
-    | '/forms/$id/fill'
-    | '/inventory/batches/new'
-    | '/inventory/items/new'
-    | '/modules/$id/edit'
-    | '/persons/$id/edit'
-    | '/roles/$id/edit'
-    | '/scopes/$id/edit'
+    | '/securityObservations/'
+    | '/comboOptions/$id/edit'
+    | '/contractorCompanies/$id/edit'
+    | '/equipmentMaintenances/edit/$legajo'
+    | '/observers/$id/edit'
+    | '/plants/$id/edit'
     | '/sectors/$id/edit'
-    | '/sectors/$id/print'
-    | '/tenants/$id/edit'
-    | '/users/$id/edit'
-    | '/devices/$id/'
-    | '/equipmentItems/$id/'
+    | '/securityObservations/$id/edit'
     | '/equipmentMaintenances/$id/'
-    | '/expirations/$id/'
-    | '/inventory/batches/'
-    | '/inventory/items/'
-    | '/modules/$id/'
-    | '/persons/$id/'
-    | '/roles/$id/'
-    | '/scopes/$id/'
-    | '/sectors/$id/'
-    | '/tenants/$id/'
-    | '/users/$id/'
-    | '/inventory/batches/$id/movement'
-    | '/inventory/batches/$id/transfer'
-    | '/inventory/items/$id/edit'
-    | '/forms/$id/submissions/'
-    | '/inventory/batches/$id/'
-    | '/inventory/items/$id/'
-    | '/sectors/$id/cleaning/'
-    | '/forms/$id/submissions/$submissionId/email'
-    | '/sectors/$id/cleaning/execute/$elementId'
-    | '/sectors/$id/cleaning/verify/$executionId'
-    | '/sectors/$id/cleaning/void/$executionId'
-    | '/forms/$id/submissions/$submissionId/'
+    | '/securityObservations/$id/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/change-password'
-    | '/login'
-    | '/about'
     | '/'
-    | '/elements/new'
-    | '/equipmentItems/new'
+    | '/comboOptions/new'
+    | '/contractorCompanies/new'
     | '/equipmentMaintenances/new'
-    | '/expirations/new'
-    | '/forms/new'
-    | '/modules/new'
-    | '/persons/new'
-    | '/profile/change-password'
-    | '/readings/charts'
-    | '/roles/new'
-    | '/scopes/new'
+    | '/observers/new'
+    | '/plants/new'
     | '/sectors/new'
-    | '/tenants/new'
-    | '/users/new'
-    | '/cleaning'
-    | '/devices'
-    | '/elements'
-    | '/equipmentItems'
+    | '/securityObservations/new'
+    | '/comboOptions'
+    | '/contractorCompanies'
     | '/equipmentMaintenances'
-    | '/expirations'
-    | '/forms'
-    | '/modules'
-    | '/persons'
-    | '/profile'
-    | '/readings'
-    | '/roles'
-    | '/scopes'
+    | '/observers'
+    | '/plants'
     | '/sectors'
-    | '/tenants'
-    | '/users'
-    | '/devices/$id/edit'
-    | '/elements/$id/edit'
-    | '/equipmentItems/$id/edit'
-    | '/equipmentMaintenances/$id/edit'
-    | '/expirations/$id/edit'
-    | '/forms/$id/edit'
-    | '/forms/$id/fill'
-    | '/inventory/batches/new'
-    | '/inventory/items/new'
-    | '/modules/$id/edit'
-    | '/persons/$id/edit'
-    | '/roles/$id/edit'
-    | '/scopes/$id/edit'
+    | '/securityObservations'
+    | '/comboOptions/$id/edit'
+    | '/contractorCompanies/$id/edit'
+    | '/equipmentMaintenances/edit/$legajo'
+    | '/observers/$id/edit'
+    | '/plants/$id/edit'
     | '/sectors/$id/edit'
-    | '/sectors/$id/print'
-    | '/tenants/$id/edit'
-    | '/users/$id/edit'
-    | '/devices/$id'
-    | '/equipmentItems/$id'
+    | '/securityObservations/$id/edit'
     | '/equipmentMaintenances/$id'
-    | '/expirations/$id'
-    | '/inventory/batches'
-    | '/inventory/items'
-    | '/modules/$id'
-    | '/persons/$id'
-    | '/roles/$id'
-    | '/scopes/$id'
-    | '/sectors/$id'
-    | '/tenants/$id'
-    | '/users/$id'
-    | '/inventory/batches/$id/movement'
-    | '/inventory/batches/$id/transfer'
-    | '/inventory/items/$id/edit'
-    | '/forms/$id/submissions'
-    | '/inventory/batches/$id'
-    | '/inventory/items/$id'
-    | '/sectors/$id/cleaning'
-    | '/forms/$id/submissions/$submissionId/email'
-    | '/sectors/$id/cleaning/execute/$elementId'
-    | '/sectors/$id/cleaning/verify/$executionId'
-    | '/sectors/$id/cleaning/void/$executionId'
-    | '/forms/$id/submissions/$submissionId'
+    | '/securityObservations/$id'
   id:
     | '__root__'
-    | '/_auth'
-    | '/change-password'
-    | '/login'
-    | '/_auth/about'
-    | '/_auth/'
-    | '/_auth/elements/new'
-    | '/_auth/equipmentItems/new'
-    | '/_auth/equipmentMaintenances/new'
-    | '/_auth/expirations/new'
-    | '/_auth/forms/new'
-    | '/_auth/modules/new'
-    | '/_auth/persons/new'
-    | '/_auth/profile/change-password'
-    | '/_auth/readings/charts'
-    | '/_auth/roles/new'
-    | '/_auth/scopes/new'
-    | '/_auth/sectors/new'
-    | '/_auth/tenants/new'
-    | '/_auth/users/new'
-    | '/_auth/cleaning/'
-    | '/_auth/devices/'
-    | '/_auth/elements/'
-    | '/_auth/equipmentItems/'
-    | '/_auth/equipmentMaintenances/'
-    | '/_auth/expirations/'
-    | '/_auth/forms/'
-    | '/_auth/modules/'
-    | '/_auth/persons/'
-    | '/_auth/profile/'
-    | '/_auth/readings/'
-    | '/_auth/roles/'
-    | '/_auth/scopes/'
-    | '/_auth/sectors/'
-    | '/_auth/tenants/'
-    | '/_auth/users/'
-    | '/_auth/devices/$id/edit'
-    | '/_auth/elements/$id/edit'
-    | '/_auth/equipmentItems/$id/edit'
-    | '/_auth/equipmentMaintenances/$id/edit'
-    | '/_auth/expirations/$id/edit'
-    | '/_auth/forms/$id/edit'
-    | '/_auth/forms/$id/fill'
-    | '/_auth/inventory/batches/new'
-    | '/_auth/inventory/items/new'
-    | '/_auth/modules/$id/edit'
-    | '/_auth/persons/$id/edit'
-    | '/_auth/roles/$id/edit'
-    | '/_auth/scopes/$id/edit'
-    | '/_auth/sectors/$id/edit'
-    | '/_auth/sectors/$id/print'
-    | '/_auth/tenants/$id/edit'
-    | '/_auth/users/$id/edit'
-    | '/_auth/devices/$id/'
-    | '/_auth/equipmentItems/$id/'
-    | '/_auth/equipmentMaintenances/$id/'
-    | '/_auth/expirations/$id/'
-    | '/_auth/inventory/batches/'
-    | '/_auth/inventory/items/'
-    | '/_auth/modules/$id/'
-    | '/_auth/persons/$id/'
-    | '/_auth/roles/$id/'
-    | '/_auth/scopes/$id/'
-    | '/_auth/sectors/$id/'
-    | '/_auth/tenants/$id/'
-    | '/_auth/users/$id/'
-    | '/_auth/inventory/batches/$id/movement'
-    | '/_auth/inventory/batches/$id/transfer'
-    | '/_auth/inventory/items/$id/edit'
-    | '/_auth/forms/$id/submissions/'
-    | '/_auth/inventory/batches/$id/'
-    | '/_auth/inventory/items/$id/'
-    | '/_auth/sectors/$id/cleaning/'
-    | '/_auth/forms/$id/submissions/$submissionId/email'
-    | '/_auth/sectors/$id/cleaning/execute/$elementId'
-    | '/_auth/sectors/$id/cleaning/verify/$executionId'
-    | '/_auth/sectors/$id/cleaning/void/$executionId'
-    | '/_auth/forms/$id/submissions/$submissionId/'
+    | '/_layout'
+    | '/_layout/'
+    | '/_layout/comboOptions/new'
+    | '/_layout/contractorCompanies/new'
+    | '/_layout/equipmentMaintenances/new'
+    | '/_layout/observers/new'
+    | '/_layout/plants/new'
+    | '/_layout/sectors/new'
+    | '/_layout/securityObservations/new'
+    | '/_layout/comboOptions/'
+    | '/_layout/contractorCompanies/'
+    | '/_layout/equipmentMaintenances/'
+    | '/_layout/observers/'
+    | '/_layout/plants/'
+    | '/_layout/sectors/'
+    | '/_layout/securityObservations/'
+    | '/_layout/comboOptions/$id/edit'
+    | '/_layout/contractorCompanies/$id/edit'
+    | '/_layout/equipmentMaintenances/edit/$legajo'
+    | '/_layout/observers/$id/edit'
+    | '/_layout/plants/$id/edit'
+    | '/_layout/sectors/$id/edit'
+    | '/_layout/securityObservations/$id/edit'
+    | '/_layout/equipmentMaintenances/$id/'
+    | '/_layout/securityObservations/$id/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  AuthRoute: typeof AuthRouteWithChildren
-  ChangePasswordRoute: typeof ChangePasswordRoute
-  LoginRoute: typeof LoginRoute
+  LayoutRouteRoute: typeof LayoutRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_auth': {
-      id: '/_auth'
+    '/_layout': {
+      id: '/_layout'
       path: ''
       fullPath: '/'
-      preLoaderRoute: typeof AuthRouteImport
+      preLoaderRoute: typeof LayoutRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/change-password': {
-      id: '/change-password'
-      path: '/change-password'
-      fullPath: '/change-password'
-      preLoaderRoute: typeof ChangePasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_auth/': {
-      id: '/_auth/'
+    '/_layout/': {
+      id: '/_layout/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof AuthIndexRouteImport
-      parentRoute: typeof AuthRoute
+      preLoaderRoute: typeof LayoutIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/about': {
-      id: '/_auth/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AuthAboutRouteImport
-      parentRoute: typeof AuthRoute
+    '/_layout/comboOptions/': {
+      id: '/_layout/comboOptions/'
+      path: '/comboOptions'
+      fullPath: '/comboOptions/'
+      preLoaderRoute: typeof LayoutComboOptionsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/cleaning/': {
-      id: '/_auth/cleaning/'
-      path: '/cleaning'
-      fullPath: '/cleaning/'
-      preLoaderRoute: typeof AuthCleaningIndexRouteImport
-      parentRoute: typeof AuthRoute
+    '/_layout/comboOptions/new': {
+      id: '/_layout/comboOptions/new'
+      path: '/comboOptions/new'
+      fullPath: '/comboOptions/new'
+      preLoaderRoute: typeof LayoutComboOptionsNewRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/devices/': {
-      id: '/_auth/devices/'
-      path: '/devices'
-      fullPath: '/devices/'
-      preLoaderRoute: typeof AuthDevicesIndexRouteImport
-      parentRoute: typeof AuthRoute
+    '/_layout/contractorCompanies/': {
+      id: '/_layout/contractorCompanies/'
+      path: '/contractorCompanies'
+      fullPath: '/contractorCompanies/'
+      preLoaderRoute: typeof LayoutContractorCompaniesIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/elements/': {
-      id: '/_auth/elements/'
-      path: '/elements'
-      fullPath: '/elements/'
-      preLoaderRoute: typeof AuthElementsIndexRouteImport
-      parentRoute: typeof AuthRoute
+    '/_layout/contractorCompanies/new': {
+      id: '/_layout/contractorCompanies/new'
+      path: '/contractorCompanies/new'
+      fullPath: '/contractorCompanies/new'
+      preLoaderRoute: typeof LayoutContractorCompaniesNewRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/elements/new': {
-      id: '/_auth/elements/new'
-      path: '/elements/new'
-      fullPath: '/elements/new'
-      preLoaderRoute: typeof AuthElementsNewRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/equipmentItems/': {
-      id: '/_auth/equipmentItems/'
-      path: '/equipmentItems'
-      fullPath: '/equipmentItems/'
-      preLoaderRoute: typeof AuthEquipmentItemsIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/equipmentItems/new': {
-      id: '/_auth/equipmentItems/new'
-      path: '/equipmentItems/new'
-      fullPath: '/equipmentItems/new'
-      preLoaderRoute: typeof AuthEquipmentItemsNewRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/equipmentMaintenances/': {
-      id: '/_auth/equipmentMaintenances/'
+    '/_layout/equipmentMaintenances/': {
+      id: '/_layout/equipmentMaintenances/'
       path: '/equipmentMaintenances'
       fullPath: '/equipmentMaintenances/'
-      preLoaderRoute: typeof AuthEquipmentMaintenancesIndexRouteImport
-      parentRoute: typeof AuthRoute
+      preLoaderRoute: typeof LayoutEquipmentMaintenancesIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/equipmentMaintenances/new': {
-      id: '/_auth/equipmentMaintenances/new'
+    '/_layout/equipmentMaintenances/new': {
+      id: '/_layout/equipmentMaintenances/new'
       path: '/equipmentMaintenances/new'
       fullPath: '/equipmentMaintenances/new'
-      preLoaderRoute: typeof AuthEquipmentMaintenancesNewRouteImport
-      parentRoute: typeof AuthRoute
+      preLoaderRoute: typeof LayoutEquipmentMaintenancesNewRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/expirations/': {
-      id: '/_auth/expirations/'
-      path: '/expirations'
-      fullPath: '/expirations/'
-      preLoaderRoute: typeof AuthExpirationsIndexRouteImport
-      parentRoute: typeof AuthRoute
+    '/_layout/observers/': {
+      id: '/_layout/observers/'
+      path: '/observers'
+      fullPath: '/observers/'
+      preLoaderRoute: typeof LayoutObserversIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/expirations/new': {
-      id: '/_auth/expirations/new'
-      path: '/expirations/new'
-      fullPath: '/expirations/new'
-      preLoaderRoute: typeof AuthExpirationsNewRouteImport
-      parentRoute: typeof AuthRoute
+    '/_layout/observers/new': {
+      id: '/_layout/observers/new'
+      path: '/observers/new'
+      fullPath: '/observers/new'
+      preLoaderRoute: typeof LayoutObserversNewRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/forms/': {
-      id: '/_auth/forms/'
-      path: '/forms'
-      fullPath: '/forms/'
-      preLoaderRoute: typeof AuthFormsIndexRouteImport
-      parentRoute: typeof AuthRoute
+    '/_layout/plants/': {
+      id: '/_layout/plants/'
+      path: '/plants'
+      fullPath: '/plants/'
+      preLoaderRoute: typeof LayoutPlantsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/forms/new': {
-      id: '/_auth/forms/new'
-      path: '/forms/new'
-      fullPath: '/forms/new'
-      preLoaderRoute: typeof AuthFormsNewRouteImport
-      parentRoute: typeof AuthRoute
+    '/_layout/plants/new': {
+      id: '/_layout/plants/new'
+      path: '/plants/new'
+      fullPath: '/plants/new'
+      preLoaderRoute: typeof LayoutPlantsNewRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/modules/': {
-      id: '/_auth/modules/'
-      path: '/modules'
-      fullPath: '/modules/'
-      preLoaderRoute: typeof AuthModulesIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/modules/new': {
-      id: '/_auth/modules/new'
-      path: '/modules/new'
-      fullPath: '/modules/new'
-      preLoaderRoute: typeof AuthModulesNewRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/persons/': {
-      id: '/_auth/persons/'
-      path: '/persons'
-      fullPath: '/persons/'
-      preLoaderRoute: typeof AuthPersonsIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/persons/new': {
-      id: '/_auth/persons/new'
-      path: '/persons/new'
-      fullPath: '/persons/new'
-      preLoaderRoute: typeof AuthPersonsNewRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/profile/': {
-      id: '/_auth/profile/'
-      path: '/profile'
-      fullPath: '/profile/'
-      preLoaderRoute: typeof AuthProfileIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/profile/change-password': {
-      id: '/_auth/profile/change-password'
-      path: '/profile/change-password'
-      fullPath: '/profile/change-password'
-      preLoaderRoute: typeof AuthProfileChangePasswordRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/readings/': {
-      id: '/_auth/readings/'
-      path: '/readings'
-      fullPath: '/readings/'
-      preLoaderRoute: typeof AuthReadingsIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/readings/charts': {
-      id: '/_auth/readings/charts'
-      path: '/readings/charts'
-      fullPath: '/readings/charts'
-      preLoaderRoute: typeof AuthReadingsChartsRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/roles/': {
-      id: '/_auth/roles/'
-      path: '/roles'
-      fullPath: '/roles/'
-      preLoaderRoute: typeof AuthRolesIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/roles/new': {
-      id: '/_auth/roles/new'
-      path: '/roles/new'
-      fullPath: '/roles/new'
-      preLoaderRoute: typeof AuthRolesNewRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/scopes/': {
-      id: '/_auth/scopes/'
-      path: '/scopes'
-      fullPath: '/scopes/'
-      preLoaderRoute: typeof AuthScopesIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/scopes/new': {
-      id: '/_auth/scopes/new'
-      path: '/scopes/new'
-      fullPath: '/scopes/new'
-      preLoaderRoute: typeof AuthScopesNewRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/sectors/': {
-      id: '/_auth/sectors/'
+    '/_layout/sectors/': {
+      id: '/_layout/sectors/'
       path: '/sectors'
       fullPath: '/sectors/'
-      preLoaderRoute: typeof AuthSectorsIndexRouteImport
-      parentRoute: typeof AuthRoute
+      preLoaderRoute: typeof LayoutSectorsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/sectors/new': {
-      id: '/_auth/sectors/new'
+    '/_layout/sectors/new': {
+      id: '/_layout/sectors/new'
       path: '/sectors/new'
       fullPath: '/sectors/new'
-      preLoaderRoute: typeof AuthSectorsNewRouteImport
-      parentRoute: typeof AuthRoute
+      preLoaderRoute: typeof LayoutSectorsNewRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/tenants/': {
-      id: '/_auth/tenants/'
-      path: '/tenants'
-      fullPath: '/tenants/'
-      preLoaderRoute: typeof AuthTenantsIndexRouteImport
-      parentRoute: typeof AuthRoute
+    '/_layout/securityObservations/': {
+      id: '/_layout/securityObservations/'
+      path: '/securityObservations'
+      fullPath: '/securityObservations/'
+      preLoaderRoute: typeof LayoutSecurityObservationsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/tenants/new': {
-      id: '/_auth/tenants/new'
-      path: '/tenants/new'
-      fullPath: '/tenants/new'
-      preLoaderRoute: typeof AuthTenantsNewRouteImport
-      parentRoute: typeof AuthRoute
+    '/_layout/securityObservations/new': {
+      id: '/_layout/securityObservations/new'
+      path: '/securityObservations/new'
+      fullPath: '/securityObservations/new'
+      preLoaderRoute: typeof LayoutSecurityObservationsNewRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/users/': {
-      id: '/_auth/users/'
-      path: '/users'
-      fullPath: '/users/'
-      preLoaderRoute: typeof AuthUsersIndexRouteImport
-      parentRoute: typeof AuthRoute
+    '/_layout/comboOptions/$id/edit': {
+      id: '/_layout/comboOptions/$id/edit'
+      path: '/comboOptions/$id/edit'
+      fullPath: '/comboOptions/$id/edit'
+      preLoaderRoute: typeof LayoutComboOptionsIdEditRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/users/new': {
-      id: '/_auth/users/new'
-      path: '/users/new'
-      fullPath: '/users/new'
-      preLoaderRoute: typeof AuthUsersNewRouteImport
-      parentRoute: typeof AuthRoute
+    '/_layout/contractorCompanies/$id/edit': {
+      id: '/_layout/contractorCompanies/$id/edit'
+      path: '/contractorCompanies/$id/edit'
+      fullPath: '/contractorCompanies/$id/edit'
+      preLoaderRoute: typeof LayoutContractorCompaniesIdEditRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/devices/$id/': {
-      id: '/_auth/devices/$id/'
-      path: '/devices/$id'
-      fullPath: '/devices/$id/'
-      preLoaderRoute: typeof AuthDevicesIdIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/devices/$id/edit': {
-      id: '/_auth/devices/$id/edit'
-      path: '/devices/$id/edit'
-      fullPath: '/devices/$id/edit'
-      preLoaderRoute: typeof AuthDevicesIdEditRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/elements/$id/edit': {
-      id: '/_auth/elements/$id/edit'
-      path: '/elements/$id/edit'
-      fullPath: '/elements/$id/edit'
-      preLoaderRoute: typeof AuthElementsIdEditRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/equipmentItems/$id/': {
-      id: '/_auth/equipmentItems/$id/'
-      path: '/equipmentItems/$id'
-      fullPath: '/equipmentItems/$id/'
-      preLoaderRoute: typeof AuthEquipmentItemsIdIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/equipmentItems/$id/edit': {
-      id: '/_auth/equipmentItems/$id/edit'
-      path: '/equipmentItems/$id/edit'
-      fullPath: '/equipmentItems/$id/edit'
-      preLoaderRoute: typeof AuthEquipmentItemsIdEditRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/equipmentMaintenances/$id/': {
-      id: '/_auth/equipmentMaintenances/$id/'
+    '/_layout/equipmentMaintenances/$id/': {
+      id: '/_layout/equipmentMaintenances/$id/'
       path: '/equipmentMaintenances/$id'
       fullPath: '/equipmentMaintenances/$id/'
-      preLoaderRoute: typeof AuthEquipmentMaintenancesIdIndexRouteImport
-      parentRoute: typeof AuthRoute
+      preLoaderRoute: typeof LayoutEquipmentMaintenancesIdIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/equipmentMaintenances/$id/edit': {
-      id: '/_auth/equipmentMaintenances/$id/edit'
-      path: '/equipmentMaintenances/$id/edit'
-      fullPath: '/equipmentMaintenances/$id/edit'
-      preLoaderRoute: typeof AuthEquipmentMaintenancesIdEditRouteImport
-      parentRoute: typeof AuthRoute
+    '/_layout/equipmentMaintenances/edit/$legajo': {
+      id: '/_layout/equipmentMaintenances/edit/$legajo'
+      path: '/equipmentMaintenances/edit/$legajo'
+      fullPath: '/equipmentMaintenances/edit/$legajo'
+      preLoaderRoute: typeof LayoutEquipmentMaintenancesEditLegajoRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/expirations/$id/': {
-      id: '/_auth/expirations/$id/'
-      path: '/expirations/$id'
-      fullPath: '/expirations/$id/'
-      preLoaderRoute: typeof AuthExpirationsIdIndexRouteImport
-      parentRoute: typeof AuthRoute
+    '/_layout/observers/$id/edit': {
+      id: '/_layout/observers/$id/edit'
+      path: '/observers/$id/edit'
+      fullPath: '/observers/$id/edit'
+      preLoaderRoute: typeof LayoutObserversIdEditRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/expirations/$id/edit': {
-      id: '/_auth/expirations/$id/edit'
-      path: '/expirations/$id/edit'
-      fullPath: '/expirations/$id/edit'
-      preLoaderRoute: typeof AuthExpirationsIdEditRouteImport
-      parentRoute: typeof AuthRoute
+    '/_layout/plants/$id/edit': {
+      id: '/_layout/plants/$id/edit'
+      path: '/plants/$id/edit'
+      fullPath: '/plants/$id/edit'
+      preLoaderRoute: typeof LayoutPlantsIdEditRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/forms/$id/edit': {
-      id: '/_auth/forms/$id/edit'
-      path: '/forms/$id/edit'
-      fullPath: '/forms/$id/edit'
-      preLoaderRoute: typeof AuthFormsIdEditRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/forms/$id/fill': {
-      id: '/_auth/forms/$id/fill'
-      path: '/forms/$id/fill'
-      fullPath: '/forms/$id/fill'
-      preLoaderRoute: typeof AuthFormsIdFillRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/inventory/batches/': {
-      id: '/_auth/inventory/batches/'
-      path: '/inventory/batches'
-      fullPath: '/inventory/batches/'
-      preLoaderRoute: typeof AuthInventoryBatchesIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/inventory/batches/new': {
-      id: '/_auth/inventory/batches/new'
-      path: '/inventory/batches/new'
-      fullPath: '/inventory/batches/new'
-      preLoaderRoute: typeof AuthInventoryBatchesNewRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/inventory/items/': {
-      id: '/_auth/inventory/items/'
-      path: '/inventory/items'
-      fullPath: '/inventory/items/'
-      preLoaderRoute: typeof AuthInventoryItemsIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/inventory/items/new': {
-      id: '/_auth/inventory/items/new'
-      path: '/inventory/items/new'
-      fullPath: '/inventory/items/new'
-      preLoaderRoute: typeof AuthInventoryItemsNewRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/modules/$id/': {
-      id: '/_auth/modules/$id/'
-      path: '/modules/$id'
-      fullPath: '/modules/$id/'
-      preLoaderRoute: typeof AuthModulesIdIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/modules/$id/edit': {
-      id: '/_auth/modules/$id/edit'
-      path: '/modules/$id/edit'
-      fullPath: '/modules/$id/edit'
-      preLoaderRoute: typeof AuthModulesIdEditRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/persons/$id/': {
-      id: '/_auth/persons/$id/'
-      path: '/persons/$id'
-      fullPath: '/persons/$id/'
-      preLoaderRoute: typeof AuthPersonsIdIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/persons/$id/edit': {
-      id: '/_auth/persons/$id/edit'
-      path: '/persons/$id/edit'
-      fullPath: '/persons/$id/edit'
-      preLoaderRoute: typeof AuthPersonsIdEditRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/roles/$id/': {
-      id: '/_auth/roles/$id/'
-      path: '/roles/$id'
-      fullPath: '/roles/$id/'
-      preLoaderRoute: typeof AuthRolesIdIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/roles/$id/edit': {
-      id: '/_auth/roles/$id/edit'
-      path: '/roles/$id/edit'
-      fullPath: '/roles/$id/edit'
-      preLoaderRoute: typeof AuthRolesIdEditRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/scopes/$id/': {
-      id: '/_auth/scopes/$id/'
-      path: '/scopes/$id'
-      fullPath: '/scopes/$id/'
-      preLoaderRoute: typeof AuthScopesIdIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/scopes/$id/edit': {
-      id: '/_auth/scopes/$id/edit'
-      path: '/scopes/$id/edit'
-      fullPath: '/scopes/$id/edit'
-      preLoaderRoute: typeof AuthScopesIdEditRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/sectors/$id/': {
-      id: '/_auth/sectors/$id/'
-      path: '/sectors/$id'
-      fullPath: '/sectors/$id/'
-      preLoaderRoute: typeof AuthSectorsIdIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/sectors/$id/edit': {
-      id: '/_auth/sectors/$id/edit'
+    '/_layout/sectors/$id/edit': {
+      id: '/_layout/sectors/$id/edit'
       path: '/sectors/$id/edit'
       fullPath: '/sectors/$id/edit'
-      preLoaderRoute: typeof AuthSectorsIdEditRouteImport
-      parentRoute: typeof AuthRoute
+      preLoaderRoute: typeof LayoutSectorsIdEditRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/sectors/$id/print': {
-      id: '/_auth/sectors/$id/print'
-      path: '/sectors/$id/print'
-      fullPath: '/sectors/$id/print'
-      preLoaderRoute: typeof AuthSectorsIdPrintRouteImport
-      parentRoute: typeof AuthRoute
+    '/_layout/securityObservations/$id/': {
+      id: '/_layout/securityObservations/$id/'
+      path: '/securityObservations/$id'
+      fullPath: '/securityObservations/$id/'
+      preLoaderRoute: typeof LayoutSecurityObservationsIdIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
-    '/_auth/tenants/$id/': {
-      id: '/_auth/tenants/$id/'
-      path: '/tenants/$id'
-      fullPath: '/tenants/$id/'
-      preLoaderRoute: typeof AuthTenantsIdIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/tenants/$id/edit': {
-      id: '/_auth/tenants/$id/edit'
-      path: '/tenants/$id/edit'
-      fullPath: '/tenants/$id/edit'
-      preLoaderRoute: typeof AuthTenantsIdEditRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/users/$id/': {
-      id: '/_auth/users/$id/'
-      path: '/users/$id'
-      fullPath: '/users/$id/'
-      preLoaderRoute: typeof AuthUsersIdIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/users/$id/edit': {
-      id: '/_auth/users/$id/edit'
-      path: '/users/$id/edit'
-      fullPath: '/users/$id/edit'
-      preLoaderRoute: typeof AuthUsersIdEditRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/forms/$id/submissions/': {
-      id: '/_auth/forms/$id/submissions/'
-      path: '/forms/$id/submissions'
-      fullPath: '/forms/$id/submissions/'
-      preLoaderRoute: typeof AuthFormsIdSubmissionsIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/inventory/batches/$id/': {
-      id: '/_auth/inventory/batches/$id/'
-      path: '/inventory/batches/$id'
-      fullPath: '/inventory/batches/$id/'
-      preLoaderRoute: typeof AuthInventoryBatchesIdIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/inventory/batches/$id/movement': {
-      id: '/_auth/inventory/batches/$id/movement'
-      path: '/inventory/batches/$id/movement'
-      fullPath: '/inventory/batches/$id/movement'
-      preLoaderRoute: typeof AuthInventoryBatchesIdMovementRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/inventory/batches/$id/transfer': {
-      id: '/_auth/inventory/batches/$id/transfer'
-      path: '/inventory/batches/$id/transfer'
-      fullPath: '/inventory/batches/$id/transfer'
-      preLoaderRoute: typeof AuthInventoryBatchesIdTransferRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/inventory/items/$id/': {
-      id: '/_auth/inventory/items/$id/'
-      path: '/inventory/items/$id'
-      fullPath: '/inventory/items/$id/'
-      preLoaderRoute: typeof AuthInventoryItemsIdIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/inventory/items/$id/edit': {
-      id: '/_auth/inventory/items/$id/edit'
-      path: '/inventory/items/$id/edit'
-      fullPath: '/inventory/items/$id/edit'
-      preLoaderRoute: typeof AuthInventoryItemsIdEditRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/sectors/$id/cleaning/': {
-      id: '/_auth/sectors/$id/cleaning/'
-      path: '/sectors/$id/cleaning'
-      fullPath: '/sectors/$id/cleaning/'
-      preLoaderRoute: typeof AuthSectorsIdCleaningIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/forms/$id/submissions/$submissionId/': {
-      id: '/_auth/forms/$id/submissions/$submissionId/'
-      path: '/forms/$id/submissions/$submissionId'
-      fullPath: '/forms/$id/submissions/$submissionId/'
-      preLoaderRoute: typeof AuthFormsIdSubmissionsSubmissionIdIndexRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/forms/$id/submissions/$submissionId/email': {
-      id: '/_auth/forms/$id/submissions/$submissionId/email'
-      path: '/forms/$id/submissions/$submissionId/email'
-      fullPath: '/forms/$id/submissions/$submissionId/email'
-      preLoaderRoute: typeof AuthFormsIdSubmissionsSubmissionIdEmailRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/sectors/$id/cleaning/execute/$elementId': {
-      id: '/_auth/sectors/$id/cleaning/execute/$elementId'
-      path: '/sectors/$id/cleaning/execute/$elementId'
-      fullPath: '/sectors/$id/cleaning/execute/$elementId'
-      preLoaderRoute: typeof AuthSectorsIdCleaningExecuteElementIdRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/sectors/$id/cleaning/verify/$executionId': {
-      id: '/_auth/sectors/$id/cleaning/verify/$executionId'
-      path: '/sectors/$id/cleaning/verify/$executionId'
-      fullPath: '/sectors/$id/cleaning/verify/$executionId'
-      preLoaderRoute: typeof AuthSectorsIdCleaningVerifyExecutionIdRouteImport
-      parentRoute: typeof AuthRoute
-    }
-    '/_auth/sectors/$id/cleaning/void/$executionId': {
-      id: '/_auth/sectors/$id/cleaning/void/$executionId'
-      path: '/sectors/$id/cleaning/void/$executionId'
-      fullPath: '/sectors/$id/cleaning/void/$executionId'
-      preLoaderRoute: typeof AuthSectorsIdCleaningVoidExecutionIdRouteImport
-      parentRoute: typeof AuthRoute
+    '/_layout/securityObservations/$id/edit': {
+      id: '/_layout/securityObservations/$id/edit'
+      path: '/securityObservations/$id/edit'
+      fullPath: '/securityObservations/$id/edit'
+      preLoaderRoute: typeof LayoutSecurityObservationsIdEditRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
   }
 }
 
-interface AuthRouteChildren {
-  AuthAboutRoute: typeof AuthAboutRoute
-  AuthIndexRoute: typeof AuthIndexRoute
-  AuthElementsNewRoute: typeof AuthElementsNewRoute
-  AuthEquipmentItemsNewRoute: typeof AuthEquipmentItemsNewRoute
-  AuthEquipmentMaintenancesNewRoute: typeof AuthEquipmentMaintenancesNewRoute
-  AuthExpirationsNewRoute: typeof AuthExpirationsNewRoute
-  AuthFormsNewRoute: typeof AuthFormsNewRoute
-  AuthModulesNewRoute: typeof AuthModulesNewRoute
-  AuthPersonsNewRoute: typeof AuthPersonsNewRoute
-  AuthProfileChangePasswordRoute: typeof AuthProfileChangePasswordRoute
-  AuthReadingsChartsRoute: typeof AuthReadingsChartsRoute
-  AuthRolesNewRoute: typeof AuthRolesNewRoute
-  AuthScopesNewRoute: typeof AuthScopesNewRoute
-  AuthSectorsNewRoute: typeof AuthSectorsNewRoute
-  AuthTenantsNewRoute: typeof AuthTenantsNewRoute
-  AuthUsersNewRoute: typeof AuthUsersNewRoute
-  AuthCleaningIndexRoute: typeof AuthCleaningIndexRoute
-  AuthDevicesIndexRoute: typeof AuthDevicesIndexRoute
-  AuthElementsIndexRoute: typeof AuthElementsIndexRoute
-  AuthEquipmentItemsIndexRoute: typeof AuthEquipmentItemsIndexRoute
-  AuthEquipmentMaintenancesIndexRoute: typeof AuthEquipmentMaintenancesIndexRoute
-  AuthExpirationsIndexRoute: typeof AuthExpirationsIndexRoute
-  AuthFormsIndexRoute: typeof AuthFormsIndexRoute
-  AuthModulesIndexRoute: typeof AuthModulesIndexRoute
-  AuthPersonsIndexRoute: typeof AuthPersonsIndexRoute
-  AuthProfileIndexRoute: typeof AuthProfileIndexRoute
-  AuthReadingsIndexRoute: typeof AuthReadingsIndexRoute
-  AuthRolesIndexRoute: typeof AuthRolesIndexRoute
-  AuthScopesIndexRoute: typeof AuthScopesIndexRoute
-  AuthSectorsIndexRoute: typeof AuthSectorsIndexRoute
-  AuthTenantsIndexRoute: typeof AuthTenantsIndexRoute
-  AuthUsersIndexRoute: typeof AuthUsersIndexRoute
-  AuthDevicesIdEditRoute: typeof AuthDevicesIdEditRoute
-  AuthElementsIdEditRoute: typeof AuthElementsIdEditRoute
-  AuthEquipmentItemsIdEditRoute: typeof AuthEquipmentItemsIdEditRoute
-  AuthEquipmentMaintenancesIdEditRoute: typeof AuthEquipmentMaintenancesIdEditRoute
-  AuthExpirationsIdEditRoute: typeof AuthExpirationsIdEditRoute
-  AuthFormsIdEditRoute: typeof AuthFormsIdEditRoute
-  AuthFormsIdFillRoute: typeof AuthFormsIdFillRoute
-  AuthInventoryBatchesNewRoute: typeof AuthInventoryBatchesNewRoute
-  AuthInventoryItemsNewRoute: typeof AuthInventoryItemsNewRoute
-  AuthModulesIdEditRoute: typeof AuthModulesIdEditRoute
-  AuthPersonsIdEditRoute: typeof AuthPersonsIdEditRoute
-  AuthRolesIdEditRoute: typeof AuthRolesIdEditRoute
-  AuthScopesIdEditRoute: typeof AuthScopesIdEditRoute
-  AuthSectorsIdEditRoute: typeof AuthSectorsIdEditRoute
-  AuthSectorsIdPrintRoute: typeof AuthSectorsIdPrintRoute
-  AuthTenantsIdEditRoute: typeof AuthTenantsIdEditRoute
-  AuthUsersIdEditRoute: typeof AuthUsersIdEditRoute
-  AuthDevicesIdIndexRoute: typeof AuthDevicesIdIndexRoute
-  AuthEquipmentItemsIdIndexRoute: typeof AuthEquipmentItemsIdIndexRoute
-  AuthEquipmentMaintenancesIdIndexRoute: typeof AuthEquipmentMaintenancesIdIndexRoute
-  AuthExpirationsIdIndexRoute: typeof AuthExpirationsIdIndexRoute
-  AuthInventoryBatchesIndexRoute: typeof AuthInventoryBatchesIndexRoute
-  AuthInventoryItemsIndexRoute: typeof AuthInventoryItemsIndexRoute
-  AuthModulesIdIndexRoute: typeof AuthModulesIdIndexRoute
-  AuthPersonsIdIndexRoute: typeof AuthPersonsIdIndexRoute
-  AuthRolesIdIndexRoute: typeof AuthRolesIdIndexRoute
-  AuthScopesIdIndexRoute: typeof AuthScopesIdIndexRoute
-  AuthSectorsIdIndexRoute: typeof AuthSectorsIdIndexRoute
-  AuthTenantsIdIndexRoute: typeof AuthTenantsIdIndexRoute
-  AuthUsersIdIndexRoute: typeof AuthUsersIdIndexRoute
-  AuthInventoryBatchesIdMovementRoute: typeof AuthInventoryBatchesIdMovementRoute
-  AuthInventoryBatchesIdTransferRoute: typeof AuthInventoryBatchesIdTransferRoute
-  AuthInventoryItemsIdEditRoute: typeof AuthInventoryItemsIdEditRoute
-  AuthFormsIdSubmissionsIndexRoute: typeof AuthFormsIdSubmissionsIndexRoute
-  AuthInventoryBatchesIdIndexRoute: typeof AuthInventoryBatchesIdIndexRoute
-  AuthInventoryItemsIdIndexRoute: typeof AuthInventoryItemsIdIndexRoute
-  AuthSectorsIdCleaningIndexRoute: typeof AuthSectorsIdCleaningIndexRoute
-  AuthFormsIdSubmissionsSubmissionIdEmailRoute: typeof AuthFormsIdSubmissionsSubmissionIdEmailRoute
-  AuthSectorsIdCleaningExecuteElementIdRoute: typeof AuthSectorsIdCleaningExecuteElementIdRoute
-  AuthSectorsIdCleaningVerifyExecutionIdRoute: typeof AuthSectorsIdCleaningVerifyExecutionIdRoute
-  AuthSectorsIdCleaningVoidExecutionIdRoute: typeof AuthSectorsIdCleaningVoidExecutionIdRoute
-  AuthFormsIdSubmissionsSubmissionIdIndexRoute: typeof AuthFormsIdSubmissionsSubmissionIdIndexRoute
+interface LayoutRouteRouteChildren {
+  LayoutIndexRoute: typeof LayoutIndexRoute
+  LayoutComboOptionsNewRoute: typeof LayoutComboOptionsNewRoute
+  LayoutContractorCompaniesNewRoute: typeof LayoutContractorCompaniesNewRoute
+  LayoutEquipmentMaintenancesNewRoute: typeof LayoutEquipmentMaintenancesNewRoute
+  LayoutObserversNewRoute: typeof LayoutObserversNewRoute
+  LayoutPlantsNewRoute: typeof LayoutPlantsNewRoute
+  LayoutSectorsNewRoute: typeof LayoutSectorsNewRoute
+  LayoutSecurityObservationsNewRoute: typeof LayoutSecurityObservationsNewRoute
+  LayoutComboOptionsIndexRoute: typeof LayoutComboOptionsIndexRoute
+  LayoutContractorCompaniesIndexRoute: typeof LayoutContractorCompaniesIndexRoute
+  LayoutEquipmentMaintenancesIndexRoute: typeof LayoutEquipmentMaintenancesIndexRoute
+  LayoutObserversIndexRoute: typeof LayoutObserversIndexRoute
+  LayoutPlantsIndexRoute: typeof LayoutPlantsIndexRoute
+  LayoutSectorsIndexRoute: typeof LayoutSectorsIndexRoute
+  LayoutSecurityObservationsIndexRoute: typeof LayoutSecurityObservationsIndexRoute
+  LayoutComboOptionsIdEditRoute: typeof LayoutComboOptionsIdEditRoute
+  LayoutContractorCompaniesIdEditRoute: typeof LayoutContractorCompaniesIdEditRoute
+  LayoutEquipmentMaintenancesEditLegajoRoute: typeof LayoutEquipmentMaintenancesEditLegajoRoute
+  LayoutObserversIdEditRoute: typeof LayoutObserversIdEditRoute
+  LayoutPlantsIdEditRoute: typeof LayoutPlantsIdEditRoute
+  LayoutSectorsIdEditRoute: typeof LayoutSectorsIdEditRoute
+  LayoutSecurityObservationsIdEditRoute: typeof LayoutSecurityObservationsIdEditRoute
+  LayoutEquipmentMaintenancesIdIndexRoute: typeof LayoutEquipmentMaintenancesIdIndexRoute
+  LayoutSecurityObservationsIdIndexRoute: typeof LayoutSecurityObservationsIdIndexRoute
 }
 
-const AuthRouteChildren: AuthRouteChildren = {
-  AuthAboutRoute: AuthAboutRoute,
-  AuthIndexRoute: AuthIndexRoute,
-  AuthElementsNewRoute: AuthElementsNewRoute,
-  AuthEquipmentItemsNewRoute: AuthEquipmentItemsNewRoute,
-  AuthEquipmentMaintenancesNewRoute: AuthEquipmentMaintenancesNewRoute,
-  AuthExpirationsNewRoute: AuthExpirationsNewRoute,
-  AuthFormsNewRoute: AuthFormsNewRoute,
-  AuthModulesNewRoute: AuthModulesNewRoute,
-  AuthPersonsNewRoute: AuthPersonsNewRoute,
-  AuthProfileChangePasswordRoute: AuthProfileChangePasswordRoute,
-  AuthReadingsChartsRoute: AuthReadingsChartsRoute,
-  AuthRolesNewRoute: AuthRolesNewRoute,
-  AuthScopesNewRoute: AuthScopesNewRoute,
-  AuthSectorsNewRoute: AuthSectorsNewRoute,
-  AuthTenantsNewRoute: AuthTenantsNewRoute,
-  AuthUsersNewRoute: AuthUsersNewRoute,
-  AuthCleaningIndexRoute: AuthCleaningIndexRoute,
-  AuthDevicesIndexRoute: AuthDevicesIndexRoute,
-  AuthElementsIndexRoute: AuthElementsIndexRoute,
-  AuthEquipmentItemsIndexRoute: AuthEquipmentItemsIndexRoute,
-  AuthEquipmentMaintenancesIndexRoute: AuthEquipmentMaintenancesIndexRoute,
-  AuthExpirationsIndexRoute: AuthExpirationsIndexRoute,
-  AuthFormsIndexRoute: AuthFormsIndexRoute,
-  AuthModulesIndexRoute: AuthModulesIndexRoute,
-  AuthPersonsIndexRoute: AuthPersonsIndexRoute,
-  AuthProfileIndexRoute: AuthProfileIndexRoute,
-  AuthReadingsIndexRoute: AuthReadingsIndexRoute,
-  AuthRolesIndexRoute: AuthRolesIndexRoute,
-  AuthScopesIndexRoute: AuthScopesIndexRoute,
-  AuthSectorsIndexRoute: AuthSectorsIndexRoute,
-  AuthTenantsIndexRoute: AuthTenantsIndexRoute,
-  AuthUsersIndexRoute: AuthUsersIndexRoute,
-  AuthDevicesIdEditRoute: AuthDevicesIdEditRoute,
-  AuthElementsIdEditRoute: AuthElementsIdEditRoute,
-  AuthEquipmentItemsIdEditRoute: AuthEquipmentItemsIdEditRoute,
-  AuthEquipmentMaintenancesIdEditRoute: AuthEquipmentMaintenancesIdEditRoute,
-  AuthExpirationsIdEditRoute: AuthExpirationsIdEditRoute,
-  AuthFormsIdEditRoute: AuthFormsIdEditRoute,
-  AuthFormsIdFillRoute: AuthFormsIdFillRoute,
-  AuthInventoryBatchesNewRoute: AuthInventoryBatchesNewRoute,
-  AuthInventoryItemsNewRoute: AuthInventoryItemsNewRoute,
-  AuthModulesIdEditRoute: AuthModulesIdEditRoute,
-  AuthPersonsIdEditRoute: AuthPersonsIdEditRoute,
-  AuthRolesIdEditRoute: AuthRolesIdEditRoute,
-  AuthScopesIdEditRoute: AuthScopesIdEditRoute,
-  AuthSectorsIdEditRoute: AuthSectorsIdEditRoute,
-  AuthSectorsIdPrintRoute: AuthSectorsIdPrintRoute,
-  AuthTenantsIdEditRoute: AuthTenantsIdEditRoute,
-  AuthUsersIdEditRoute: AuthUsersIdEditRoute,
-  AuthDevicesIdIndexRoute: AuthDevicesIdIndexRoute,
-  AuthEquipmentItemsIdIndexRoute: AuthEquipmentItemsIdIndexRoute,
-  AuthEquipmentMaintenancesIdIndexRoute: AuthEquipmentMaintenancesIdIndexRoute,
-  AuthExpirationsIdIndexRoute: AuthExpirationsIdIndexRoute,
-  AuthInventoryBatchesIndexRoute: AuthInventoryBatchesIndexRoute,
-  AuthInventoryItemsIndexRoute: AuthInventoryItemsIndexRoute,
-  AuthModulesIdIndexRoute: AuthModulesIdIndexRoute,
-  AuthPersonsIdIndexRoute: AuthPersonsIdIndexRoute,
-  AuthRolesIdIndexRoute: AuthRolesIdIndexRoute,
-  AuthScopesIdIndexRoute: AuthScopesIdIndexRoute,
-  AuthSectorsIdIndexRoute: AuthSectorsIdIndexRoute,
-  AuthTenantsIdIndexRoute: AuthTenantsIdIndexRoute,
-  AuthUsersIdIndexRoute: AuthUsersIdIndexRoute,
-  AuthInventoryBatchesIdMovementRoute: AuthInventoryBatchesIdMovementRoute,
-  AuthInventoryBatchesIdTransferRoute: AuthInventoryBatchesIdTransferRoute,
-  AuthInventoryItemsIdEditRoute: AuthInventoryItemsIdEditRoute,
-  AuthFormsIdSubmissionsIndexRoute: AuthFormsIdSubmissionsIndexRoute,
-  AuthInventoryBatchesIdIndexRoute: AuthInventoryBatchesIdIndexRoute,
-  AuthInventoryItemsIdIndexRoute: AuthInventoryItemsIdIndexRoute,
-  AuthSectorsIdCleaningIndexRoute: AuthSectorsIdCleaningIndexRoute,
-  AuthFormsIdSubmissionsSubmissionIdEmailRoute:
-    AuthFormsIdSubmissionsSubmissionIdEmailRoute,
-  AuthSectorsIdCleaningExecuteElementIdRoute:
-    AuthSectorsIdCleaningExecuteElementIdRoute,
-  AuthSectorsIdCleaningVerifyExecutionIdRoute:
-    AuthSectorsIdCleaningVerifyExecutionIdRoute,
-  AuthSectorsIdCleaningVoidExecutionIdRoute:
-    AuthSectorsIdCleaningVoidExecutionIdRoute,
-  AuthFormsIdSubmissionsSubmissionIdIndexRoute:
-    AuthFormsIdSubmissionsSubmissionIdIndexRoute,
+const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
+  LayoutIndexRoute: LayoutIndexRoute,
+  LayoutComboOptionsNewRoute: LayoutComboOptionsNewRoute,
+  LayoutContractorCompaniesNewRoute: LayoutContractorCompaniesNewRoute,
+  LayoutEquipmentMaintenancesNewRoute: LayoutEquipmentMaintenancesNewRoute,
+  LayoutObserversNewRoute: LayoutObserversNewRoute,
+  LayoutPlantsNewRoute: LayoutPlantsNewRoute,
+  LayoutSectorsNewRoute: LayoutSectorsNewRoute,
+  LayoutSecurityObservationsNewRoute: LayoutSecurityObservationsNewRoute,
+  LayoutComboOptionsIndexRoute: LayoutComboOptionsIndexRoute,
+  LayoutContractorCompaniesIndexRoute: LayoutContractorCompaniesIndexRoute,
+  LayoutEquipmentMaintenancesIndexRoute: LayoutEquipmentMaintenancesIndexRoute,
+  LayoutObserversIndexRoute: LayoutObserversIndexRoute,
+  LayoutPlantsIndexRoute: LayoutPlantsIndexRoute,
+  LayoutSectorsIndexRoute: LayoutSectorsIndexRoute,
+  LayoutSecurityObservationsIndexRoute: LayoutSecurityObservationsIndexRoute,
+  LayoutComboOptionsIdEditRoute: LayoutComboOptionsIdEditRoute,
+  LayoutContractorCompaniesIdEditRoute: LayoutContractorCompaniesIdEditRoute,
+  LayoutEquipmentMaintenancesEditLegajoRoute:
+    LayoutEquipmentMaintenancesEditLegajoRoute,
+  LayoutObserversIdEditRoute: LayoutObserversIdEditRoute,
+  LayoutPlantsIdEditRoute: LayoutPlantsIdEditRoute,
+  LayoutSectorsIdEditRoute: LayoutSectorsIdEditRoute,
+  LayoutSecurityObservationsIdEditRoute: LayoutSecurityObservationsIdEditRoute,
+  LayoutEquipmentMaintenancesIdIndexRoute:
+    LayoutEquipmentMaintenancesIdIndexRoute,
+  LayoutSecurityObservationsIdIndexRoute:
+    LayoutSecurityObservationsIdIndexRoute,
 }
 
-const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(
+  LayoutRouteRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
-  AuthRoute: AuthRouteWithChildren,
-  ChangePasswordRoute: ChangePasswordRoute,
-  LoginRoute: LoginRoute,
+  LayoutRouteRoute: LayoutRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

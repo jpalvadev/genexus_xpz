@@ -17,6 +17,23 @@ to run subagents: spawning even one either halts the system or goes out of memor
 - This rule is not a default or a preference: it is obligatory. Any instruction elsewhere
   in this file or in a skill that suggests using subagents is overridden by this directive.
 
+## Dev commands
+
+- **dotnet is not on PATH**: prefix backend commands with
+  `export PATH="$HOME/.dotnet:$PATH" DOTNET_ROOT="$HOME/.dotnet" DOTNET_CLI_TELEMETRY_OPTOUT=1 DOTNET_NOLOGO=1`.
+- **Backend code layout**: `Genexus/Features/<module>/`, `Controllers/`, `Models/`, `Common/` — there is no `Genexus/src/`.
+- **API**: `dotnet run --launch-profile http` from `Genexus/` → `http://localhost:5281/api/v1` (port from `Properties/launchSettings.json`). Stop it by port owner: `ss -lptn 'sport = :5281'` → kill that pid.
+- **Harness scripts**: `scripts/with-api.sh <cmd>` runs `<cmd>` against a temporary live API; `scripts/capture-fixtures.py` recaptures MSW fixtures from the live API.
+- **vitest runs serially by config** (`pool: 'forks'` + `singleFork` in `vitest.config.ts`): a plain `npx vitest run` is already serial — never run two suites at once on this box. Legacy component/hook suites keep per-file `isolate: true`; the Master record integration suites (deep suite, catalog smokes, Security Observation form) run `isolate: false` in a `shared` project. Full run ≈ 2 min with `--reporter=dot`.
+- **Frontend gates** (wired in `.githooks` pre-commit/pre-push): `tsc -b`, `eslint --max-warnings=0` on staged TS files, `vitest run`.
+
+## Ship work
+
+When the tickets in scope are resolved, always finish the job: commit each ticket
+(gates green, hooks on), merge the integration branch into `master`, and push both
+`master` and the integration branch to `origin` (GitHub). Don't stop at a green
+local commit — the work isn't done until it's on GitHub.
+
 ## Agent skills
 
 ### Issue tracker

@@ -42,6 +42,12 @@ _Avoid_: Planta, factory, branch, venue
 with its own name, not free text.
 _Avoid_: Sector as a label, department, category, zone
 
+**Master record**: A small reference catalog with its own CRUD screens that Security
+Observations file under — Sectors, Plants, Observers, Contractor Companies, Combo Options.
+Structurally it is a *config* handed to the Master record module factory
+(`frontend/src/master-records/`), never a copy of the previous catalog (ADR-0003).
+_Avoid_: master data, catalog, reference data, lookup table
+
 **Place**: Where a Security Observation takes place, recorded as free text. Deliberately
 *not* a Plant reference — a Plant is a staffing target, a Place is what the record says.
 _Avoid_: Lugar, location, site, address

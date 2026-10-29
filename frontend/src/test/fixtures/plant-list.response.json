@@ -1,0 +1,21 @@
+{
+  "count": 4,
+  "data": [
+    {
+      "id": 1,
+      "name": "North Plant (RNV)"
+    },
+    {
+      "id": 2,
+      "name": "South Plant (PLS)"
+    },
+    {
+      "id": 3,
+      "name": "Central Plant (TSS)"
+    },
+    {
+      "id": 4,
+      "name": "Dock Plant (VQG)"
+    }
+  ]
+}

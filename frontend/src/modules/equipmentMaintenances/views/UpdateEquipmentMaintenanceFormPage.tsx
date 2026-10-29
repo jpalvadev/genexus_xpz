@@ -1,4 +1,4 @@
-import { Route } from '@/routes/_auth/equipmentMaintenances/$id/edit';
+import { Route } from '@/routes/_layout/equipmentMaintenances/edit.$legajo';
 import EquipmentMaintenanceForm from '../components/EquipmentMaintenanceForm';
 const UpdateEquipmentMaintenanceFormPage = () => {
     const equipmentMaintenance = Route.useLoaderData();

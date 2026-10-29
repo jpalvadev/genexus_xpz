@@ -1,7 +1,6 @@
 import Loading from '@/components/Loading';
 import { Button } from '@/components/ui/button';
 
-import Authorized from '@/components/Authorized';
 import { useGridifyParams } from '@/hooks/useGridifyParams';
 import { equipmentMaintenanceService } from '../services/equipmentMaintenance.service';
 import { useEquipmentMaintenancesQuery } from '../hooks/useEquipmentMaintenancesQuery';
@@ -23,7 +22,7 @@ export default function EquipmentMaintenancesTablePage() {
 
     const { data, isPending } = useEquipmentMaintenancesQuery(gridifyQuery);
 
-    if (isPending) return <Loading />;
+    if (isPending || !data) return <Loading />;
 
     return (
         <div className="flex flex-col gap-4 h-full">
@@ -32,18 +31,16 @@ export default function EquipmentMaintenancesTablePage() {
                     Registro de Tratamientos Preventivos y Correctivos
                 </h1>
 
-                <Authorized requiredModule="equipmentMaintenance" requiredRole="reports">
-                    <Button
-                        variant="default"
-                        onClick={() => {
-                            equipmentMaintenanceService.exportExcel(
-                                gridifyQuery,
-                            );
-                        }}
-                    >
-                        Excel
-                    </Button>
-                </Authorized>
+                <Button
+                    variant="default"
+                    onClick={() => {
+                        equipmentMaintenanceService.exportExcel(
+                            gridifyQuery,
+                        );
+                    }}
+                >
+                    Excel
+                </Button>
 
                 {hasActiveFilters && (
                     <Button onClick={onResetFilters} variant="outline">
@@ -52,8 +49,7 @@ export default function EquipmentMaintenancesTablePage() {
                 )}
             </div>
 
-            <Authorized requiredModule="equipmentMaintenance" requiredRole="admin" fallback={<p>No tienes permisos para gestionar mantenimientos.</p>}>
-                <GenericTable
+            <GenericTable
                     data={data?.data ?? []}
                     columns={EQUIPMENT_MAINTENANCE_COLUMNS}
                     pagination={pagination}
@@ -66,7 +62,6 @@ export default function EquipmentMaintenancesTablePage() {
                     sorting={sorting}
                     onSortingChange={onSortingChange}
                 />
-            </Authorized>
         </div>
     );
 }
