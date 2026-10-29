@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # Start the API, wait for the port, run a command against it, then stop the API.
 # Usage (from anywhere): scripts/with-api.sh <command...>
+# The harness starts from a FRESH seeded DB: itrion.db* is deleted before the
+# server starts (it is a disposable regenerated artifact, and a drifted DB
+# pollutes seeds -> non-deterministic ids and false FAILs in the pin scripts).
 # Gotcha: the API process runs with Genexus/ as CWD, so any helper script that
 # writes with a RELATIVE path will write into Genexus/ (e.g. itrion.db landed
 # there once). Path helpers in this folder write relative to the repo root.
@@ -9,6 +12,7 @@ export PATH="$HOME/.dotnet:$PATH" DOTNET_CLI_TELEMETRY_OPTOUT=1 DOTNET_NOLOGO=1 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PORT=5281
 cd "$ROOT/Genexus" || exit 1
+rm -f itrion.db*
 setsid nohup dotnet run --launch-profile http > /tmp/opencode/api.log 2>&1 < /dev/null &
 API=$!
 

@@ -31,10 +31,18 @@ Read at review time. Judgement calls only — anything mechanical is already a g
   implementing its existing interface — no per-entity `if` in the module body, keep the
   service interface and DI registration unchanged. Observers, Persons, EquipmentItems,
   Equipment Maintenance and Security Observations are deliberate exclusions (see ADR-0004).
+- **A missing verb is declared once, in the base**: a catalog with no gridify list route
+  relies on `MasterCrudControllerBase.ListAsync`'s documented capability-absent default —
+  controllers stay override-free; a catalog's wire-shape deltas (e.g. the flat GET) are the
+  controller's own thin action.
+- **Module purity is a check, not a review note**: `scripts/module-purity-check.sh` (wired
+  in CI) fails the build when `Common/MasterCrud/*.cs` code lines name a catalog; doc
+  comments may name them.
 
 ## Test conventions
 
 - **Contract tests read live-captured fixtures** (`frontend/src/test/fixtures/`, recaptured via `scripts/capture-fixtures.py`), asserted with zod parsers typed against the TS types; a type drift fails the build, not just the review.
+- **A recapture's diff must be real wire change**: SO fixtures embed the capture-clock `createdOn`, so a recapture whose only drift is timestamp values is noise — discard those hunks; the committed fixtures stay byte-identical.
 - **MSW handlers mirror live response shapes exactly** — master CRUD goes through the `crudMasterHandlers` factory in `frontend/src/test/msw/handlers.ts`; a new master module adds a factory call, not a copy-paste block. Combo endpoints return flat arrays, list endpoints `{count, data}` (+ `total-records-count` header).
 - **Forms tests mock services via `vi.mock`**: the mocked module must spread `importOriginal` and override only the feed methods — routes and sibling modules import the module's *other* named exports (pages, service), and a mock missing them fails collection with "No X export is defined on the mock". The router mock additionally adds `useCanGoBack: () => true`. MultiSelect items are cmdk `role=option`, not checkboxes.
 

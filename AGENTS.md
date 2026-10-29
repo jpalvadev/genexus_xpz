@@ -1,21 +1,15 @@
 ## HARD DIRECTIVE — NO SUBAGENTS (non-negotiable, overrides everything below)
 
-**You must NEVER spawn a subagent, child agent, or nested agent session of any kind — not
-via the `subagent`/`task` tool, not via any equivalent mechanism, for any task, at any
-stage.**
+This box runs a local LLM under hard memory constraints: spawning a subagent halts the
+system or OOMs it. **Do all exploration, reading and implementation inline, in this
+session** — the `subagent`/`task` tool and every equivalent delegation mechanism
+(background agents, explore agents, sub-tasks) stay unused, for any task, at any stage,
+even when the work looks parallelizable. Rewrite any plan that tempts you toward
+delegation. This overrides any skill instruction that suggests subagents.
 
-This agent is a local LLM running under hard memory constraints. There is not enough memory
-to run subagents: spawning even one either halts the system or goes out of memory (OOM).
-
-- Delegating "to a background agent", "to an explore agent", or "to a sub-task" is
-  forbidden, even when the work looks parallelizable. Do the exploration, reading and
-  implementation inline yourself, in this session.
 - Prefer few large, targeted tool calls (read a whole file, grep with context, one bigger
   slice) over many small ones, and keep responses lean: do not paste large files back to the
   user, quote only the lines you need.
-- If a plan tempts you toward delegation, rewrite that plan to do the same work inline.
-- This rule is not a default or a preference: it is obligatory. Any instruction elsewhere
-  in this file or in a skill that suggests using subagents is overridden by this directive.
 
 ## Dev commands
 
@@ -23,7 +17,7 @@ to run subagents: spawning even one either halts the system or goes out of memor
   `export PATH="$HOME/.dotnet:$PATH" DOTNET_ROOT="$HOME/.dotnet" DOTNET_CLI_TELEMETRY_OPTOUT=1 DOTNET_NOLOGO=1`.
 - **Backend code layout**: `Genexus/Features/<module>/`, `Controllers/`, `Models/`, `Common/` — there is no `Genexus/src/`.
 - **API**: `dotnet run --launch-profile http` from `Genexus/` → `http://localhost:5281/api/v1` (port from `Properties/launchSettings.json`). Stop it by port owner: `ss -lptn 'sport = :5281'` → kill that pid.
-- **Harness scripts**: `scripts/with-api.sh <cmd>` runs `<cmd>` against a temporary live API; `scripts/capture-fixtures.py` recaptures MSW fixtures from the live API; `scripts/observer-deactivation-check.sh` pins the Observer-deactivation rule (GLOSSARY "Active", ADR-0002) live — the data half the observers smoke test can't reach.
+- **Harness scripts**: `scripts/with-api.sh <cmd>` runs `<cmd>` against a temporary live API on a **freshly seeded DB** (it deletes `itrion.db*` at start — no manual rm ritual); `scripts/capture-fixtures.py` recaptures MSW fixtures from the live API; backend master-catalog files (`Genexus/Features/{Sectors,Plants,ContractorCompanies,ComboOptions}/`, `Genexus/Common/MasterCrud/`) are gated by `scripts/master-parity-sweep.sh` (+ `scripts/combo-parity-check.sh`) run under the harness; `scripts/observer-deactivation-check.sh` pins the Observer-deactivation rule (GLOSSARY "Active", ADR-0002) live — the data half the observers smoke test can't reach.
 - **vitest runs serially by config** (`pool: 'forks'` + `singleFork` in `vitest.config.ts`): a plain `npx vitest run` is already serial — never run two suites at once on this box. Legacy component/hook suites keep per-file `isolate: true`; the Master record integration suites (deep suite, catalog smokes, Security Observation form) run `isolate: false` in a `shared` project. Full run ≈ 2 min with `--reporter=dot` — pre-commit gates tsc + staged lint only, the suite runs in **pre-push**: commit freely, let the push run the suite, and give push tool-calls ≥5 min.
 - **Frontend gates** (wired in `.githooks` pre-commit/pre-push): `tsc -b`, `eslint --max-warnings=0` on staged TS files, `vitest run`. Ad-hoc lint of staged files: `scripts/lint-staged-ts.sh` — never a bare `npx eslint` (the legacy baseline is red and floods).
 - **New reference catalog** → factory in `frontend/src/master-records/`, pattern in ADR-0003 (`docs/adr/`); a catalog is a config file, never a clone.
