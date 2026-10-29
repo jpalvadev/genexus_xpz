@@ -10,7 +10,7 @@ import { SelectItem } from '@/components/ui/select';
 import { MultiSelectItems } from '@/components/form/FormMultiSelect';
 import extractErrors from '@/utils/extractErrors';
 import type { FormMode } from '@/types/FormMode.type';
-import { plantService } from '@/modules/plants/services/plant.service';
+import { plantService } from '@/modules/plants/plant.config';
 
 import { observerService } from '../services/observer.service';
 import { OBSERVER_POSTS, type Observer, type ObserverRequest } from '../types/observer.type';

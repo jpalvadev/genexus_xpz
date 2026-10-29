@@ -2,7 +2,7 @@ import GenericForm, { type FieldConfig } from '@/components/GenericForm';
 import Loading from '@/components/Loading';
 import { SelectItem } from '@/components/ui/select';
 import { MultiSelectItems } from '@/components/form/FormMultiSelect';
-import { plantService } from '@/modules/plants/services/plant.service';
+import { plantService } from '@/modules/plants/plant.config';
 import { sectorService } from '@/modules/sectors/sector.config';
 import { contractorCompanyService } from '@/modules/contractorCompanies/services/contractorCompany.service';
 import { comboOptionService } from '@/modules/comboOptions/services/comboOption.service';

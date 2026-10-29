@@ -9,10 +9,10 @@ config exports; import lines only. Smoke test pins heading, columns, resource pa
 
 **Blocked by:** 01 (Sectors pilot — the factory and its test suite must exist)
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] Plants config declares resource, nameField, listOrder, labels, columns, schema, fields, initialValues
-- [ ] Plants clones and shim deleted; grid/create/edit/delete behave as before
-- [ ] Plants smoke test green through the MSW seam
-- [ ] Security Observation form's Plant feed unchanged in behavior; only import lines moved
-- [ ] Gates green: `tsc -b`, `eslint --max-warnings=0`, serial `vitest run`
+- [x] Plants config declares resource, nameField, listOrder, labels, columns, schema, fields, initialValues
+- [x] Plants clones and shim deleted; grid/create/edit/delete behave as before
+- [x] Plants smoke test green through the MSW seam
+- [x] Security Observation form's Plant feed unchanged in behavior; only import lines moved
+- [x] Gates green: `tsc -b`, `eslint --max-warnings=0`, serial `vitest run`
