@@ -63,10 +63,10 @@ public static class SeedData {
 
     private static void SeedComboOptions(Microsoft.EntityFrameworkCore.ModelBuilder modelBuilder) {
         var options = new (string ComboKey, string[] Labels)[] {
-            ("gestionRiesgo", ["Daily Risk Talk (DRT)", "Job Safety Analysis (JSA)", "Permit to Work", "Toolbox Talk"]),
-            ("protocolosMortales", ["Working at Height", "Energy Isolation (LOTO)", "Confined Space Entry", "Hot Work", "Mobile Equipment in Motion", "Excavation"]),
-            ("clasificacionObservacion", ["Safe Act", "Safe Condition", "At-Risk Act", "Defensive Control"]),
-            ("relacionObservacion", ["Related to APR", "Related to ATR", "Related to Task", "Related to Site Conditions"]),
+            ("gestionRiesgo", ["Charla de Riesgo Diario (DRT)", "Análisis de Seguridad del Trabajo (JSA)", "Permiso de Trabajo", "Charla de Toolbox"]),
+            ("protocolosMortales", ["Trabajo en Altura", "Aislamiento de Energía (LOTO)", "Ingreso a Espacio Confinado", "Trabajo en Caliente", "Equipo Móvil en Movimiento", "Excavación"]),
+            ("clasificacionObservacion", ["Acto Seguro", "Condición Segura", "Acto de Riesgo", "Control Defensivo"]),
+            ("relacionObservacion", ["Relacionado con APR", "Relacionado con ATR", "Relacionado con la Tarea", "Relacionado con Condiciones del Sitio"]),
         };
 
         var id = 1;

@@ -170,10 +170,10 @@ describe('SecurityObservationForm', () => {
             await user.click(await screen.findByRole('option', { name: itemLabel }));
             await user.keyboard('{Escape}');
         };
-        await pickCombo('Gestión de Riesgo (Risk Management)', 'Daily Risk Talk (DRT)');
-        await pickCombo('Protocolos Mortales (Fatal-Risk Protocols)', 'Working at Height');
-        await pickCombo('Clasificación de Observación (Observation Classification)', 'Safe Condition');
-        await pickCombo('Relación de Observación (Observation Relation)', 'Related to Task');
+        await pickCombo('Gestión de Riesgo (Risk Management)', 'Charla de Riesgo Diario (DRT)');
+        await pickCombo('Protocolos Mortales (Fatal-Risk Protocols)', 'Trabajo en Altura');
+        await pickCombo('Clasificación de Observación (Observation Classification)', 'Condición Segura');
+        await pickCombo('Relación de Observación (Observation Relation)', 'Relacionado con la Tarea');
 
         // Textareas de detalle
         await user.type(screen.getByLabelText('Resumen de la Observación'), 'Se detectó disco vencido');
@@ -207,10 +207,10 @@ describe('SecurityObservationForm', () => {
             ladderReviewed: true,
             electricalEquipmentCircuitBreaker: true,
             controlesCriticos: '',
-            gestionRiesgo: ['Daily Risk Talk (DRT)'],
-            protocolosMortales: ['Working at Height'],
-            clasificacionObservacion: ['Safe Condition'],
-            relacionObservacion: ['Related to Task'],
+            gestionRiesgo: ['Charla de Riesgo Diario (DRT)'],
+            protocolosMortales: ['Trabajo en Altura'],
+            clasificacionObservacion: ['Condición Segura'],
+            relacionObservacion: ['Relacionado con la Tarea'],
             resumenObservacion: 'Se detectó disco vencido',
             detalleAI: 'Reemplazo programado',
             descripcionAC: 'Equipo retirado de servicio',

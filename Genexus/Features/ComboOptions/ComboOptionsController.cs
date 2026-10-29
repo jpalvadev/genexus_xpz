@@ -23,7 +23,7 @@ public class ComboOptionsController(IComboOptionService service) : MasterCrudCon
 
     protected override Task<bool> DeleteAsync(int id) => _service.DeleteByIdAsync(id);
 
-    protected override string NotFoundMessage => "Combo option not found";
+    protected override string NotFoundMessage => "Opción de combo no encontrada";
 
     protected override int IdOf(ComboOptionResponse response) => response.Id;
 

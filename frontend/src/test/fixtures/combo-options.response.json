@@ -2,109 +2,109 @@
   {
     "id": 11,
     "comboKey": "clasificacionObservacion",
-    "label": "Safe Act",
+    "label": "Acto Seguro",
     "order": 1
   },
   {
     "id": 12,
     "comboKey": "clasificacionObservacion",
-    "label": "Safe Condition",
+    "label": "Condición Segura",
     "order": 2
   },
   {
     "id": 13,
     "comboKey": "clasificacionObservacion",
-    "label": "At-Risk Act",
+    "label": "Acto de Riesgo",
     "order": 3
   },
   {
     "id": 14,
     "comboKey": "clasificacionObservacion",
-    "label": "Defensive Control",
+    "label": "Control Defensivo",
     "order": 4
   },
   {
     "id": 1,
     "comboKey": "gestionRiesgo",
-    "label": "Daily Risk Talk (DRT)",
+    "label": "Charla de Riesgo Diario (DRT)",
     "order": 1
   },
   {
     "id": 2,
     "comboKey": "gestionRiesgo",
-    "label": "Job Safety Analysis (JSA)",
+    "label": "Análisis de Seguridad del Trabajo (JSA)",
     "order": 2
   },
   {
     "id": 3,
     "comboKey": "gestionRiesgo",
-    "label": "Permit to Work",
+    "label": "Permiso de Trabajo",
     "order": 3
   },
   {
     "id": 4,
     "comboKey": "gestionRiesgo",
-    "label": "Toolbox Talk",
+    "label": "Charla de Toolbox",
     "order": 4
   },
   {
     "id": 5,
     "comboKey": "protocolosMortales",
-    "label": "Working at Height",
+    "label": "Trabajo en Altura",
     "order": 1
   },
   {
     "id": 6,
     "comboKey": "protocolosMortales",
-    "label": "Energy Isolation (LOTO)",
+    "label": "Aislamiento de Energía (LOTO)",
     "order": 2
   },
   {
     "id": 7,
     "comboKey": "protocolosMortales",
-    "label": "Confined Space Entry",
+    "label": "Ingreso a Espacio Confinado",
     "order": 3
   },
   {
     "id": 8,
     "comboKey": "protocolosMortales",
-    "label": "Hot Work",
+    "label": "Trabajo en Caliente",
     "order": 4
   },
   {
     "id": 9,
     "comboKey": "protocolosMortales",
-    "label": "Mobile Equipment in Motion",
+    "label": "Equipo Móvil en Movimiento",
     "order": 5
   },
   {
     "id": 10,
     "comboKey": "protocolosMortales",
-    "label": "Excavation",
+    "label": "Excavación",
     "order": 6
   },
   {
     "id": 15,
     "comboKey": "relacionObservacion",
-    "label": "Related to APR",
+    "label": "Relacionado con APR",
     "order": 1
   },
   {
     "id": 16,
     "comboKey": "relacionObservacion",
-    "label": "Related to ATR",
+    "label": "Relacionado con ATR",
     "order": 2
   },
   {
     "id": 17,
     "comboKey": "relacionObservacion",
-    "label": "Related to Task",
+    "label": "Relacionado con la Tarea",
     "order": 3
   },
   {
     "id": 18,
     "comboKey": "relacionObservacion",
-    "label": "Related to Site Conditions",
+    "label": "Relacionado con Condiciones del Sitio",
     "order": 4
   }
 ]

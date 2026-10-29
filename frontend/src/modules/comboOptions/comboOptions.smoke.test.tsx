@@ -25,6 +25,8 @@ describe('comboOptions.config smoke', () => {
         await renderWithRouter('/comboOptions');
 
         expect(await screen.findByRole('heading', { name: 'Opciones de Combo' })).toBeInTheDocument();
+        // Ticket spanish-ui/06: seeded labels are the canonical Spanish table.
+        expect(await screen.findByText('Charla de Riesgo Diario (DRT)')).toBeInTheDocument();
         expect(ComboOptionTablePage).toBeTypeOf('function');
         expect(CreateComboOptionPage).toBeTypeOf('function');
         expect(UpdateComboOptionPage).toBeTypeOf('function');
