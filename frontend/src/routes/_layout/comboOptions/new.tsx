@@ -1,6 +1,7 @@
-import CreateComboOptionFormPage from '@/modules/comboOptions/views/CreateComboOptionFormPage';
 import { createFileRoute } from '@tanstack/react-router';
 
+import { CreateComboOptionPage } from '@/modules/comboOptions/comboOptions.config';
+
 export const Route = createFileRoute('/_layout/comboOptions/new')({
-    component: CreateComboOptionFormPage,
+    component: CreateComboOptionPage,
 });

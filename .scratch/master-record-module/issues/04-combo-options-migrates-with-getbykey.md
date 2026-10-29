@@ -11,10 +11,10 @@ pins heading, columns, resource path, and default order. Spanish copy verbatim.
 
 **Blocked by:** 01 (Sectors pilot)
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] Combo Option config with comboKey select + numeric order expressed in FieldConfig only
-- [ ] `extraService` composes `getByKey`; no lookup method added to the factory interface
-- [ ] Security Observation multi-select feeds unchanged in behavior; import lines only
-- [ ] Clones and shim deleted; smoke test green through the MSW seam
-- [ ] Gates green: `tsc -b`, `eslint --max-warnings=0`, serial `vitest run`
+- [x] Combo Option config with comboKey select + numeric order expressed in FieldConfig only
+- [x] `extraService` composes `getByKey`; no lookup method added to the factory interface
+- [x] Security Observation multi-select feeds unchanged in behavior; import lines only
+- [x] Clones and shim deleted; smoke test green through the MSW seam
+- [x] Gates green: `tsc -b`, `eslint --max-warnings=0`, serial `vitest run`
