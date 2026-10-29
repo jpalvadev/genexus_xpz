@@ -41,3 +41,4 @@ jobs:
       - uses: actions/checkout@v4
       - run: shellcheck scripts/*.sh
       - run: scripts/module-purity-check.sh
+      - run: scripts/spanish-visible-copy-check.sh
