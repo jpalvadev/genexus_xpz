@@ -91,7 +91,7 @@ describe('Master record module — gridify catalog (Sectors pilot)', () => {
         expect(screen.getByRole('columnheader', { name: 'Nombre' })).toBeInTheDocument();
         expect(screen.getByRole('columnheader', { name: 'Acciones' })).toBeInTheDocument();
         expect(screen.getByRole('link', { name: /Nuevo Sector/ })).toBeInTheDocument();
-        expect(screen.getByText('Preventive Security')).toBeInTheDocument();
+        expect(screen.getByText('Seguridad Preventiva')).toBeInTheDocument();
     });
 
     it('requests page 1 with the gridify defaults (no sort set yet)', async () => {
@@ -179,7 +179,7 @@ describe('Master record module — gridify catalog (Sectors pilot)', () => {
             await screen.findByRole('heading', { name: 'Actualización de Sector' }),
         ).toBeInTheDocument();
         const nameInput = screen.getByLabelText('Nombre') as HTMLInputElement;
-        expect(nameInput.value).toBe('Access Control'); // toFormValues mapping
+        expect(nameInput.value).toBe('Control de Acceso'); // toFormValues mapping
 
         await user.click(nameInput);
         await user.clear(nameInput);
@@ -206,7 +206,7 @@ describe('Master record module — gridify catalog (Sectors pilot)', () => {
         expect(dialog).toHaveTextContent('¿Eliminar Sector?');
         // deleteDescription names the exact record rendered in the row.
         expect(dialog).toHaveTextContent(
-            'Estás a punto de eliminar el registro #1 (Preventive Security).',
+            'Estás a punto de eliminar el registro #1 (Seguridad Preventiva).',
         );
 
         const initialFetches = urls.length;

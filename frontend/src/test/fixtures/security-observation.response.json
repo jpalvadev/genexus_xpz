@@ -1,7 +1,7 @@
 {
-  "id": 5,
-  "observationDate": "2026-10-28",
-  "createdOn": "2026-10-28T09:22:14.7067507",
+  "id": 1,
+  "observationDate": "2026-10-29",
+  "createdOn": "2026-10-29T15:51:08.4822935",
   "task": "Prueba",
   "lugar": "planta",
   "aprReviewed": true,
@@ -38,7 +38,7 @@
   },
   "sector": {
     "id": 2,
-    "name": "Access Control"
+    "name": "Control de Acceso"
   },
   "contractorCompany": {
     "id": 3,

@@ -10,18 +10,30 @@ está en español. Este ticket establece el PATRÓN repetible para 03–06.
 
 **Blocked by:** 01 (Contrato de idioma).
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] Migración EF nueva con UpdateData sobre los HasData de Sector (IDs intactos;
+- [x] Migración EF nueva con UpdateData sobre los HasData de Sector (IDs intactos;
       `dotnet ef migrations add`; historial lineal aditivo).
-- [ ] Mensajes visibles del backend de Sectores en español (Validation, ConflictMessage,
+- [x] Mensajes visibles del backend de Sectores en español (Validation, ConflictMessage,
       NotFoundMessage del adaptador MasterCrud). Identificadores, rutas y JSON intactos.
-- [ ] Config del Registro Maestro de Sectores en el frontend: labels, encabezados,
+- [x] Config del Registro Maestro de Sectores en el frontend: labels, encabezados,
       placeholders, mensajes de validación zod en español.
-- [ ] Fixtures MSW de sectors recapturados desde la API viva (scripts/capture-fixtures.py
+- [x] Fixtures MSW de sectors recapturados desde la API viva (scripts/capture-fixtures.py
       bajo scripts/with-api.sh).
-- [ ] Smoke test de sectors assertiona los labels/values españoles; la función copy() y
+- [x] Smoke test de sectors assertiona los labels/values españoles; la función copy() y
       los pins del barrido de paridad quedan verdes para sectors
       (scripts/master-parity-sweep.sh sectors).
-- [ ] Suite completa verde (vitest serial por config), gates de pre-commit verdes;
+- [x] Suite completa verde (vitest serial por config), gates de pre-commit verdes;
       commit, merge a master, push de master + rama de integración.
+
+## Answer
+
+Migración `SpanishSectorsSeed` (UpdateData sobre los 4 HasData, IDs intactos, Down
+reversible). Backend: SectorService → "Nombre es obligatorio" / "El sector está
+referenciado por observaciones de seguridad y no puede eliminarse"; SectorsController →
+"Sector no encontrado". Frontend: zod de sector.config.ts → "Nombre es obligatorio".
+Sweep: nueva función `validation_copy_for` por recurso + pins sectors en español
+(sweep sectors: 0 fallos). Fixtures recapturados desde la API viva (sectors y SO en
+español). Smoke de sectors asserts "Seguridad Preventiva" + columna "Nombre";
+masterRecordModule.test y SecurityObservationForm.test repineados a los valores
+españoles. Suite completa verde (175 tests).

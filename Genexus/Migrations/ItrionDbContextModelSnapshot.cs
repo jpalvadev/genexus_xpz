@@ -528,22 +528,22 @@ namespace Genexus.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Preventive Security"
+                            Name = "Seguridad Preventiva"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Access Control"
+                            Name = "Control de Acceso"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Patrol and Surveillance"
+                            Name = "Ronda y Vigilancia"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Emergency Response"
+                            Name = "Respuesta a Emergencias"
                         });
                 });
 

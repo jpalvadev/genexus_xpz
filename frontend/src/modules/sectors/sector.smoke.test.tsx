@@ -30,6 +30,9 @@ describe('sector.config smoke', () => {
         await renderWithRouter('/sectors');
 
         expect(await screen.findByRole('heading', { name: 'Sectores' })).toBeInTheDocument();
+        // Ticket spanish-ui/02: seeded values and column labels are Spanish end to end.
+        expect(await screen.findByText('Seguridad Preventiva')).toBeInTheDocument();
+        expect(screen.getByRole('columnheader', { name: 'Nombre' })).toBeInTheDocument();
         expect(SectorTablePage).toBeTypeOf('function');
         expect(CreateSectorPage).toBeTypeOf('function');
         expect(UpdateSectorPage).toBeTypeOf('function');
