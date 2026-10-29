@@ -15,7 +15,7 @@ import {
 
 import SecurityObservationForm from './SecurityObservationForm';
 import { securityObservationService } from '../services/securityObservation.service';
-import { plantService } from '@/modules/plants/services/plant.service';
+import { plantService } from '@/modules/plants/plant.config';
 import { sectorService } from '@/modules/sectors/sector.config';
 import { contractorCompanyService } from '@/modules/contractorCompanies/services/contractorCompany.service';
 import { comboOptionService } from '@/modules/comboOptions/services/comboOption.service';
@@ -26,12 +26,16 @@ vi.mock('../services/securityObservation.service', () => ({
         update: vi.fn(async () => ({})),
     },
 }));
-vi.mock('@/modules/plants/services/plant.service', () => ({
-    plantService: { getAll: vi.fn(async () => fixturePlants) },
-}));
-vi.mock('@/modules/sectors/sector.config', () => ({
-    sectorService: { getAll: vi.fn(async () => fixtureSectors) },
-}));
+// Spread the real config so the route-tree chain (which imports the module's page
+// components from these files) resolves; only the feed service is faked.
+vi.mock(import('@/modules/plants/plant.config'), async (importOriginal) => {
+    const real = await importOriginal();
+    return { ...real, plantService: { ...real.plantService, getAll: vi.fn(async () => fixturePlants) } };
+});
+vi.mock(import('@/modules/sectors/sector.config'), async (importOriginal) => {
+    const real = await importOriginal();
+    return { ...real, sectorService: { ...real.sectorService, getAll: vi.fn(async () => fixtureSectors) } };
+});
 vi.mock('@/modules/contractorCompanies/services/contractorCompany.service', () => ({
     contractorCompanyService: { getAll: vi.fn(async () => fixtureCompanies) },
 }));
