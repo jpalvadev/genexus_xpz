@@ -25,7 +25,8 @@ to run subagents: spawning even one either halts the system or goes out of memor
 - **API**: `dotnet run --launch-profile http` from `Genexus/` → `http://localhost:5281/api/v1` (port from `Properties/launchSettings.json`). Stop it by port owner: `ss -lptn 'sport = :5281'` → kill that pid.
 - **Harness scripts**: `scripts/with-api.sh <cmd>` runs `<cmd>` against a temporary live API; `scripts/capture-fixtures.py` recaptures MSW fixtures from the live API.
 - **vitest runs serially by config** (`pool: 'forks'` + `singleFork` in `vitest.config.ts`): a plain `npx vitest run` is already serial — never run two suites at once on this box. Legacy component/hook suites keep per-file `isolate: true`; the Master record integration suites (deep suite, catalog smokes, Security Observation form) run `isolate: false` in a `shared` project. Full run ≈ 2 min with `--reporter=dot`.
-- **Frontend gates** (wired in `.githooks` pre-commit/pre-push): `tsc -b`, `eslint --max-warnings=0` on staged TS files, `vitest run`.
+- **Frontend gates** (wired in `.githooks` pre-commit/pre-push): `tsc -b`, `eslint --max-warnings=0` on staged TS files, `vitest run`. Ad-hoc lint of staged files: `scripts/lint-staged-ts.sh` — never a bare `npx eslint` (the legacy baseline is red and floods).
+- **New reference catalog** → factory in `frontend/src/master-records/`, pattern in ADR-0003 (`docs/adr/`); a catalog is a config file, never a clone.
 
 ## Ship work
 

@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Architecture review — genexus_xpz</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+mermaid.initialize({ startOnLoad: true, theme: "neutral", securityLevel: "loose" });
+</script>
+<style>
+.seam { stroke-dasharray: 5 4; }
+.leak { stroke: #dc2626; }
+.deep { background: linear-gradient(135deg, #0f172a, #1e293b); }
+.shallow-band { background: #fef3c7; border-left: 4px solid #f59e0b; }
+.deep-band { background: #0f172a; border-left: 4px solid #34d399; }
+pre.mermaid { display:flex; justify-content:center; }
+</style>
+</head>
+<body class="bg-stone-50 text-slate-900 font-sans">
+<main class="max-w-5xl mx-auto px-6 py-12 space-y-14">
+
+<header>
+<h1 class="font-serif text-3xl font-semibold">Architecture review — genexus_xpz</h1>
+<p class="mt-1 text-sm text-slate-500">SHYMA Security Observations · Oct 28 2026 · hot spots: master catalogs, Security Observations, table plumbing, MSW harness</p>
+<div class="mt-5 flex flex-wrap gap-x-8 gap-y-2 text-xs text-slate-600 items-center">
+<span class="inline-flex items-center gap-2"><span class="inline-block w-6 h-4 border-2 border-slate-700 bg-white"></span> module</span>
+<span class="inline-flex items-center gap-2"><svg width="34" height="8"><line x1="0" y1="4" x2="34" y2="4" stroke="#475569" stroke-width="2" class="seam"/></svg> seam</span>
+<span class="inline-flex items-center gap-2"><svg width="34" height="8"><line x1="0" y1="4" x2="30" y2="4" stroke="#dc2626" stroke-width="2"/><path d="M28 0l8 4-8 4z" fill="#dc2626"/></svg> leakage</span>
+<span class="inline-flex items-center gap-2"><span class="inline-block w-6 h-4 deep border-2 border-slate-900"></span> deep module</span>
+</div>
+</header>
+
+<section id="candidates" class="space-y-14">
+
+<!-- ═══════════════ C1 ═══════════════ -->
+<article id="c1" class="space-y-5">
+<h2 class="font-serif text-2xl font-semibold">1 · Collapse the five master-catalog clones into one Master record module</h2>
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-900">Strong</span>
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">in-process</span>
+</div>
+<p class="font-mono text-sm text-slate-600 leading-6">
+frontend/src/modules/{observers, plants, sectors, contractorCompanies, comboOptions}/<br/>
+&nbsp;&nbsp;services/*.service.ts · views/{X,CreateXForm,UpdateXForm}Page.tsx · components/{XForm, XActionCell, x.columns}.tsx
+</p>
+
+<div class="grid grid-cols-2 gap-4">
+<div class="rounded-lg border border-slate-200 bg-white p-4">
+<p class="text-xs uppercase tracking-wider text-slate-500 mb-3">Before — five copies of the same interface</p>
+<pre class="mermaid">
+flowchart TB
+  subgraph s1[observers]
+    A1[table page] --> F1[ObserverForm] --> V1[observer.service]
+    D1[ActionCell] --> V1
+  end
+  subgraph s2[plants]
+    A2[table page] --> F2[PlantForm] --> V2[plant.service]
+    D2[ActionCell] --> V2
+  end
+  subgraph s3[sectors]
+    A3[table page] --> F3[SectorForm] --> V3[sector.service]
+    D3[ActionCell] --> V3
+  end
+  subgraph s4[companies]
+    A4[table page] --> F4[CompanyForm] --> V4[company.service]
+    D4[ActionCell] --> V4
+  end
+  subgraph s5[comboOptions]
+    A5[table page] --> F5[ComboForm] --> V5[combo.service]
+    D5[ActionCell] --> V5
+  end
+  style s2 fill:#fef3c7,stroke:#f59e0b
+  style s3 fill:#fef3c7,stroke:#f59e0b
+  style s4 fill:#fef3c7,stroke:#f59e0b
+</pre>
+<p class="text-xs text-slate-500 mt-2">27 views ≈ 1,760 lines. Plants ≡ Sectors ≡ Companies: <span class="font-mono">diff</span> shows only names.</p>
+</div>
+<div class="rounded-lg border border-slate-200 bg-white p-4">
+<p class="text-xs uppercase tracking-wider text-slate-500 mb-3">After — one deep module, five small configs</p>
+<div class="relative h-[240px]">
+<div class="deep rounded-lg text-slate-100 p-4 h-[150px]">
+<p class="text-xs uppercase tracking-wider text-emerald-300">Master record module</p>
+<p class="font-mono text-sm mt-2">createMasterModule({ resource, labels,<br/>&nbsp;&nbsp;columns, formFields, extraParams })</p>
+<p class="text-xs mt-3 text-slate-400">service · table page · form · action cell · create/update pages<br/>all produced behind the interface</p>
+</div>
+<svg class="absolute bottom-2 left-0 w-full" height="52">
+<line x1="160" y1="0" x2="40" y2="44" stroke="#475569" stroke-width="2" class="seam"/>
+<line x1="220" y1="0" x2="140" y2="44" stroke="#475569" stroke-width="2" class="seam"/>
+<line x1="280" y1="0" x2="240" y2="44" stroke="#475569" stroke-width="2" class="seam"/>
+<line x1="340" y1="0" x2="340" y2="44" stroke="#475569" stroke-width="2" class="seam"/>
+<line x1="400" y1="0" x2="440" y2="44" stroke="#475569" stroke-width="2" class="seam"/>
+<text x="16" y="50" font-size="10" class="fill-slate-500 font-mono">observers</text>
+<text x="112" y="50" font-size="10" class="fill-slate-500 font-mono">plants</text>
+<text x="218" y="50" font-size="10" class="fill-slate-500 font-mono">sectors</text>
+<text x="312" y="50" font-size="10" class="fill-slate-500 font-mono">companies</text>
+<text x="400" y="50" font-size="10" class="fill-slate-500 font-mono">combos</text>
+</svg>
+</div>
+<p class="text-xs text-slate-500 mt-9">Each catalog is one config crossing the seam. MSW already proves the shape: <span class="font-mono">crudMasterHandlers()</span>.</p>
+</div>
+</div>
+
+<p><span class="font-semibold">Problem.</span> The shared form/table contract lives by copy-paste: deleting the Observer clone means editing six files; every fix lands five times, and bugs hide in the drift between copies.</p>
+<p><span class="font-semibold">Solution.</span> One deep Master record module behind a single config interface; each catalog becomes a config, not a clone.</p>
+<ul class="list-disc list-inside text-sm space-y-1 text-slate-700">
+<li>locality: fixes land once, all five get them</li>
+<li>leverage: one interface, five call sites</li>
+<li>tests: the MSW factory already validates the shape</li>
+<li>delete 480 lines of clones (plants/sectors/companies)</li>
+<li>gridify plumbing hides inside the module</li>
+</ul>
+</article>
+
+<!-- ═══════════════ C2 ═══════════════ -->
+<article id="c2" class="space-y-5">
+<h2 class="font-serif text-2xl font-semibold">2 · Deepen the backend master-data services: one MasterCrud, per-entity adapters</h2>
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-900">Strong</span>
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">in-process</span>
+</div>
+<p class="font-mono text-sm text-slate-600 leading-6">
+Genexus/Features/{Sectors, Plants, ContractorCompanies, ComboOptions}/<br/>
+&nbsp;&nbsp;{X}Service.cs · I{X}Service.cs · {X}sController.cs · {X}Request.cs · {X}Response.cs &nbsp;(≈145 lines × 4, byte-identical modulo names)
+</p>
+
+<div class="grid grid-cols-2 gap-4 items-stretch">
+<div class="rounded-lg border border-slate-200 bg-white p-4 flex flex-col justify-center">
+<p class="text-xs uppercase tracking-wider text-slate-500 mb-3">Before — shallow ×4 (and ×7 counting EquipmentItems, EquipmentMaintenances, Persons)</p>
+<div class="space-y-1">
+<div class="shallow-band h-11 flex items-center justify-between px-3 text-xs font-mono"><span>ISectorService — 6 methods</span><span class="text-slate-500">71 lines: pure EF passthrough</span></div>
+<div class="shallow-band h-11 flex items-center justify-between px-3 text-xs font-mono"><span>IPlantService — 6 methods</span><span class="text-slate-500">71 lines</span></div>
+<div class="shallow-band h-11 flex items-center justify-between px-3 text-xs font-mono"><span>IContractorCompanyService — 6</span><span class="text-slate-500">71 lines</span></div>
+<div class="shallow-band h-11 flex items-center justify-between px-3 text-xs font-mono"><span>IComboOptionService — 6 + lookup</span><span class="text-slate-500">78 lines</span></div>
+</div>
+<p class="text-xs text-slate-500 mt-3">Interface width ≈ implementation height.</p>
+</div>
+<div class="rounded-lg border border-slate-200 bg-white p-4 flex flex-col justify-center">
+<p class="text-xs uppercase tracking-wider text-slate-500 mb-3">After — one deep implementation, config per entity</p>
+<div class="deep rounded-lg p-4 h-[150px] text-slate-100 flex flex-col justify-center">
+<p class="text-xs uppercase tracking-wider text-emerald-300">MasterCrud&lt;TEntity, TResponse&gt;</p>
+<p class="font-mono text-sm mt-2">same 6-method interface — for free, on every catalog</p>
+<p class="text-xs mt-2 text-slate-400">paging · gridify mapping · Get-Create-Update-Delete · NotFound handling<br/>Observers stays its own module: its rules are its own</p>
+</div>
+</div>
+</div>
+
+<p><span class="font-semibold">Problem.</span> Four service/controller pairs differ only in entity name; a paging-order fix must be made four times and verified four times.</p>
+<p><span class="font-semibold">Solution.</span> A generic MasterCrud module with one adapter per entity (Id + Name, plus ComboOption's Order / comboKey lookup).</p>
+<ul class="list-disc list-inside text-sm space-y-1 text-slate-700">
+<li>locality: CRUD semantics in one place</li>
+<li>interface unchanged — tests keep crossing the same seam</li>
+<li>new catalog = one adapter, not one clone</li>
+<li>Observers stays out: its rules are real depth</li>
+</ul>
+</article>
+
+<!-- ═══════════════ C3 ═══════════════ -->
+<article id="c3" class="space-y-5">
+<h2 class="font-serif text-2xl font-semibold">3 · Delete the re-export shims and the dead MSW handlers</h2>
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-900">Strong</span>
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">mock</span>
+</div>
+<p class="font-mono text-sm text-slate-600 leading-6">
+frontend/src/modules/*/services/*s.service.ts &nbsp;(7 files, 1 line each: <span class="text-slate-500">export { xService as default }</span>)<br/>
+frontend/src/test/msw/handlers.ts &nbsp;(devices, readings, expirations, users, form-definitions handlers)<br/>
+frontend/src/api/apiClient.test.ts &nbsp;(asserts interceptor behavior that no longer exists)
+</p>
+
+<div class="grid grid-cols-2 gap-4 items-stretch">
+<div class="rounded-lg border border-slate-200 bg-white p-4 flex flex-col justify-center">
+<p class="text-xs uppercase tracking-wider text-slate-500 mb-3">Before — cross-section of a call</p>
+<div class="space-y-1">
+<div class="shallow-band h-11 flex items-center px-3 text-xs font-mono">route → views/plants · imports "plants.service"</div>
+<div class="shallow-band h-11 flex items-center px-3 text-xs font-mono">plants.service.ts → <span class="ml-2">export { plantService as default }</span></div>
+<div class="h-11 border-l-4 border-slate-400 bg-white flex items-center px-3 text-xs font-mono">plant.service.ts → real implementation</div>
+</div>
+</div>
+<div class="rounded-lg border border-slate-200 bg-white p-4 flex flex-col justify-center">
+<p class="text-xs uppercase tracking-wider text-slate-500 mb-3">After — call reaches the implementation</p>
+<div class="deep-band h-16 flex items-center px-3 text-xs font-mono text-slate-100">route → plant.service.ts — implementation</div>
+<p class="text-xs text-slate-500 mt-3">+ MSW keeps only SHYMA + masters + references; apiClient.test tests real behavior (401 → logout is gone per ADR-0001).</p>
+</div>
+</div>
+
+<p><span class="font-semibold">Problem.</span> Seven one-line modules add an import hop without adding behavior; the MSW handlers serve endpoints the app no longer makes; one test asserts deleted auth plumbing.</p>
+<p><span class="font-semibold">Solution.</span> Delete. The deletion test passes: complexity vanishes — it was pure passthrough. (C1 folds the shims in permanently.)</p>
+<ul class="list-disc list-inside text-sm space-y-1 text-slate-700">
+<li>interface shrinks: one less import hop per module</li>
+<li>no dead endpoints to audit</li>
+<li>tests stop asserting phantom behavior</li>
+</ul>
+</article>
+
+<!-- ═══════════════ C4 ═══════════════ -->
+<article id="c4" class="space-y-5">
+<h2 class="font-serif text-2xl font-semibold">4 · Safety Review rules mirrored in two languages</h2>
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-900">Worth exploring</span>
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">ports &amp; adapters</span>
+</div>
+<p class="font-mono text-sm text-slate-600 leading-6">
+Genexus/Features/SecurityObservations/SecurityObservationRules.cs<br/>
+frontend/src/modules/securityObservations/types/securityObservation.type.ts &nbsp;(zod, same messages, same order)<br/>
+frontend/src/modules/securityObservations/types/securityObservation.rules.test.ts<br/>
+GLOSSARY.md &nbsp;"Observers", "Observation Date", "Safety Review"
+</p>
+
+<div class="grid grid-cols-2 gap-4">
+<div class="rounded-lg border border-slate-200 bg-white p-4">
+<p class="text-xs uppercase tracking-wider text-slate-500 mb-3">Before — knowledge crosses the seam by hand-copy</p>
+<pre class="mermaid">
+flowchart LR
+  G[GLOSSARY.md] --> R[SecurityObservationRules.cs]
+  G --> Z[zod schema · type.ts]
+  R -- "1–10 observers" --- Z
+  R -- "window −7 … +1" --- Z
+  R -- "first violation,<br/>exact English" -.-> Z
+  F[Form.tsx] --> Z
+  Z --> T[HTTP POST]
+  R --> T
+  classDef leak stroke:#dc2626,stroke-width:2px;
+  class R,Z leak
+</pre>
+<p class="text-xs text-slate-500 mt-2">Change the observer cap: edit C# <em>and</em> zod <em>and</em> both test suites, by hand, hoping they stay identical.</p>
+</div>
+<div class="rounded-lg border border-slate-200 bg-white p-4">
+<p class="text-xs uppercase tracking-wider text-slate-500 mb-3">After — rules module serves its table; form is an adapter</p>
+<div class="deep rounded-lg p-4 text-slate-100 h-[150px] flex flex-col justify-center">
+<p class="text-xs uppercase tracking-wider text-emerald-300">Observation rules module — one adapter: the backend</p>
+<p class="font-mono text-sm mt-2">FirstViolation(request, today)<br/>RuleTable → GET /validation</p>
+</div>
+<svg class="w-full mt-2" height="70">
+<line x1="230" y1="0" x2="230" y2="34" stroke="#475569" stroke-width="2" class="seam"/>
+<path d="M225 28l5 8 5-8z" fill="#475569"/>
+<text x="205" y="58" font-size="10" class="fill-slate-500 font-mono">RuleTable served once, mirrored zero times; zod derived from it — not retyped</text>
+</svg>
+</div>
+</div>
+
+<p><span class="font-semibold">Problem.</span> "Backend enforces, frontend mirrors" makes rule knowledge leak across the seam: messages, ordering, and constants exist in C# and zod, kept in sync by faith plus a mirrored test.</p>
+<p><span class="font-semibold">Solution.</span> One rules module; the backend serves its rule table, the frontend derives its local UX adapter from it (or a generated contract as fallback).</p>
+<ul class="list-disc list-inside text-sm space-y-1 text-slate-700">
+<li>locality: date-window bugs live in one module</li>
+<li>the glossary's rules stop being quadruplicated</li>
+<li>constraint to grill: frontend needs synchronous validation — latency trade-off</li>
+</ul>
+</article>
+
+<!-- ═══════════════ C5 ═══════════════ -->
+<article id="c5" class="space-y-5">
+<h2 class="font-serif text-2xl font-semibold">5 · Collapse the table-page wiring into the Grid table module</h2>
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-900">Worth exploring</span>
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">in-process</span>
+</div>
+<p class="font-mono text-sm text-slate-600 leading-6">
+frontend/src/modules/*/views/*TablePage.tsx &nbsp;(×7, each hand-wiring the same dance)<br/>
+hooks/useGridifyParams.ts (216 lines) · hooks/useFilters.ts · utils/tableSortMapper.ts · hooks/useDebounce.ts · components/GenericTable.tsx
+</p>
+
+<div class="grid grid-cols-2 gap-4">
+<div class="rounded-lg border border-slate-200 bg-white p-4">
+<p class="text-xs uppercase tracking-wider text-slate-500 mb-3">Before — 9 facts per caller, in the same order every time</p>
+<pre class="mermaid">
+flowchart LR
+  P[TablePage] --> H[useGridifyParams]
+  P --> Q[useQuery]
+  Q --> S[service]
+  P --> T[GenericTable]
+  H -- "pagination" --> T
+  H -- "sorting" --> T
+  H -- "filter, onFilterChange" --> T
+  H -- "onSortingChange" --> T
+  H -- "gridifyQuery" --> Q
+  Q -- "rowCount" --> T
+  classDef leak stroke:#dc2626,stroke-width:2px;
+  class P leak
+</pre>
+<p class="text-xs text-slate-500 mt-2">Hooks are tested in isolation; the wiring is untested, and it keeps changing (gridifyFilter.ts: 2 edits in the last 10 commits).</p>
+</div>
+<div class="rounded-lg border border-slate-200 bg-white p-4 flex flex-col justify-center">
+<p class="text-xs uppercase tracking-wider text-slate-500 mb-3">After — page passes through a tiny interface</p>
+<div class="deep rounded-lg p-4 text-slate-100">
+<p class="text-xs uppercase tracking-wider text-emerald-300">Grid table module</p>
+<p class="font-mono text-sm mt-2">&lt;MasterTable fetch columns labels=new-route /&gt;</p>
+<p class="text-xs mt-3 text-slate-400">pagination state · sorting mapping · debounce · filter reset · react-query key · loading — implementation, invisible to the caller</p>
+</div>
+<p class="text-xs text-slate-500 mt-3">Callers pass a fetcher and a column set; the react-query + gridify + sort-mapping dance becomes internal to the module.</p>
+</div>
+</div>
+
+<p><span class="font-semibold">Problem.</span> Seven pages re-run the same nine-step wiring; a wiring bug (sort mapping, filter reset) hides in the untested composition, not in the tested hooks.</p>
+<p><span class="font-semibold">Solution.</span> The hooks fold inside the Grid table module; the page crosses one seam with a fetcher + columns. The interface is the test surface: render once, test the wiring once.</p>
+<ul class="list-disc list-inside text-sm space-y-1 text-slate-700">
+<li>locality: wiring bugs concentrate in one module</li>
+<li>interface shrinks: 9 facts → fetcher + columns</li>
+<li>tests move from hook mocks to composition</li>
+<li>leverage: one interface, seven call sites</li>
+</ul>
+</article>
+
+<!-- ═══════════════ C6 ═══════════════ -->
+<article id="c6" class="space-y-5">
+<h2 class="font-serif text-2xl font-semibold">6 · Gridify filter language leaking into UI code</h2>
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-200 text-slate-800">Speculative</span>
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">in-process</span>
+</div>
+<p class="font-mono text-sm text-slate-600 leading-6">
+frontend/src/modules/observers/services/observer.service.ts &nbsp;(lookup) · hooks/useLookup.ts · utils/gridifyFilter.ts
+</p>
+
+<div class="rounded-lg border border-slate-200 bg-white p-4">
+<pre class="mermaid">
+flowchart LR
+  M[MultiSelect search box] --> L["observerService.lookup(params)"]
+  L -- "filters.push('active=true')" --> S[GET /observers]
+  L -- "`fullName=*${term}`" --> S
+  S -. "Gridify syntax crosses the seam" .-> G[Gridify backend]
+  classDef leak stroke:#dc2626,stroke-width:2px;
+  class L,G leak
+</pre>
+</div>
+<p><span class="font-semibold">Problem.</span> Gridify filter grammar (and the magic PageSize=1000 in getAll) leaks into UI-adjacent code; every consumer must learn the wire language, and a query that Gridify rejects is a UI bug.</p>
+<p><span class="font-semibold">Solution.</span> Fold query-language construction into a deep Lookup module: interface takes term + page size, wire syntax is implementation. (C1 absorbs this naturally.)</p>
+<ul class="list-disc list-inside text-sm space-y-1 text-slate-700">
+<li>seam discipline: wire syntax stops leaking</li>
+<li>lookup tests stop hand-building filter strings</li>
+</ul>
+</article>
+
+</section>
+
+<!-- ═══════════════ TOP ═══════════════ -->
+<section id="top-recommendation" class="rounded-xl border border-emerald-300 bg-emerald-50 p-8">
+<h2 class="font-serif text-2xl font-semibold text-emerald-950">Top recommendation</h2>
+<p class="mt-3 text-emerald-900 leading-7">
+Start with <a href="#c1" class="font-semibold underline">Candidate 1 — collapse the five master-catalog clones into one Master record module</a>.
+The seams are already proven: <span class="font-mono">crudMasterHandlers</span> in MSW, four byte-identical services on the backend, and the glossary names all five
+(Observer, Plant, Sector, Contractor Company, Combo Option) as the same shape — "an Id and a Name." The module family is the repo's hottest spot,
+and the deepening is mechanical: factories for the four shapes (service, table page, form, action cell), then five configs.
+Candidate 3's shims fold in as a freebie, and Candidate 2 is the identical move on the backend with no interface change at all —
+a natural second bite if the frontend lands cleanly.
+</p>
+</section>
+
+</main>
+</body>
+</html>

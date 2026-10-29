@@ -20,4 +20,10 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    // Master record config modules are the catalog's public interface
+    // (ADR-0003): service and pages ship in one .tsx file by design.
+    files: ['src/modules/*/*.config.tsx'],
+    rules: { 'react-refresh/only-export-components': 'off' },
+  },
 ])

@@ -114,9 +114,6 @@ const comboOptionModule = createMasterRecordModule<
     }),
 });
 
-// The config module is the catalog's public interface (ADR-0003): pages and
-// service ship together by design, so Fast Refresh is waived for this file.
-/* eslint-disable react-refresh/only-export-components */
 export const comboOptionService = comboOptionModule.service;
 export const ComboOptionTablePage = comboOptionModule.TablePage;
 export const CreateComboOptionPage = comboOptionModule.CreatePage;

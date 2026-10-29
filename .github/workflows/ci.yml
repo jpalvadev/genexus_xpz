@@ -1,0 +1,34 @@
+name: CI
+
+# Server-side twin of the local gates (.githooks): hooks are per-clone config
+# and skippable; this job is not. Full-repo eslint is deliberately absent —
+# the legacy lint baseline is red and its cleanup is its own task.
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci
+      - run: npx tsc -b
+      - run: npx vitest run --reporter=dot
+
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - run: dotnet build Genexus/Genexus.csproj -c Release
