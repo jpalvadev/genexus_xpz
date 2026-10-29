@@ -30,6 +30,8 @@ describe('contractorCompanies.config smoke', () => {
         await renderWithRouter('/contractorCompanies');
 
         expect(await screen.findByRole('heading', { name: 'Empresas Contratistas' })).toBeInTheDocument();
+        // Ticket spanish-ui/04: seeded values are Spanish end to end.
+        expect(await screen.findByText('Servicios de Seguridad Shield')).toBeInTheDocument();
         expect(ContractorCompanyTablePage).toBeTypeOf('function');
         expect(CreateContractorCompanyPage).toBeTypeOf('function');
         expect(UpdateContractorCompanyPage).toBeTypeOf('function');

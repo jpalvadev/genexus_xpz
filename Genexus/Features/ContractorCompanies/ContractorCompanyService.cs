@@ -19,8 +19,8 @@ public class ContractorCompanyService(ItrionDbContext db) : IContractorCompanySe
         ToResponse = e => new ContractorCompanyResponse(e.Id, e.Name),
         NewEntity = r => new ContractorCompany { Name = r.Name },
         ApplyRequest = (e, r) => e.Name = r.Name,
-        Validation = r => string.IsNullOrWhiteSpace(r.Name) ? "Name is required" : null,
-        ConflictMessage = "ContractorCompany is referenced by security observations and cannot be deleted",
+        Validation = r => string.IsNullOrWhiteSpace(r.Name) ? "Nombre es obligatorio" : null,
+        ConflictMessage = "La empresa está referenciada por observaciones de seguridad y no puede eliminarse",
     };
 
     private readonly MasterCrud<ContractorCompany, ContractorCompanyRequest, ContractorCompanyResponse> _crud = new(db, Adapter);

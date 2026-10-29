@@ -4,7 +4,7 @@
     {
       "id": 1,
       "observationDate": "2026-10-29",
-      "createdOn": "2026-10-29T16:06:24.877587",
+      "createdOn": "2026-10-29T16:21:01.0590739",
       "task": "Prueba",
       "lugar": "planta",
       "aprReviewed": true,
@@ -45,7 +45,7 @@
       },
       "contractorCompany": {
         "id": 3,
-        "name": "Apex Facility Protection"
+        "name": "Protección de Instalaciones Apex"
       },
       "observers": [
         {

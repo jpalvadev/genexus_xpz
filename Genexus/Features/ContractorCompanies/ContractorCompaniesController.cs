@@ -25,7 +25,7 @@ public class ContractorCompaniesController(IContractorCompanyService service) : 
 
     protected override Task<bool> DeleteAsync(int id) => _service.DeleteByIdAsync(id);
 
-    protected override string NotFoundMessage => "ContractorCompany not found";
+    protected override string NotFoundMessage => "Empresa contratista no encontrada";
 
     protected override int IdOf(ContractorCompanyResponse response) => response.Id;
 

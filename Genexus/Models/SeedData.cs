@@ -38,9 +38,9 @@ public static class SeedData {
 
     private static void SeedContractorCompanies(Microsoft.EntityFrameworkCore.ModelBuilder modelBuilder) =>
         modelBuilder.Entity<ContractorCompany>().HasData(
-            new { Id = 1, Name = "Shield Security Services" },
-            new { Id = 2, Name = "Guardian Staffing" },
-            new { Id = 3, Name = "Apex Facility Protection" }
+            new { Id = 1, Name = "Servicios de Seguridad Shield" },
+            new { Id = 2, Name = "Dotaciones Guardian" },
+            new { Id = 3, Name = "Protección de Instalaciones Apex" }
         );
 
     private static void SeedObservers(Microsoft.EntityFrameworkCore.ModelBuilder modelBuilder) {

@@ -233,17 +233,17 @@ namespace Genexus.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Shield Security Services"
+                            Name = "Servicios de Seguridad Shield"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Guardian Staffing"
+                            Name = "Dotaciones Guardian"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Apex Facility Protection"
+                            Name = "Protección de Instalaciones Apex"
                         });
                 });
 
