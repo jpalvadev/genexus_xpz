@@ -58,14 +58,14 @@ conflict_copy_for() {
   case "$1" in
     sectors) echo 'El sector está referenciado por observaciones de seguridad y no puede eliminarse' ;;
     plants) echo 'La planta está referenciada por observaciones de seguridad y no puede eliminarse' ;;
-    contractor-companies) echo 'ContractorCompany is referenced by security observations and cannot be deleted' ;;
+    contractor-companies) echo 'La empresa está referenciada por observaciones de seguridad y no puede eliminarse' ;;
   esac
 }
 
 # Blank-name validation copy per master (verbatim backend copy strings).
 validation_copy_for() {
   case "$1" in
-    sectors | plants) echo 'Nombre es obligatorio' ;;
+    sectors | plants | contractor-companies) echo 'Nombre es obligatorio' ;;
     *) echo 'Name is required' ;;
   esac
 }
@@ -139,7 +139,7 @@ for R in $RESOURCES; do
   case "$R" in
     sectors) NOT_FOUND="Sector no encontrado" ;;
     plants) NOT_FOUND="Planta no encontrada" ;;
-    contractor-companies) NOT_FOUND="ContractorCompany not found" ;;
+    contractor-companies) NOT_FOUND="Empresa contratista no encontrada" ;;
   esac
   check "not-found copy" 404 GET "$BASE/$R/999999"
   copy "not-found copy" "$NOT_FOUND"

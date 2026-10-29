@@ -19,7 +19,7 @@ type ContractorCompanyFormValues = {
 };
 
 const contractorCompanySchema = z.object({
-    name: z.string().trim().min(1, 'Name is required'),
+    name: z.string().trim().min(1, 'Nombre es obligatorio'),
 });
 
 const contractorCompanyFields: FieldConfig<ContractorCompanyFormValues>[] = [

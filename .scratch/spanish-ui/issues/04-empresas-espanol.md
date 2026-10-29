@@ -10,15 +10,27 @@ que 02.
 
 **Blocked by:** 01 (Contrato de idioma).
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] Migración EF nueva con UpdateData sobre los HasData de ContractorCompany (IDs
+- [x] Migración EF nueva con UpdateData sobre los HasData de ContractorCompany (IDs
       intactos; nombre español definitivo para Guardian Staffing documentado en el
       ticket).
-- [ ] Mensajes visibles del backend de Empresas Contratistas en español.
-- [ ] Config del Registro Maestro de Empresas: labels, encabezados, placeholders, zod
+- [x] Mensajes visibles del backend de Empresas Contratistas en español.
+- [x] Config del Registro Maestro de Empresas: labels, encabezados, placeholders, zod
       en español.
-- [ ] Fixtures MSW de contractor-companies recapturados desde la API viva.
-- [ ] Smoke test de empresas en español; barrido de paridad verde para
+- [x] Fixtures MSW de contractor-companies recapturados desde la API viva.
+- [x] Smoke test de empresas en español; barrido de paridad verde para
       contractor-companies.
-- [ ] Suite completa verde; commit, merge a master, push.
+- [x] Suite completa verde; commit, merge a master, push.
+
+## Answer
+
+Migración `SpanishContractorCompaniesSeed` (UpdateData x3, IDs intactos):
+"Servicios de Seguridad Shield", "Dotaciones Guardian" (nombre español definitivo para
+Guardian Staffing), "Protección de Instalaciones Apex". Backend: "Nombre es obligatorio" /
+"Empresa contratista no encontrada" / "La empresa está referenciada por observaciones de
+seguridad y no puede eliminarse". Zod del config en español (labels de razón social ya
+estaban en español en UI/columns). Sweep: pins contractor-companies en español — sweep
+completo (4 recursos): 0 fallos. Fixtures recapturados; smoke de empresas asserta
+"Servicios de Seguridad Shield"; SecurityObservationForm.test repineado. Suite verde
+(175 tests).
