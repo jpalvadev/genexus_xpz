@@ -9,7 +9,7 @@ is touched. (The five master catalogs' shims die with their migrations, tickets
 
 **Blocked by:** None (can start immediately)
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] Three shim files deleted; every consumer import points at the real service module
-- [ ] No behavior changes; gates green: `tsc -b`, `eslint --max-warnings=0`, serial `vitest run`
+- [x] Three shim files deleted; every consumer import points at the real service module
+- [x] No behavior changes; gates green: `tsc -b`, `eslint --max-warnings=0`, serial `vitest run`
