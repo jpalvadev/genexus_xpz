@@ -24,8 +24,8 @@ type ComboOptionFormValues = {
     order: string;
 };
 
-/** Mirror of ComboOptionService rules: ComboKey must be a known key ("Unknown combo
- *  key") and Label required ("Label is required"). Order is a non-negative integer. */
+/** Mirror of ComboOptionService rules: ComboKey required ("ComboKey es obligatoria")
+ *  and Label required ("Label es obligatoria"). Order is a non-negative integer. */
 const comboOptionSchema = z.object({
     comboKey: z.string().min(1, 'ComboKey es obligatoria'),
     label: z.string().trim().min(1, 'La etiqueta es obligatoria'),

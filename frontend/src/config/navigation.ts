@@ -21,9 +21,9 @@ export type INavigationConfig = {
 
 export const navigationConfig: INavigationConfig[] = [
     {
-        title: 'Menus',
+        title: 'Menús',
         menus: [
-            { title: 'Home', to: '/', icon: HomeIcon },
+            { title: 'Inicio', to: '/', icon: HomeIcon },
             {
                 title: 'Mantenimiento Equipos',
                 icon: UsersIcon,

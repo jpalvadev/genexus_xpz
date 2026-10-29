@@ -21,10 +21,10 @@ type GenericAlertDialogProps = {
 
 export function GenericAlertDialog({
     children,
-    description = 'This cannot be undone',
-    actionText = 'Continue',
-    cancelText = 'Cancel',
-    title = 'Are you absolutely sure?',
+    description = 'Esto no se puede deshacer',
+    actionText = 'Continuar',
+    cancelText = 'Cancelar',
+    title = '¿Estás completamente seguro?',
     onAction,
 }: GenericAlertDialogProps) {
     return (

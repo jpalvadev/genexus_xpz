@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import type { MouseEventHandler, ReactNode } from 'react';
 import { renderWithProviders, screen, waitFor } from '@/test/test-utils';
 import AppShell from './AppShell';
 
@@ -33,7 +34,17 @@ vi.mock('@tanstack/react-router', async (importOriginal) => {
         }),
         useCanGoBack: () => true,
         useNavigate: () => vi.fn(),
-        Link: ({ children, onClick, to, className }: any) => (
+        Link: ({
+            children,
+            onClick,
+            to,
+            className,
+        }: {
+            children?: ReactNode;
+            onClick?: MouseEventHandler;
+            to?: string;
+            className?: string;
+        }) => (
             <a href={to} onClick={onClick} className={className}>
                 {children}
             </a>
@@ -58,7 +69,7 @@ describe('AppShell Layout', () => {
             expect(screen.getByText('Página Principal de Prueba')).toBeInTheDocument();
             expect(
                 screen.getByText(
-                    new RegExp(`©${new Date().getFullYear()}\\s+Itrion`)
+                    new RegExp(`©${new Date().getFullYear()}\\s+SHYMA`)
                 )
             ).toBeInTheDocument();
         });
@@ -72,7 +83,7 @@ describe('AppShell Layout', () => {
         );
 
         await waitFor(() => {
-            expect(screen.getByRole('link', { name: 'Home' })).toBeInTheDocument();
+            expect(screen.getByRole('link', { name: 'Inicio' })).toBeInTheDocument();
         });
     });
 
@@ -84,10 +95,10 @@ describe('AppShell Layout', () => {
         );
 
         await waitFor(() => {
-            expect(screen.getByRole('link', { name: 'Home' })).toBeInTheDocument();
+            expect(screen.getByRole('link', { name: 'Inicio' })).toBeInTheDocument();
         });
 
-        const homeLink = screen.getByRole('link', { name: 'Home' });
+        const homeLink = screen.getByRole('link', { name: 'Inicio' });
         await user.click(homeLink);
 
         // Verifica la especificación de cierre de sidebar mobile (PROGRESS.md)
