@@ -10,7 +10,7 @@ responden como hoy: la traza es un campo, no el bloque.
 
 **Blocked by:** 01 (vocabulario y control).
 
-**Status:** ready-for-agent
+**Status:** ready-for-agent (reclamada: rama integration/safety-review-tristate)
 
 - [ ] La pregunta responde con `"SI"` / `"NO"` / `"N/A"` por la API y queda persistida con
       ese literal; "sin responder" sigue siendo ausencia de valor, no un literal.

@@ -163,7 +163,7 @@ public class SecurityObservationService : ISecurityObservationService {
         observation.SectorId = request.SectorId;
         observation.ContractorCompanyId = request.ContractorCompanyId;
 
-        observation.AprReviewed = request.AprReviewed;
+        observation.AprReviewed = SafetyReviewAnswerConverter.Parse(request.AprReviewed);
         observation.TaskRealized = request.TaskRealized;
         observation.RequiresAtrReview = request.RequiresAtrReview;
         observation.TrcRisk = request.TrcRisk;
@@ -200,7 +200,7 @@ public class SecurityObservationService : ISecurityObservationService {
             observation.CreatedOn,
             observation.Task,
             observation.Lugar,
-            observation.AprReviewed,
+            SafetyReviewAnswerConverter.ToWire(observation.AprReviewed),
             observation.TaskRealized,
             observation.RequiresAtrReview,
             observation.TrcRisk,

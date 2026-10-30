@@ -1,4 +1,4 @@
-namespace Genexus.Features.SecurityObservations;
+namespace Itrion.Api.Features.SecurityObservations;
 
 /// <summary>
 /// Respuesta tri-estado de una pregunta de la Revisión de Seguridad de la Observación
@@ -32,6 +32,10 @@ public static class SafetyReviewAnswerConverter
         SafetyReviewAnswer.NotApplicable => "N/A",
         _ => throw new ArgumentOutOfRangeException(nameof(answer), answer, null)
     };
+
+    /// <summary>Versión nulable: NULL (sin respuesta) viaja como null en el wire.</summary>
+    public static string? ToWire(SafetyReviewAnswer? answer) =>
+        answer is null ? null : ToWire(answer.Value);
 
     /// <summary>
     /// Parsea el literal del wire ("SI"/"NO"/"N/A", case-insensitive por tolerancia de

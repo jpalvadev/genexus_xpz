@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import { toast } from 'sonner';
 import { format } from 'date-fns';
 
@@ -97,7 +97,9 @@ describe('SecurityObservationForm', () => {
         expect(screen.getByText('Fecha de Observación')).toBeInTheDocument();
         expect(screen.getByText('Observadores')).toBeInTheDocument();
         expect(screen.getByText('Revisión de Seguridad')).toBeInTheDocument();
-        expect(screen.getByLabelText('APR revisado')).toBeInTheDocument();
+        expect(
+            screen.getByRole('radiogroup', { name: 'APR revisado' })
+        ).toBeInTheDocument();
         expect(screen.getByLabelText('Gestión de Riesgo')).toBeInTheDocument();
         expect(screen.getByText(/Rango permitido: \d{2}\/\d{2}\/\d{4} a \d{2}\/\d{2}\/\d{4}/)).toBeInTheDocument();
     });
@@ -146,9 +148,13 @@ describe('SecurityObservationForm', () => {
         await user.click(observerOption);
         await user.keyboard('{Escape}');
 
-        // Safety Review completo
+        // Safety Review: APR revisado es tri-estado (ticket 02) — Sí en su segmento
+        await user.click(
+            within(screen.getByLabelText('APR revisado')).getByRole('radio', {
+                name: 'Sí',
+            })
+        );
         for (const label of [
-            'APR revisado',
             'Tarea realizada según APR',
             'Revisión de ATR necesaria',
             'Riesgo TRC considerado',
@@ -194,7 +200,7 @@ describe('SecurityObservationForm', () => {
             sectorId: 2,
             contractorCompanyId: 3,
             observers: [{ observerId: 1 }],
-            aprReviewed: true,
+            aprReviewed: 'SI',
             taskRealized: true,
             requiresAtrReview: true,
             trcRisk: true,

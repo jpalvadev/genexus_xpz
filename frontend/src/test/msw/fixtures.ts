@@ -17,8 +17,11 @@ import observerListJson from '../fixtures/observer-list.response.json';
 import comboOptionsJson from '../fixtures/combo-options.response.json';
 import comboKeyGestionRiesgoJson from '../fixtures/combo-options-key.response.json';
 
-export const fixtureSecurityObservation: SecurityObservationResponse = observationJson;
-export const fixtureSecurityObservationList = observationListJson as {
+export const fixtureSecurityObservation: SecurityObservationResponse =
+    // JSON imports widen literals (aprReviewed: string); the live wire pins the
+    // tri-state literals (ADR-0006), so the contract cast is explicit.
+    observationJson as unknown as SecurityObservationResponse;
+export const fixtureSecurityObservationList = observationListJson as unknown as {
     count: number;
     data: SecurityObservationResponse[];
 };

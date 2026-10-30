@@ -4,10 +4,10 @@
     {
       "id": 1,
       "observationDate": "2026-10-29",
-      "createdOn": "2026-10-29T18:56:57.9355803",
+      "createdOn": "2026-10-29T22:41:25.440994",
       "task": "Prueba",
       "lugar": "planta",
-      "aprReviewed": true,
+      "aprReviewed": "SI",
       "taskRealized": true,
       "requiresAtrReview": false,
       "trcRisk": true,

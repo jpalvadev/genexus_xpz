@@ -25,7 +25,9 @@ import type { ContractorCompany } from '@/modules/contractorCompanies/types/cont
 
 const refSchema = z.object({ id: z.number(), name: z.string() });
 const safetyBooleans = {
-    aprReviewed: z.boolean().nullable(),
+    // Ticket 02 trace (ADR-0006): aprReviewed is a tri-state wire literal;
+    // the remaining 11 flip with ticket 03.
+    aprReviewed: z.enum(['SI', 'NO', 'N/A']).nullable(),
     taskRealized: z.boolean().nullable(),
     requiresAtrReview: z.boolean().nullable(),
     trcRisk: z.boolean().nullable(),
@@ -120,7 +122,8 @@ describe('contratos de API (fixtures vivientes parseados con zod)', () => {
 
 describe('contratos de API (tipos TS de frontend aplican a los fixtures)', () => {
     it('los fixtures viven tipados como los tipos del módulo', () => {
-        const observation: SecurityObservationResponse = observationJson;
+        const observation: SecurityObservationResponse =
+            observationJson as unknown as SecurityObservationResponse;
         const plants: Plant[] = plantListJson.data;
         const sectors: Sector[] = sectorListJson.data;
         const companies: ContractorCompany[] = companyListJson.data;

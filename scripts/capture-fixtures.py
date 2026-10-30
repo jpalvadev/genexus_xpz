@@ -36,7 +36,7 @@ seed_obs = post('/security-observations', {
     'sectorId': 2,
     'contractorCompanyId': 3,
     'observers': [{'observerId': 1}, {'observerId': 2}],
-    'aprReviewed': True, 'taskRealized': True, 'requiresAtrReview': False,
+    'aprReviewed': 'SI', 'taskRealized': True, 'requiresAtrReview': False,
     'trcRisk': True, 'impactRiskControlled': True, 'handInjuryMeasures': False,
     'injuryMeasures': True, 'toolsReviewed': True, 'mobileEquipmentReviewed': False,
     'energyReviewed': True, 'ladderReviewed': False, 'electricalEquipmentCircuitBreaker': True,

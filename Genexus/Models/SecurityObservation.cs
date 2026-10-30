@@ -1,3 +1,5 @@
+using Itrion.Api.Features.SecurityObservations;
+
 namespace Itrion.Api.Models;
 
 /// <summary>
@@ -16,7 +18,9 @@ public class SecurityObservation {
     public string Lugar { get; set; } = string.Empty;
 
     // --- Safety Review: null means unanswered, and unanswered is an error on the record ---
-    public bool? AprReviewed { get; set; }
+    // AprReviewed is tri-state (ADR-0006): Sí/No/N/A, persisted as TEXT via the EF value
+    // converter in ItrionDbContext; the wire carries "SI"/"NO"/"N/A".
+    public SafetyReviewAnswer? AprReviewed { get; set; }
     public bool? TaskRealized { get; set; }
     public bool? RequiresAtrReview { get; set; }
     public bool? TrcRisk { get; set; }

@@ -68,6 +68,12 @@ public class ItrionDbContext(DbContextOptions<ItrionDbContext> options) : DbCont
             entity.Property(o => o.DetalleAI).IsRequired();
             entity.Property(o => o.DescripcionAC).IsRequired();
 
+            // Safety Review answers persist as TEXT with the "SI"/"NO"/"N/A" literals
+            // (ADR-0006): nullable enum <-> string, no column default.
+            entity.Property(o => o.AprReviewed)
+                .HasConversion<string>()
+                .HasColumnType("TEXT");
+
             // The export stores each multi-select as one JSON array of labels.
             entity.Property(o => o.GestionRiesgo).HasDefaultValue("[]");
             entity.Property(o => o.ProtocolosMortales).HasDefaultValue("[]");

@@ -35,10 +35,12 @@ export default function FormToggleGroup({
     return (
         <FormBase {...props}>
             <ToggleGroup
+                id={field.name}
                 type="single"
                 variant="outline"
                 size="sm"
                 spacing={0}
+                aria-labelledby={`${field.name}-label`}
                 value={
                     field.state.value != null
                         ? field.state.value.toString()
@@ -53,6 +55,7 @@ export default function FormToggleGroup({
                     }
                     field.handleChange(val);
                 }}
+                onBlur={field.handleBlur}
                 disabled={props.disabled}
                 aria-invalid={isInvalid}
                 className="w-full"

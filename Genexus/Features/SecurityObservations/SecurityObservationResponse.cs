@@ -14,7 +14,7 @@ public record SecurityObservationResponse(
     DateTime CreatedOn,
     string Task,
     string Lugar,
-    bool? AprReviewed,
+    string? AprReviewed,
     bool? TaskRealized,
     bool? RequiresAtrReview,
     bool? TrcRisk,

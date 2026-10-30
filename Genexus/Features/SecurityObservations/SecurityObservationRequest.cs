@@ -5,8 +5,12 @@ public record ObserverSelection(int ObserverId);
 
 /// <summary>
 /// Create/update payload. Required-ness is enforced by <see cref="SecurityObservationRules"/> so
-/// every rejection is a 400 + <c>ErrorResponse</c> with the export's rule in English, not a
-/// framework ValidationProblemDetails response.
+/// every rejection is a 400 + <c>ErrorResponse</c> with the rule message in Spanish (ADR-0005),
+/// not a framework ValidationProblemDetails response.
+///
+/// <c>AprReviewed</c> is a Safety Review answer (ADR-0006): a string on the framework's
+/// boundary — "SI", "NO", "N/A" — parsed to <see cref="SafetyReviewAnswer"/> by the service;
+/// the entity stays typed and persisted as TEXT.
 /// </summary>
 public record SecurityObservationRequest(
     DateOnly ObservationDate,
@@ -16,7 +20,7 @@ public record SecurityObservationRequest(
     int SectorId,
     int? ContractorCompanyId,
     List<ObserverSelection> Observers,
-    bool? AprReviewed,
+    string? AprReviewed,
     bool? TaskRealized,
     bool? RequiresAtrReview,
     bool? TrcRisk,

@@ -24,7 +24,7 @@ const validValues = (): SecurityObservationFormValues => {
         sectorId: '2',
         contractorCompanyId: '3',
         observers: ['1', '2'],
-        aprReviewed: true,
+        aprReviewed: 'SI',
         taskRealized: true,
         requiresAtrReview: true,
         trcRisk: true,
@@ -136,7 +136,7 @@ describe('securityObservationFormValuesToRequest', () => {
         expect(request.protocolosMortales).toEqual(['Working at Height']);
         expect(request.clasificacionObservacion).toEqual(['Safe Condition']);
         expect(request.relacionObservacion).toEqual(['Related to Task']);
-        expect(request.aprReviewed).toBe(true);
+        expect(request.aprReviewed).toBe('SI');
     });
 
     it('empresa contratista vacía viaja como null', () => {

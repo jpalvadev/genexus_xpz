@@ -23,6 +23,7 @@ import type {
 import {
     MULTI_SELECT_LABELS,
     SAFETY_REVIEW_FIELDS,
+    SAFETY_REVIEW_OPTIONS,
     emptySecurityObservationFormValues,
     observationDateWindow,
     securityObservationFormValuesToRequest,
@@ -182,9 +183,18 @@ export default function SecurityObservationForm({
             label: 'Revisión de Seguridad',
             formField: 'separator',
             colSpan: 12,
-            description: 'Todas las preguntas deben responderse (Sí/No)',
+            description: 'Todas las preguntas deben responderse (Sí/No/N/A)',
         } as unknown as FieldConfig<SecurityObservationFormValues>,
-        ...SAFETY_REVIEW_FIELDS.map(({ key, label }) => ({
+        // Ticket 02 trace (ADR-0006): APR revisado es tri-estado (toggle-group);
+        // las 11 preguntas restantes migran con el ticket 03.
+        {
+            name: 'aprReviewed',
+            label: SAFETY_REVIEW_FIELDS[0].label,
+            formField: 'toggle-group',
+            options: SAFETY_REVIEW_OPTIONS,
+            colSpan: 6,
+        },
+        ...SAFETY_REVIEW_FIELDS.slice(1).map(({ key, label }) => ({
             name: key,
             label,
             formField: 'checkbox' as const,

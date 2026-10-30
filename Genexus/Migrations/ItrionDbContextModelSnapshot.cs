@@ -553,8 +553,8 @@ namespace Genexus.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool?>("AprReviewed")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("AprReviewed")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ClasificacionObservacion")
                         .IsRequired()

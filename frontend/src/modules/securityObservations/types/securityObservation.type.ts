@@ -29,7 +29,7 @@ export type SecurityObservationResponse = {
     createdOn: string;
     task: string;
     lugar: string;
-    aprReviewed: boolean | null;
+    aprReviewed: SafetyReviewAnswer | null;
     taskRealized: boolean | null;
     requiresAtrReview: boolean | null;
     trcRisk: boolean | null;
@@ -64,7 +64,7 @@ export interface SecurityObservationRequest {
     sectorId: number;
     contractorCompanyId: number | null;
     observers: { observerId: number }[];
-    aprReviewed: boolean | null;
+    aprReviewed: SafetyReviewAnswer | null;
     taskRealized: boolean | null;
     requiresAtrReview: boolean | null;
     trcRisk: boolean | null;
@@ -94,6 +94,22 @@ export const OBSERVERS_MIN = 1;
 export const OBSERVERS_MAX = 10;
 export const OBSERVATION_DATE_BACK_DAYS = 7;
 export const OBSERVATION_DATE_FWD_DAYS = 1;
+
+/**
+ * Safety Review answer (ADR-0006, GLOSSARY "Respuesta de Revisión de Seguridad"):
+ * tri-state wire literals "SI"/"NO"/"N/A" (Spanish values, English property names).
+ * null is absence — unanswered, an error on the record; "N/A" is an answer.
+ */
+export type SafetyReviewAnswer = 'SI' | 'NO' | 'N/A';
+
+export const SAFETY_REVIEW_VALUES = ['SI', 'NO', 'N/A'] as const;
+
+/** Segments of the tri-state ToggleGroup: Spanish visible labels on wire values. */
+export const SAFETY_REVIEW_OPTIONS: { label: string; value: SafetyReviewAnswer }[] = [
+    { label: 'Sí', value: 'SI' },
+    { label: 'No', value: 'NO' },
+    { label: 'N/A', value: 'N/A' },
+];
 
 export const SAFETY_REVIEW_FIELDS = [
     { key: 'aprReviewed', label: 'APR revisado' },
@@ -151,7 +167,7 @@ export type SecurityObservationFormValues = {
     sectorId: string;
     contractorCompanyId: string;
     observers: string[];
-    aprReviewed: boolean | null;
+    aprReviewed: SafetyReviewAnswer | null;
     taskRealized: boolean | null;
     requiresAtrReview: boolean | null;
     trcRisk: boolean | null;
@@ -184,7 +200,9 @@ export const securityObservationSchema = z
         sectorId: z.string().min(1, 'El sector es obligatorio'),
         contractorCompanyId: z.string(),
         observers: z.array(z.string()).min(OBSERVERS_MIN, 'Se requiere al menos un observador'),
-        aprReviewed: z.boolean().nullable(),
+        // Ticket 02 trace (ADR-0006): tri-state literal; the invalid-value message
+        // mirror lands with ticket 04's contraction.
+        aprReviewed: z.enum(SAFETY_REVIEW_VALUES).nullable(),
         taskRealized: z.boolean().nullable(),
         requiresAtrReview: z.boolean().nullable(),
         trcRisk: z.boolean().nullable(),
