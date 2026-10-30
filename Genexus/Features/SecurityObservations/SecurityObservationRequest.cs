@@ -8,9 +8,9 @@ public record ObserverSelection(int ObserverId);
 /// every rejection is a 400 + <c>ErrorResponse</c> with the rule message in Spanish (ADR-0005),
 /// not a framework ValidationProblemDetails response.
 ///
-/// <c>AprReviewed</c> is a Safety Review answer (ADR-0006): a string on the framework's
-/// boundary — "SI", "NO", "N/A" — parsed to <see cref="SafetyReviewAnswer"/> by the service;
-/// the entity stays typed and persisted as TEXT.
+/// <c>AprReviewed</c> and its eleven sibling fields are Safety Review answers (ADR-0006):
+/// strings on the framework's boundary — "SI", "NO", "N/A" — parsed to
+/// <see cref="SafetyReviewAnswer"/> by the service; the entity stays typed and persisted as TEXT.
 /// </summary>
 public record SecurityObservationRequest(
     DateOnly ObservationDate,
@@ -21,17 +21,17 @@ public record SecurityObservationRequest(
     int? ContractorCompanyId,
     List<ObserverSelection> Observers,
     string? AprReviewed,
-    bool? TaskRealized,
-    bool? RequiresAtrReview,
-    bool? TrcRisk,
-    bool? ImpactRiskControlled,
-    bool? HandInjuryMeasures,
-    bool? InjuryMeasures,
-    bool? ToolsReviewed,
-    bool? MobileEquipmentReviewed,
-    bool? EnergyReviewed,
-    bool? LadderReviewed,
-    bool? ElectricalEquipmentCircuitBreaker,
+    string? TaskRealized,
+    string? RequiresAtrReview,
+    string? TrcRisk,
+    string? ImpactRiskControlled,
+    string? HandInjuryMeasures,
+    string? InjuryMeasures,
+    string? ToolsReviewed,
+    string? MobileEquipmentReviewed,
+    string? EnergyReviewed,
+    string? LadderReviewed,
+    string? ElectricalEquipmentCircuitBreaker,
     string ControlesCriticos,
     List<string> GestionRiesgo,
     List<string> ProtocolosMortales,

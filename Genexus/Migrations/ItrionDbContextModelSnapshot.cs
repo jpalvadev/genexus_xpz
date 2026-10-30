@@ -580,11 +580,11 @@ namespace Genexus.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<bool?>("ElectricalEquipmentCircuitBreaker")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("ElectricalEquipmentCircuitBreaker")
+                        .HasColumnType("TEXT");
 
-                    b.Property<bool?>("EnergyReviewed")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("EnergyReviewed")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("GestionRiesgo")
                         .IsRequired()
@@ -592,24 +592,24 @@ namespace Genexus.Migrations
                         .HasColumnType("TEXT")
                         .HasDefaultValue("[]");
 
-                    b.Property<bool?>("HandInjuryMeasures")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("HandInjuryMeasures")
+                        .HasColumnType("TEXT");
 
-                    b.Property<bool?>("ImpactRiskControlled")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("ImpactRiskControlled")
+                        .HasColumnType("TEXT");
 
-                    b.Property<bool?>("InjuryMeasures")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("InjuryMeasures")
+                        .HasColumnType("TEXT");
 
-                    b.Property<bool?>("LadderReviewed")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("LadderReviewed")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Lugar")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<bool?>("MobileEquipmentReviewed")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("MobileEquipmentReviewed")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateOnly>("ObservationDate")
                         .HasColumnType("TEXT");
@@ -629,8 +629,8 @@ namespace Genexus.Migrations
                         .HasColumnType("TEXT")
                         .HasDefaultValue("[]");
 
-                    b.Property<bool?>("RequiresAtrReview")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("RequiresAtrReview")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ResumenObservacion")
                         .IsRequired()
@@ -643,14 +643,14 @@ namespace Genexus.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<bool?>("TaskRealized")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("TaskRealized")
+                        .HasColumnType("TEXT");
 
-                    b.Property<bool?>("ToolsReviewed")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("ToolsReviewed")
+                        .HasColumnType("TEXT");
 
-                    b.Property<bool?>("TrcRisk")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("TrcRisk")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 

@@ -18,20 +18,20 @@ public class SecurityObservation {
     public string Lugar { get; set; } = string.Empty;
 
     // --- Safety Review: null means unanswered, and unanswered is an error on the record ---
-    // AprReviewed is tri-state (ADR-0006): Sí/No/N/A, persisted as TEXT via the EF value
-    // converter in ItrionDbContext; the wire carries "SI"/"NO"/"N/A".
+    // All twelve answers are tri-state (ADR-0006): Sí/No/N/A, persisted as TEXT via the EF
+    // value converter in ItrionDbContext; the wire carries "SI"/"NO"/"N/A".
     public SafetyReviewAnswer? AprReviewed { get; set; }
-    public bool? TaskRealized { get; set; }
-    public bool? RequiresAtrReview { get; set; }
-    public bool? TrcRisk { get; set; }
-    public bool? ImpactRiskControlled { get; set; }
-    public bool? HandInjuryMeasures { get; set; }
-    public bool? InjuryMeasures { get; set; }
-    public bool? ToolsReviewed { get; set; }
-    public bool? MobileEquipmentReviewed { get; set; }
-    public bool? EnergyReviewed { get; set; }
-    public bool? LadderReviewed { get; set; }
-    public bool? ElectricalEquipmentCircuitBreaker { get; set; }
+    public SafetyReviewAnswer? TaskRealized { get; set; }
+    public SafetyReviewAnswer? RequiresAtrReview { get; set; }
+    public SafetyReviewAnswer? TrcRisk { get; set; }
+    public SafetyReviewAnswer? ImpactRiskControlled { get; set; }
+    public SafetyReviewAnswer? HandInjuryMeasures { get; set; }
+    public SafetyReviewAnswer? InjuryMeasures { get; set; }
+    public SafetyReviewAnswer? ToolsReviewed { get; set; }
+    public SafetyReviewAnswer? MobileEquipmentReviewed { get; set; }
+    public SafetyReviewAnswer? EnergyReviewed { get; set; }
+    public SafetyReviewAnswer? LadderReviewed { get; set; }
+    public SafetyReviewAnswer? ElectricalEquipmentCircuitBreaker { get; set; }
 
     /// <summary>Free text naming the controls verified — not a yes/no finding.</summary>
     public string ControlesCriticos { get; set; } = string.Empty;

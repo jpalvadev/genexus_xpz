@@ -70,9 +70,18 @@ public class ItrionDbContext(DbContextOptions<ItrionDbContext> options) : DbCont
 
             // Safety Review answers persist as TEXT with the "SI"/"NO"/"N/A" literals
             // (ADR-0006): nullable enum <-> string, no column default.
-            entity.Property(o => o.AprReviewed)
-                .HasConversion<string>()
-                .HasColumnType("TEXT");
+            entity.Property(o => o.AprReviewed).HasConversion<string>().HasColumnType("TEXT");
+            entity.Property(o => o.TaskRealized).HasConversion<string>().HasColumnType("TEXT");
+            entity.Property(o => o.RequiresAtrReview).HasConversion<string>().HasColumnType("TEXT");
+            entity.Property(o => o.TrcRisk).HasConversion<string>().HasColumnType("TEXT");
+            entity.Property(o => o.ImpactRiskControlled).HasConversion<string>().HasColumnType("TEXT");
+            entity.Property(o => o.HandInjuryMeasures).HasConversion<string>().HasColumnType("TEXT");
+            entity.Property(o => o.InjuryMeasures).HasConversion<string>().HasColumnType("TEXT");
+            entity.Property(o => o.ToolsReviewed).HasConversion<string>().HasColumnType("TEXT");
+            entity.Property(o => o.MobileEquipmentReviewed).HasConversion<string>().HasColumnType("TEXT");
+            entity.Property(o => o.EnergyReviewed).HasConversion<string>().HasColumnType("TEXT");
+            entity.Property(o => o.LadderReviewed).HasConversion<string>().HasColumnType("TEXT");
+            entity.Property(o => o.ElectricalEquipmentCircuitBreaker).HasConversion<string>().HasColumnType("TEXT");
 
             // The export stores each multi-select as one JSON array of labels.
             entity.Property(o => o.GestionRiesgo).HasDefaultValue("[]");

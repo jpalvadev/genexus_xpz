@@ -185,20 +185,14 @@ export default function SecurityObservationForm({
             colSpan: 12,
             description: 'Todas las preguntas deben responderse (Sí/No/N/A)',
         } as unknown as FieldConfig<SecurityObservationFormValues>,
-        // Ticket 02 trace (ADR-0006): APR revisado es tri-estado (toggle-group);
-        // las 11 preguntas restantes migran con el ticket 03.
-        {
-            name: 'aprReviewed',
-            label: SAFETY_REVIEW_FIELDS[0].label,
-            formField: 'toggle-group',
-            options: SAFETY_REVIEW_OPTIONS,
-            colSpan: 6,
-        },
-        ...SAFETY_REVIEW_FIELDS.slice(1).map(({ key, label }) => ({
+        // ADR-0006: las doce preguntas del bloque son tri-estado (toggle-group),
+        // dos preguntas por fila, asterisco por pregunta (obligatorias en el spec).
+        ...SAFETY_REVIEW_FIELDS.map(({ key, label }) => ({
             name: key,
             label,
-            formField: 'checkbox' as const,
-            colSpan: 4,
+            formField: 'toggle-group' as const,
+            options: SAFETY_REVIEW_OPTIONS,
+            colSpan: 6,
         })),
 
         { name: 'sepLabels', label: 'Campos de Selección', formField: 'separator', colSpan: 12 } as unknown as FieldConfig<SecurityObservationFormValues>,

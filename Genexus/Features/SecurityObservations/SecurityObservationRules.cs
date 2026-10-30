@@ -50,27 +50,23 @@ public static class SecurityObservationRules {
 
     /// <summary>
     /// A blank finding is an error on the record: null means unanswered (GLOSSARY.md).
-    /// Ticket 02 trace: AprReviewed arrives as the wire string ("SI"/"NO"/"N/A"); the
-    /// remaining legacy booleans ride the same list through the transition shim
-    /// (true→"SI", false→"NO", null→null) so "unanswered" is one check.
+    /// All twelve answers ride the wire as strings ("SI"/"NO"/"N/A", ADR-0006), so
+    /// "unanswered" is one check over the whole block.
     /// </summary>
     private static IEnumerable<string?> SafetyReviewAnswers(SecurityObservationRequest request) => [
         request.AprReviewed,
-        LegacyAnswerToWire(request.TaskRealized),
-        LegacyAnswerToWire(request.RequiresAtrReview),
-        LegacyAnswerToWire(request.TrcRisk),
-        LegacyAnswerToWire(request.ImpactRiskControlled),
-        LegacyAnswerToWire(request.HandInjuryMeasures),
-        LegacyAnswerToWire(request.InjuryMeasures),
-        LegacyAnswerToWire(request.ToolsReviewed),
-        LegacyAnswerToWire(request.MobileEquipmentReviewed),
-        LegacyAnswerToWire(request.EnergyReviewed),
-        LegacyAnswerToWire(request.LadderReviewed),
-        LegacyAnswerToWire(request.ElectricalEquipmentCircuitBreaker),
+        request.TaskRealized,
+        request.RequiresAtrReview,
+        request.TrcRisk,
+        request.ImpactRiskControlled,
+        request.HandInjuryMeasures,
+        request.InjuryMeasures,
+        request.ToolsReviewed,
+        request.MobileEquipmentReviewed,
+        request.EnergyReviewed,
+        request.LadderReviewed,
+        request.ElectricalEquipmentCircuitBreaker,
     ];
-
-    private static string? LegacyAnswerToWire(bool? answer) =>
-        answer is null ? null : answer.Value ? "SI" : "NO";
 
     private static IEnumerable<(string Label, List<string> Labels)> MultiSelects(SecurityObservationRequest request) => [
         ("Gestión de Riesgo", request.GestionRiesgo ?? []),

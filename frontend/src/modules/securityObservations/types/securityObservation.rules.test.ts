@@ -4,6 +4,7 @@ import { format, parseISO } from 'date-fns';
 import type { SecurityObservationFormValues } from './securityObservation.type';
 import {
     OBSERVERS_MAX,
+    SAFETY_REVIEW_FIELDS,
     emptySecurityObservationFormValues,
     observationDateWindow,
     securityObservationFormValuesToRequest,
@@ -25,17 +26,17 @@ const validValues = (): SecurityObservationFormValues => {
         contractorCompanyId: '3',
         observers: ['1', '2'],
         aprReviewed: 'SI',
-        taskRealized: true,
-        requiresAtrReview: true,
-        trcRisk: true,
-        impactRiskControlled: true,
-        handInjuryMeasures: true,
-        injuryMeasures: true,
-        toolsReviewed: true,
-        mobileEquipmentReviewed: true,
-        energyReviewed: true,
-        ladderReviewed: true,
-        electricalEquipmentCircuitBreaker: true,
+        taskRealized: 'SI',
+        requiresAtrReview: 'SI',
+        trcRisk: 'SI',
+        impactRiskControlled: 'SI',
+        handInjuryMeasures: 'SI',
+        injuryMeasures: 'SI',
+        toolsReviewed: 'SI',
+        mobileEquipmentReviewed: 'SI',
+        energyReviewed: 'SI',
+        ladderReviewed: 'SI',
+        electricalEquipmentCircuitBreaker: 'SI',
         gestionRiesgo: ['1'],
         protocolosMortales: ['3'],
         clasificacionObservacion: ['2'],
@@ -67,7 +68,15 @@ describe('securityObservationSchema (mirror de SecurityObservationRules)', () =>
         );
     });
 
-    it('exige todos los checkboxes de Safety Review respondidos', () => {
+    it('acepta una observación con las doce respuestas en N/A (ADR-0006: N/A es respuesta)', () => {
+        const values = validValues();
+        for (const { key } of SAFETY_REVIEW_FIELDS) {
+            values[key] = 'N/A';
+        }
+        expect(securityObservationSchema.safeParse(values).success).toBe(true);
+    });
+
+    it('exige todas las respuestas de Safety Review respondidas', () => {
         const messages = messagesOf({ ...validValues(), trcRisk: null, energyReviewed: null });
         expect(messages.filter((m: string) => m === 'Todas las respuestas de la Revisión de Seguridad son obligatorias')).toHaveLength(2);
     });

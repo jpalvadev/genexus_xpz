@@ -30,17 +30,17 @@ export type SecurityObservationResponse = {
     task: string;
     lugar: string;
     aprReviewed: SafetyReviewAnswer | null;
-    taskRealized: boolean | null;
-    requiresAtrReview: boolean | null;
-    trcRisk: boolean | null;
-    impactRiskControlled: boolean | null;
-    handInjuryMeasures: boolean | null;
-    injuryMeasures: boolean | null;
-    toolsReviewed: boolean | null;
-    mobileEquipmentReviewed: boolean | null;
-    energyReviewed: boolean | null;
-    ladderReviewed: boolean | null;
-    electricalEquipmentCircuitBreaker: boolean | null;
+    taskRealized: SafetyReviewAnswer | null;
+    requiresAtrReview: SafetyReviewAnswer | null;
+    trcRisk: SafetyReviewAnswer | null;
+    impactRiskControlled: SafetyReviewAnswer | null;
+    handInjuryMeasures: SafetyReviewAnswer | null;
+    injuryMeasures: SafetyReviewAnswer | null;
+    toolsReviewed: SafetyReviewAnswer | null;
+    mobileEquipmentReviewed: SafetyReviewAnswer | null;
+    energyReviewed: SafetyReviewAnswer | null;
+    ladderReviewed: SafetyReviewAnswer | null;
+    electricalEquipmentCircuitBreaker: SafetyReviewAnswer | null;
     controlesCriticos: string | null;
     gestionRiesgo: string[];
     protocolosMortales: string[];
@@ -65,17 +65,17 @@ export interface SecurityObservationRequest {
     contractorCompanyId: number | null;
     observers: { observerId: number }[];
     aprReviewed: SafetyReviewAnswer | null;
-    taskRealized: boolean | null;
-    requiresAtrReview: boolean | null;
-    trcRisk: boolean | null;
-    impactRiskControlled: boolean | null;
-    handInjuryMeasures: boolean | null;
-    injuryMeasures: boolean | null;
-    toolsReviewed: boolean | null;
-    mobileEquipmentReviewed: boolean | null;
-    energyReviewed: boolean | null;
-    ladderReviewed: boolean | null;
-    electricalEquipmentCircuitBreaker: boolean | null;
+    taskRealized: SafetyReviewAnswer | null;
+    requiresAtrReview: SafetyReviewAnswer | null;
+    trcRisk: SafetyReviewAnswer | null;
+    impactRiskControlled: SafetyReviewAnswer | null;
+    handInjuryMeasures: SafetyReviewAnswer | null;
+    injuryMeasures: SafetyReviewAnswer | null;
+    toolsReviewed: SafetyReviewAnswer | null;
+    mobileEquipmentReviewed: SafetyReviewAnswer | null;
+    energyReviewed: SafetyReviewAnswer | null;
+    ladderReviewed: SafetyReviewAnswer | null;
+    electricalEquipmentCircuitBreaker: SafetyReviewAnswer | null;
     controlesCriticos: string;
     gestionRiesgo: string[];
     protocolosMortales: string[];
@@ -168,17 +168,17 @@ export type SecurityObservationFormValues = {
     contractorCompanyId: string;
     observers: string[];
     aprReviewed: SafetyReviewAnswer | null;
-    taskRealized: boolean | null;
-    requiresAtrReview: boolean | null;
-    trcRisk: boolean | null;
-    impactRiskControlled: boolean | null;
-    handInjuryMeasures: boolean | null;
-    injuryMeasures: boolean | null;
-    toolsReviewed: boolean | null;
-    mobileEquipmentReviewed: boolean | null;
-    energyReviewed: boolean | null;
-    ladderReviewed: boolean | null;
-    electricalEquipmentCircuitBreaker: boolean | null;
+    taskRealized: SafetyReviewAnswer | null;
+    requiresAtrReview: SafetyReviewAnswer | null;
+    trcRisk: SafetyReviewAnswer | null;
+    impactRiskControlled: SafetyReviewAnswer | null;
+    handInjuryMeasures: SafetyReviewAnswer | null;
+    injuryMeasures: SafetyReviewAnswer | null;
+    toolsReviewed: SafetyReviewAnswer | null;
+    mobileEquipmentReviewed: SafetyReviewAnswer | null;
+    energyReviewed: SafetyReviewAnswer | null;
+    ladderReviewed: SafetyReviewAnswer | null;
+    electricalEquipmentCircuitBreaker: SafetyReviewAnswer | null;
     controlesCriticos: string;
     gestionRiesgo: string[];
     protocolosMortales: string[];
@@ -203,17 +203,17 @@ export const securityObservationSchema = z
         // Ticket 02 trace (ADR-0006): tri-state literal; the invalid-value message
         // mirror lands with ticket 04's contraction.
         aprReviewed: z.enum(SAFETY_REVIEW_VALUES).nullable(),
-        taskRealized: z.boolean().nullable(),
-        requiresAtrReview: z.boolean().nullable(),
-        trcRisk: z.boolean().nullable(),
-        impactRiskControlled: z.boolean().nullable(),
-        handInjuryMeasures: z.boolean().nullable(),
-        injuryMeasures: z.boolean().nullable(),
-        toolsReviewed: z.boolean().nullable(),
-        mobileEquipmentReviewed: z.boolean().nullable(),
-        energyReviewed: z.boolean().nullable(),
-        ladderReviewed: z.boolean().nullable(),
-        electricalEquipmentCircuitBreaker: z.boolean().nullable(),
+        taskRealized: z.enum(SAFETY_REVIEW_VALUES).nullable(),
+        requiresAtrReview: z.enum(SAFETY_REVIEW_VALUES).nullable(),
+        trcRisk: z.enum(SAFETY_REVIEW_VALUES).nullable(),
+        impactRiskControlled: z.enum(SAFETY_REVIEW_VALUES).nullable(),
+        handInjuryMeasures: z.enum(SAFETY_REVIEW_VALUES).nullable(),
+        injuryMeasures: z.enum(SAFETY_REVIEW_VALUES).nullable(),
+        toolsReviewed: z.enum(SAFETY_REVIEW_VALUES).nullable(),
+        mobileEquipmentReviewed: z.enum(SAFETY_REVIEW_VALUES).nullable(),
+        energyReviewed: z.enum(SAFETY_REVIEW_VALUES).nullable(),
+        ladderReviewed: z.enum(SAFETY_REVIEW_VALUES).nullable(),
+        electricalEquipmentCircuitBreaker: z.enum(SAFETY_REVIEW_VALUES).nullable(),
         controlesCriticos: z.string(),
         gestionRiesgo: z.array(z.string()),
         protocolosMortales: z.array(z.string()),

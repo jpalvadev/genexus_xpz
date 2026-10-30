@@ -24,21 +24,21 @@ import type { ContractorCompany } from '@/modules/contractorCompanies/types/cont
  */
 
 const refSchema = z.object({ id: z.number(), name: z.string() });
-const safetyBooleans = {
-    // Ticket 02 trace (ADR-0006): aprReviewed is a tri-state wire literal;
-    // the remaining 11 flip with ticket 03.
+const safetyAnswers = {
+    // ADR-0006: las doce respuestas de la Revisión viajan por la API como
+    // literales del wire — el contrato los pincha byte a byte ("SI"/"NO"/"N/A").
     aprReviewed: z.enum(['SI', 'NO', 'N/A']).nullable(),
-    taskRealized: z.boolean().nullable(),
-    requiresAtrReview: z.boolean().nullable(),
-    trcRisk: z.boolean().nullable(),
-    impactRiskControlled: z.boolean().nullable(),
-    handInjuryMeasures: z.boolean().nullable(),
-    injuryMeasures: z.boolean().nullable(),
-    toolsReviewed: z.boolean().nullable(),
-    mobileEquipmentReviewed: z.boolean().nullable(),
-    energyReviewed: z.boolean().nullable(),
-    ladderReviewed: z.boolean().nullable(),
-    electricalEquipmentCircuitBreaker: z.boolean().nullable(),
+    taskRealized: z.enum(['SI', 'NO', 'N/A']).nullable(),
+    requiresAtrReview: z.enum(['SI', 'NO', 'N/A']).nullable(),
+    trcRisk: z.enum(['SI', 'NO', 'N/A']).nullable(),
+    impactRiskControlled: z.enum(['SI', 'NO', 'N/A']).nullable(),
+    handInjuryMeasures: z.enum(['SI', 'NO', 'N/A']).nullable(),
+    injuryMeasures: z.enum(['SI', 'NO', 'N/A']).nullable(),
+    toolsReviewed: z.enum(['SI', 'NO', 'N/A']).nullable(),
+    mobileEquipmentReviewed: z.enum(['SI', 'NO', 'N/A']).nullable(),
+    energyReviewed: z.enum(['SI', 'NO', 'N/A']).nullable(),
+    ladderReviewed: z.enum(['SI', 'NO', 'N/A']).nullable(),
+    electricalEquipmentCircuitBreaker: z.enum(['SI', 'NO', 'N/A']).nullable(),
 };
 
 const observationResponseSchema = z.object({
@@ -47,7 +47,7 @@ const observationResponseSchema = z.object({
     createdOn: z.string(),
     task: z.string(),
     lugar: z.string(),
-    ...safetyBooleans,
+    ...safetyAnswers,
     controlesCriticos: z.string().nullable(),
     gestionRiesgo: z.array(z.string()),
     protocolosMortales: z.array(z.string()),
