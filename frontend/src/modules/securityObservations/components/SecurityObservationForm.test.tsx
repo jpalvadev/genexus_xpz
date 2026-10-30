@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import { toast } from 'sonner';
 import { format } from 'date-fns';
 
@@ -14,6 +14,7 @@ import {
 } from '@/test/msw/fixtures';
 
 import SecurityObservationForm from './SecurityObservationForm';
+import { SAFETY_REVIEW_FIELDS } from '../types/securityObservation.type';
 import { securityObservationService } from '../services/securityObservation.service';
 import { plantService } from '@/modules/plants/plant.config';
 import { sectorService } from '@/modules/sectors/sector.config';
@@ -97,7 +98,9 @@ describe('SecurityObservationForm', () => {
         expect(screen.getByText('Fecha de Observación')).toBeInTheDocument();
         expect(screen.getByText('Observadores')).toBeInTheDocument();
         expect(screen.getByText('Revisión de Seguridad')).toBeInTheDocument();
-        expect(screen.getByLabelText('APR revisado')).toBeInTheDocument();
+        expect(
+            screen.getByRole('radiogroup', { name: 'APR revisado' })
+        ).toBeInTheDocument();
         expect(screen.getByLabelText('Gestión de Riesgo')).toBeInTheDocument();
         expect(screen.getByText(/Rango permitido: \d{2}\/\d{2}\/\d{4} a \d{2}\/\d{2}\/\d{4}/)).toBeInTheDocument();
     });
@@ -146,22 +149,18 @@ describe('SecurityObservationForm', () => {
         await user.click(observerOption);
         await user.keyboard('{Escape}');
 
-        // Safety Review completo
-        for (const label of [
-            'APR revisado',
-            'Tarea realizada según APR',
-            'Revisión de ATR necesaria',
-            'Riesgo TRC considerado',
-            'Riesgo de impacto controlado',
-            'Medidas de manos y lesiones',
-            'Medidas de lesiones',
-            'Herramientas revisadas',
-            'Equipos móviles revisados',
-            'Energía revisada',
-            'Escaleras revisadas',
-            'Equipos eléctricos y disyuntores',
-        ]) {
-            await user.click(screen.getByLabelText(label));
+        // Safety Review: las doce respuestas son tri-estado (ADR-0006) — Sí en cada
+        // segmento; 'N/A' en Escaleras revisadas pincha el literal N/A de punta a punta.
+        const safetyAnswers: [string, string][] = [
+            ...SAFETY_REVIEW_FIELDS.map(({ key, label }) => [
+                label,
+                key === 'ladderReviewed' ? 'N/A' : 'Sí',
+            ] as [string, string]),
+        ];
+        for (const [label, option] of safetyAnswers) {
+            await user.click(
+                within(screen.getByLabelText(label)).getByRole('radio', { name: option })
+            );
         }
 
         // Combos: una etiqueta por familia
@@ -194,18 +193,18 @@ describe('SecurityObservationForm', () => {
             sectorId: 2,
             contractorCompanyId: 3,
             observers: [{ observerId: 1 }],
-            aprReviewed: true,
-            taskRealized: true,
-            requiresAtrReview: true,
-            trcRisk: true,
-            impactRiskControlled: true,
-            handInjuryMeasures: true,
-            injuryMeasures: true,
-            toolsReviewed: true,
-            mobileEquipmentReviewed: true,
-            energyReviewed: true,
-            ladderReviewed: true,
-            electricalEquipmentCircuitBreaker: true,
+            aprReviewed: 'SI',
+            taskRealized: 'SI',
+            requiresAtrReview: 'SI',
+            trcRisk: 'SI',
+            impactRiskControlled: 'SI',
+            handInjuryMeasures: 'SI',
+            injuryMeasures: 'SI',
+            toolsReviewed: 'SI',
+            mobileEquipmentReviewed: 'SI',
+            energyReviewed: 'SI',
+            ladderReviewed: 'N/A',
+            electricalEquipmentCircuitBreaker: 'SI',
             controlesCriticos: '',
             gestionRiesgo: ['Charla de Riesgo Diario (DRT)'],
             protocolosMortales: ['Trabajo en Altura'],

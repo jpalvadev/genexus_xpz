@@ -29,18 +29,18 @@ export type SecurityObservationResponse = {
     createdOn: string;
     task: string;
     lugar: string;
-    aprReviewed: boolean | null;
-    taskRealized: boolean | null;
-    requiresAtrReview: boolean | null;
-    trcRisk: boolean | null;
-    impactRiskControlled: boolean | null;
-    handInjuryMeasures: boolean | null;
-    injuryMeasures: boolean | null;
-    toolsReviewed: boolean | null;
-    mobileEquipmentReviewed: boolean | null;
-    energyReviewed: boolean | null;
-    ladderReviewed: boolean | null;
-    electricalEquipmentCircuitBreaker: boolean | null;
+    aprReviewed: SafetyReviewAnswer | null;
+    taskRealized: SafetyReviewAnswer | null;
+    requiresAtrReview: SafetyReviewAnswer | null;
+    trcRisk: SafetyReviewAnswer | null;
+    impactRiskControlled: SafetyReviewAnswer | null;
+    handInjuryMeasures: SafetyReviewAnswer | null;
+    injuryMeasures: SafetyReviewAnswer | null;
+    toolsReviewed: SafetyReviewAnswer | null;
+    mobileEquipmentReviewed: SafetyReviewAnswer | null;
+    energyReviewed: SafetyReviewAnswer | null;
+    ladderReviewed: SafetyReviewAnswer | null;
+    electricalEquipmentCircuitBreaker: SafetyReviewAnswer | null;
     controlesCriticos: string | null;
     gestionRiesgo: string[];
     protocolosMortales: string[];
@@ -64,18 +64,18 @@ export interface SecurityObservationRequest {
     sectorId: number;
     contractorCompanyId: number | null;
     observers: { observerId: number }[];
-    aprReviewed: boolean | null;
-    taskRealized: boolean | null;
-    requiresAtrReview: boolean | null;
-    trcRisk: boolean | null;
-    impactRiskControlled: boolean | null;
-    handInjuryMeasures: boolean | null;
-    injuryMeasures: boolean | null;
-    toolsReviewed: boolean | null;
-    mobileEquipmentReviewed: boolean | null;
-    energyReviewed: boolean | null;
-    ladderReviewed: boolean | null;
-    electricalEquipmentCircuitBreaker: boolean | null;
+    aprReviewed: SafetyReviewAnswer | null;
+    taskRealized: SafetyReviewAnswer | null;
+    requiresAtrReview: SafetyReviewAnswer | null;
+    trcRisk: SafetyReviewAnswer | null;
+    impactRiskControlled: SafetyReviewAnswer | null;
+    handInjuryMeasures: SafetyReviewAnswer | null;
+    injuryMeasures: SafetyReviewAnswer | null;
+    toolsReviewed: SafetyReviewAnswer | null;
+    mobileEquipmentReviewed: SafetyReviewAnswer | null;
+    energyReviewed: SafetyReviewAnswer | null;
+    ladderReviewed: SafetyReviewAnswer | null;
+    electricalEquipmentCircuitBreaker: SafetyReviewAnswer | null;
     controlesCriticos: string;
     gestionRiesgo: string[];
     protocolosMortales: string[];
@@ -94,6 +94,27 @@ export const OBSERVERS_MIN = 1;
 export const OBSERVERS_MAX = 10;
 export const OBSERVATION_DATE_BACK_DAYS = 7;
 export const OBSERVATION_DATE_FWD_DAYS = 1;
+
+/**
+ * Safety Review answer (ADR-0006, GLOSSARY "Respuesta de Revisión de Seguridad"):
+ * tri-state wire literals "SI"/"NO"/"N/A" (Spanish values, English property names).
+ * null is absence — unanswered, an error on the record; "N/A" is an answer.
+ */
+export type SafetyReviewAnswer = 'SI' | 'NO' | 'N/A';
+
+export const SAFETY_REVIEW_VALUES = ['SI', 'NO', 'N/A'] as const;
+
+/** Regla de valor fuera del set (ticket 04): mismo mensaje y mismo orden que
+ *  SecurityObservationRules — se evalúa antes de la obligatoriedad. */
+export const SAFETY_REVIEW_INVALID_COPY =
+    'Las respuestas de la Revisión de Seguridad deben ser Sí, No o N/A';
+
+/** Segments of the tri-state ToggleGroup: Spanish visible labels on wire values. */
+export const SAFETY_REVIEW_OPTIONS: { label: string; value: SafetyReviewAnswer }[] = [
+    { label: 'Sí', value: 'SI' },
+    { label: 'No', value: 'NO' },
+    { label: 'N/A', value: 'N/A' },
+];
 
 export const SAFETY_REVIEW_FIELDS = [
     { key: 'aprReviewed', label: 'APR revisado' },
@@ -151,18 +172,18 @@ export type SecurityObservationFormValues = {
     sectorId: string;
     contractorCompanyId: string;
     observers: string[];
-    aprReviewed: boolean | null;
-    taskRealized: boolean | null;
-    requiresAtrReview: boolean | null;
-    trcRisk: boolean | null;
-    impactRiskControlled: boolean | null;
-    handInjuryMeasures: boolean | null;
-    injuryMeasures: boolean | null;
-    toolsReviewed: boolean | null;
-    mobileEquipmentReviewed: boolean | null;
-    energyReviewed: boolean | null;
-    ladderReviewed: boolean | null;
-    electricalEquipmentCircuitBreaker: boolean | null;
+    aprReviewed: SafetyReviewAnswer | null;
+    taskRealized: SafetyReviewAnswer | null;
+    requiresAtrReview: SafetyReviewAnswer | null;
+    trcRisk: SafetyReviewAnswer | null;
+    impactRiskControlled: SafetyReviewAnswer | null;
+    handInjuryMeasures: SafetyReviewAnswer | null;
+    injuryMeasures: SafetyReviewAnswer | null;
+    toolsReviewed: SafetyReviewAnswer | null;
+    mobileEquipmentReviewed: SafetyReviewAnswer | null;
+    energyReviewed: SafetyReviewAnswer | null;
+    ladderReviewed: SafetyReviewAnswer | null;
+    electricalEquipmentCircuitBreaker: SafetyReviewAnswer | null;
     controlesCriticos: string;
     gestionRiesgo: string[];
     protocolosMortales: string[];
@@ -184,18 +205,20 @@ export const securityObservationSchema = z
         sectorId: z.string().min(1, 'El sector es obligatorio'),
         contractorCompanyId: z.string(),
         observers: z.array(z.string()).min(OBSERVERS_MIN, 'Se requiere al menos un observador'),
-        aprReviewed: z.boolean().nullable(),
-        taskRealized: z.boolean().nullable(),
-        requiresAtrReview: z.boolean().nullable(),
-        trcRisk: z.boolean().nullable(),
-        impactRiskControlled: z.boolean().nullable(),
-        handInjuryMeasures: z.boolean().nullable(),
-        injuryMeasures: z.boolean().nullable(),
-        toolsReviewed: z.boolean().nullable(),
-        mobileEquipmentReviewed: z.boolean().nullable(),
-        energyReviewed: z.boolean().nullable(),
-        ladderReviewed: z.boolean().nullable(),
-        electricalEquipmentCircuitBreaker: z.boolean().nullable(),
+        // ADR-0006 + ticket 04: literales tri-estado con la regla de valor fuera
+        // del set; zod la evalúa en el parseo de campos, antes del superRefine.
+        aprReviewed: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        taskRealized: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        requiresAtrReview: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        trcRisk: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        impactRiskControlled: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        handInjuryMeasures: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        injuryMeasures: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        toolsReviewed: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        mobileEquipmentReviewed: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        energyReviewed: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        ladderReviewed: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        electricalEquipmentCircuitBreaker: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
         controlesCriticos: z.string(),
         gestionRiesgo: z.array(z.string()),
         protocolosMortales: z.array(z.string()),

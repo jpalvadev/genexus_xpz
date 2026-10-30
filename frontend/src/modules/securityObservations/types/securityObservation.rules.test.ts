@@ -1,9 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { format, parseISO } from 'date-fns';
 
-import type { SecurityObservationFormValues } from './securityObservation.type';
+import type { SafetyReviewAnswer, SecurityObservationFormValues } from './securityObservation.type';
 import {
     OBSERVERS_MAX,
+    SAFETY_REVIEW_FIELDS,
+    SAFETY_REVIEW_INVALID_COPY,
     emptySecurityObservationFormValues,
     observationDateWindow,
     securityObservationFormValuesToRequest,
@@ -24,18 +26,18 @@ const validValues = (): SecurityObservationFormValues => {
         sectorId: '2',
         contractorCompanyId: '3',
         observers: ['1', '2'],
-        aprReviewed: true,
-        taskRealized: true,
-        requiresAtrReview: true,
-        trcRisk: true,
-        impactRiskControlled: true,
-        handInjuryMeasures: true,
-        injuryMeasures: true,
-        toolsReviewed: true,
-        mobileEquipmentReviewed: true,
-        energyReviewed: true,
-        ladderReviewed: true,
-        electricalEquipmentCircuitBreaker: true,
+        aprReviewed: 'SI',
+        taskRealized: 'SI',
+        requiresAtrReview: 'SI',
+        trcRisk: 'SI',
+        impactRiskControlled: 'SI',
+        handInjuryMeasures: 'SI',
+        injuryMeasures: 'SI',
+        toolsReviewed: 'SI',
+        mobileEquipmentReviewed: 'SI',
+        energyReviewed: 'SI',
+        ladderReviewed: 'SI',
+        electricalEquipmentCircuitBreaker: 'SI',
         gestionRiesgo: ['1'],
         protocolosMortales: ['3'],
         clasificacionObservacion: ['2'],
@@ -67,7 +69,23 @@ describe('securityObservationSchema (mirror de SecurityObservationRules)', () =>
         );
     });
 
-    it('exige todos los checkboxes de Safety Review respondidos', () => {
+    it('acepta una observación con las doce respuestas en N/A (ADR-0006: N/A es respuesta)', () => {
+        const values = validValues();
+        for (const { key } of SAFETY_REVIEW_FIELDS) {
+            values[key] = 'N/A';
+        }
+        expect(securityObservationSchema.safeParse(values).success).toBe(true);
+    });
+
+    it('rechaza un valor fuera del set con la copia española (ticket 04)', () => {
+        const messages = messagesOf({ ...validValues(), aprReviewed: 'Sí' as unknown as SafetyReviewAnswer });
+        expect(messages).toContain(SAFETY_REVIEW_INVALID_COPY);
+        // Mismo orden que la cadena "primera violación" del backend: el espejo zod
+        // la reporta en el parseo de campos; la obligatoriedad no cambió de mensaje.
+        expect(messages).not.toContain('Todas las respuestas de la Revisión de Seguridad son obligatorias');
+    });
+
+    it('exige todas las respuestas de Safety Review respondidas', () => {
         const messages = messagesOf({ ...validValues(), trcRisk: null, energyReviewed: null });
         expect(messages.filter((m: string) => m === 'Todas las respuestas de la Revisión de Seguridad son obligatorias')).toHaveLength(2);
     });
@@ -136,7 +154,7 @@ describe('securityObservationFormValuesToRequest', () => {
         expect(request.protocolosMortales).toEqual(['Working at Height']);
         expect(request.clasificacionObservacion).toEqual(['Safe Condition']);
         expect(request.relacionObservacion).toEqual(['Related to Task']);
-        expect(request.aprReviewed).toBe(true);
+        expect(request.aprReviewed).toBe('SI');
     });
 
     it('empresa contratista vacía viaja como null', () => {

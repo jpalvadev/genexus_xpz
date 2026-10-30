@@ -163,18 +163,18 @@ public class SecurityObservationService : ISecurityObservationService {
         observation.SectorId = request.SectorId;
         observation.ContractorCompanyId = request.ContractorCompanyId;
 
-        observation.AprReviewed = request.AprReviewed;
-        observation.TaskRealized = request.TaskRealized;
-        observation.RequiresAtrReview = request.RequiresAtrReview;
-        observation.TrcRisk = request.TrcRisk;
-        observation.ImpactRiskControlled = request.ImpactRiskControlled;
-        observation.HandInjuryMeasures = request.HandInjuryMeasures;
-        observation.InjuryMeasures = request.InjuryMeasures;
-        observation.ToolsReviewed = request.ToolsReviewed;
-        observation.MobileEquipmentReviewed = request.MobileEquipmentReviewed;
-        observation.EnergyReviewed = request.EnergyReviewed;
-        observation.LadderReviewed = request.LadderReviewed;
-        observation.ElectricalEquipmentCircuitBreaker = request.ElectricalEquipmentCircuitBreaker;
+        observation.AprReviewed = SafetyReviewAnswerConverter.Parse(request.AprReviewed);
+        observation.TaskRealized = SafetyReviewAnswerConverter.Parse(request.TaskRealized);
+        observation.RequiresAtrReview = SafetyReviewAnswerConverter.Parse(request.RequiresAtrReview);
+        observation.TrcRisk = SafetyReviewAnswerConverter.Parse(request.TrcRisk);
+        observation.ImpactRiskControlled = SafetyReviewAnswerConverter.Parse(request.ImpactRiskControlled);
+        observation.HandInjuryMeasures = SafetyReviewAnswerConverter.Parse(request.HandInjuryMeasures);
+        observation.InjuryMeasures = SafetyReviewAnswerConverter.Parse(request.InjuryMeasures);
+        observation.ToolsReviewed = SafetyReviewAnswerConverter.Parse(request.ToolsReviewed);
+        observation.MobileEquipmentReviewed = SafetyReviewAnswerConverter.Parse(request.MobileEquipmentReviewed);
+        observation.EnergyReviewed = SafetyReviewAnswerConverter.Parse(request.EnergyReviewed);
+        observation.LadderReviewed = SafetyReviewAnswerConverter.Parse(request.LadderReviewed);
+        observation.ElectricalEquipmentCircuitBreaker = SafetyReviewAnswerConverter.Parse(request.ElectricalEquipmentCircuitBreaker);
 
         observation.ControlesCriticos = request.ControlesCriticos ?? string.Empty;
         observation.GestionRiesgo = WriteLabels(request.GestionRiesgo);
@@ -200,18 +200,18 @@ public class SecurityObservationService : ISecurityObservationService {
             observation.CreatedOn,
             observation.Task,
             observation.Lugar,
-            observation.AprReviewed,
-            observation.TaskRealized,
-            observation.RequiresAtrReview,
-            observation.TrcRisk,
-            observation.ImpactRiskControlled,
-            observation.HandInjuryMeasures,
-            observation.InjuryMeasures,
-            observation.ToolsReviewed,
-            observation.MobileEquipmentReviewed,
-            observation.EnergyReviewed,
-            observation.LadderReviewed,
-            observation.ElectricalEquipmentCircuitBreaker,
+            SafetyReviewAnswerConverter.ToWire(observation.AprReviewed),
+            SafetyReviewAnswerConverter.ToWire(observation.TaskRealized),
+            SafetyReviewAnswerConverter.ToWire(observation.RequiresAtrReview),
+            SafetyReviewAnswerConverter.ToWire(observation.TrcRisk),
+            SafetyReviewAnswerConverter.ToWire(observation.ImpactRiskControlled),
+            SafetyReviewAnswerConverter.ToWire(observation.HandInjuryMeasures),
+            SafetyReviewAnswerConverter.ToWire(observation.InjuryMeasures),
+            SafetyReviewAnswerConverter.ToWire(observation.ToolsReviewed),
+            SafetyReviewAnswerConverter.ToWire(observation.MobileEquipmentReviewed),
+            SafetyReviewAnswerConverter.ToWire(observation.EnergyReviewed),
+            SafetyReviewAnswerConverter.ToWire(observation.LadderReviewed),
+            SafetyReviewAnswerConverter.ToWire(observation.ElectricalEquipmentCircuitBreaker),
             observation.ControlesCriticos,
             ReadLabels(observation.GestionRiesgo),
             ReadLabels(observation.ProtocolosMortales),

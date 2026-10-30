@@ -155,13 +155,17 @@ for R in $RESOURCES; do
     *) SO_PLANT=$FIX_PLANT; SO_SECTOR=$FIX_SECTOR; SO_COMPANY=$REF_ID ;;
   esac
   R_DEL="$BASE/$R/$REF_ID"
-  SO_ID=$(create POST "$BASE/security-observations" "{\"observationDate\":\"$TODAY\",\"task\":\"Parity Sweep FK pin\",\"lugar\":\"planta\",\"plantId\":$SO_PLANT,\"sectorId\":$SO_SECTOR,\"contractorCompanyId\":$SO_COMPANY,\"observers\":[{\"observerId\":$FIX_OBSERVER}],\"aprReviewed\":true,\"taskRealized\":true,\"requiresAtrReview\":false,\"trcRisk\":true,\"impactRiskControlled\":true,\"handInjuryMeasures\":false,\"injuryMeasures\":true,\"toolsReviewed\":true,\"mobileEquipmentReviewed\":false,\"energyReviewed\":true,\"ladderReviewed\":false,\"electricalEquipmentCircuitBreaker\":true,\"controlesCriticos\":\"parity sweep\",\"gestionRiesgo\":[\"Charla de Riesgo Diario (DRT)\"],\"protocolosMortales\":[\"Trabajo en Altura\"],\"clasificacionObservacion\":[\"Condición Segura\"],\"relacionObservacion\":[\"Relacionado con la Tarea\"],\"resumenObservacion\":\"parity sweep\",\"detalleAI\":\"parity sweep\",\"descripcionAC\":\"parity sweep\"}")
+  SO_ID=$(create POST "$BASE/security-observations" "{\"observationDate\":\"$TODAY\",\"task\":\"Parity Sweep FK pin\",\"lugar\":\"planta\",\"plantId\":$SO_PLANT,\"sectorId\":$SO_SECTOR,\"contractorCompanyId\":$SO_COMPANY,\"observers\":[{\"observerId\":$FIX_OBSERVER}],\"aprReviewed\":\"SI\",\"taskRealized\":\"SI\",\"requiresAtrReview\":\"NO\",\"trcRisk\":\"SI\",\"impactRiskControlled\":\"SI\",\"handInjuryMeasures\":\"NO\",\"injuryMeasures\":\"SI\",\"toolsReviewed\":\"SI\",\"mobileEquipmentReviewed\":\"NO\",\"energyReviewed\":\"SI\",\"ladderReviewed\":\"N/A\",\"electricalEquipmentCircuitBreaker\":\"SI\",\"controlesCriticos\":\"parity sweep\",\"gestionRiesgo\":[\"Charla de Riesgo Diario (DRT)\"],\"protocolosMortales\":[\"Trabajo en Altura\"],\"clasificacionObservacion\":[\"Condición Segura\"],\"relacionObservacion\":[\"Relacionado con la Tarea\"],\"resumenObservacion\":\"parity sweep\",\"detalleAI\":\"parity sweep\",\"descripcionAC\":\"parity sweep\"}")
   check "conflict delete ($REF_ID)" 409 DELETE "$R_DEL"
   copy "conflict delete ($REF_ID)" "$CONF_COPY"
   # Cleanup in FK order: Observation first, then the referenced record.
   check "cleanup observation ($SO_ID)" 204 DELETE "$BASE/security-observations/$SO_ID"
   check "cleanup reference ($REF_ID)" 204 DELETE "$R_DEL"
 done
+
+echo "== safety review: valor fuera del set (ADR-0006, ticket 04)"
+check "invalid answer 400" 400 POST "$BASE/security-observations" "{\"observationDate\":\"$TODAY\",\"task\":\"Parity Sweep invalid answer\",\"lugar\":\"planta\",\"plantId\":$FIX_PLANT,\"sectorId\":$FIX_SECTOR,\"contractorCompanyId\":$FIX_COMPANY,\"observers\":[{\"observerId\":$FIX_OBSERVER}],\"aprReviewed\":\"NOPE\",\"taskRealized\":\"SI\",\"requiresAtrReview\":\"NO\",\"trcRisk\":\"SI\",\"impactRiskControlled\":\"SI\",\"handInjuryMeasures\":\"NO\",\"injuryMeasures\":\"SI\",\"toolsReviewed\":\"SI\",\"mobileEquipmentReviewed\":\"NO\",\"energyReviewed\":\"SI\",\"ladderReviewed\":\"N/A\",\"electricalEquipmentCircuitBreaker\":\"SI\",\"controlesCriticos\":\"parity sweep\",\"gestionRiesgo\":[\"Charla de Riesgo Diario (DRT)\"],\"protocolosMortales\":[\"Trabajo en Altura\"],\"clasificacionObservacion\":[\"Condición Segura\"],\"relacionObservacion\":[\"Relacionado con la Tarea\"],\"resumenObservacion\":\"parity sweep\",\"detalleAI\":\"parity sweep\",\"descripcionAC\":\"parity sweep\"}"
+copy "invalid answer 400" "Las respuestas de la Revisión de Seguridad deben ser Sí, No o N/A"
 
 echo "== sweep fixture cleanup (FK order: observation already deleted, then masters, then observer)"
 check "cleanup company ($FIX_COMPANY)" 204 DELETE "$BASE/contractor-companies/$FIX_COMPANY"

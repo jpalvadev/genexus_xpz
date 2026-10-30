@@ -24,6 +24,11 @@ public static class SecurityObservationRules {
         if (observerIds.Distinct().Count() != observerIds.Count)
             return "El mismo observador no puede nombrarse dos veces en una Observación de Seguridad";
 
+        // ADR-0006: el wire solo admite los literales byte-exactos; cualquier otro
+        // valor se rechaza ANTES de la obligatoriedad (ticket 04), como 400+ErrorResponse.
+        if (SafetyReviewAnswers(request).Any(answer => answer is not null and not ("SI" or "NO" or "N/A")))
+            return "Las respuestas de la Revisión de Seguridad deben ser Sí, No o N/A";
+
         if (SafetyReviewAnswers(request).Any(answer => answer is null))
             return "Todas las respuestas de la Revisión de Seguridad son obligatorias";
 
@@ -48,8 +53,12 @@ public static class SecurityObservationRules {
     public static (DateOnly Min, DateOnly Max) ObservationDateWindow(DateOnly today) =>
         (today.AddDays(-ObserversBackwardsWindowDays), today.AddDays(ObserversForwardsWindowDays));
 
-    /// <summary>A blank finding is an error on the record: null means unanswered (GLOSSARY.md).</summary>
-    private static IEnumerable<bool?> SafetyReviewAnswers(SecurityObservationRequest request) => [
+    /// <summary>
+    /// A blank finding is an error on the record: null means unanswered (GLOSSARY.md).
+    /// All twelve answers ride the wire as strings ("SI"/"NO"/"N/A", ADR-0006), so
+    /// "unanswered" is one check over the whole block.
+    /// </summary>
+    private static IEnumerable<string?> SafetyReviewAnswers(SecurityObservationRequest request) => [
         request.AprReviewed,
         request.TaskRealized,
         request.RequiresAtrReview,

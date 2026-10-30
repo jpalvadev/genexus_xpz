@@ -11,19 +11,19 @@ camino anterior.
 
 **Blocked by:** 03 (el barrido dejó sin llamantes la forma booleana).
 
-**Status:** ready-for-agent
+**Status:** resolved (c38247d — closeout 87 PASS/0 FAIL, suite 183/183 verde)
 
-- [ ] Regla de valor fuera del set vigente en el backend, evaluada antes de la de
+- [x] Regla de valor fuera del set vigente en el backend, evaluada antes de la de
       obligatoriedad, con la cadena de "primera violación" intacta para el resto de reglas.
-- [ ] Espejo zod con el mismo mensaje español y el mismo orden; test de la regla por
+- [x] Espejo zod con el mismo mensaje español y el mismo orden; test de la regla por
       valor inválido y test de que el mensaje de obligatoriedad no cambió.
-- [ ] Check 400 de valor inválido agregado al barrido de paridad en el estilo `check()` de
+- [x] Check 400 de valor inválido agregado al barrido de paridad en el estilo `check()` de
       la casa, y `spanish-visible-copy-check.sh` verde con el literal nuevo.
-- [ ] Sin restos del contrato booleano: ni propiedades, ni cadenas de respuestas, ni
+- [x] Sin restos del contrato booleano: ni propiedades, ni cadenas de respuestas, ni
       helpers de conversión muertos; el checkbox del Observador (*Estado*, elegibilidad)
       sigue siendo booleano y no se toca.
-- [ ] Grilla, export Excel y filtros Gridify sin cambios verificables (los doce campos no
+- [x] Grilla, export Excel y filtros Gridify sin cambios verificables (los doce campos no
       aparecen en ninguno).
-- [ ] Pasada de cierre en una sola bota del harness (recapture de fixtures, los cuatro
+- [x] Pasada de cierre en una sola bota del harness (recapture de fixtures, los cuatro
       pin scripts y los spot checks de wire), suite completa verde en el push de `master`,
       integración mergeada a `master` y rama borrada en `origin` y local.

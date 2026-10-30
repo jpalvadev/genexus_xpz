@@ -13,6 +13,7 @@ import FormMultiSelect from './FormMultiSelect';
 import FormRadioGroup from './FormRadioGroup';
 import FormCheckboxGroup from './FormCheckboxGroup';
 import FormSignature from './FormSignature';
+import FormToggleGroup from './FormToggleGroup';
 
 const { fieldContext, formContext, useFieldContext, useFormContext } =
     createFormHookContexts();
@@ -26,6 +27,7 @@ const { useAppForm } = createFormHook({
         MultiSelect: FormMultiSelect,
         RadioGroup: FormRadioGroup,
         CheckboxGroup: FormCheckboxGroup,
+        ToggleGroup: FormToggleGroup,
 
         Checkbox: FormCheckbox,
         Date: FormDate,

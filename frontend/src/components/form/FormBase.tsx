@@ -40,7 +40,12 @@ export function FormBase({
         <>
             {label && (
                 <div className="flex items-center gap-0.5">
-                    <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+                    <FieldLabel
+                        htmlFor={field.name}
+                        id={`${field.name}-label`}
+                    >
+                        {label}
+                    </FieldLabel>
                     {required && (
                         <span
                             className="text-destructive print:hidden select-none font-medium text-sm"

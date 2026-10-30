@@ -23,6 +23,7 @@ import type {
 import {
     MULTI_SELECT_LABELS,
     SAFETY_REVIEW_FIELDS,
+    SAFETY_REVIEW_OPTIONS,
     emptySecurityObservationFormValues,
     observationDateWindow,
     securityObservationFormValuesToRequest,
@@ -182,13 +183,16 @@ export default function SecurityObservationForm({
             label: 'Revisión de Seguridad',
             formField: 'separator',
             colSpan: 12,
-            description: 'Todas las preguntas deben responderse (Sí/No)',
+            description: 'Todas las preguntas deben responderse (Sí/No/N/A)',
         } as unknown as FieldConfig<SecurityObservationFormValues>,
+        // ADR-0006: las doce preguntas del bloque son tri-estado (toggle-group),
+        // dos preguntas por fila, asterisco por pregunta (obligatorias en el spec).
         ...SAFETY_REVIEW_FIELDS.map(({ key, label }) => ({
             name: key,
             label,
-            formField: 'checkbox' as const,
-            colSpan: 4,
+            formField: 'toggle-group' as const,
+            options: SAFETY_REVIEW_OPTIONS,
+            colSpan: 6,
         })),
 
         { name: 'sepLabels', label: 'Campos de Selección', formField: 'separator', colSpan: 12 } as unknown as FieldConfig<SecurityObservationFormValues>,

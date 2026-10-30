@@ -27,6 +27,7 @@ export interface FieldConfig<TData> {
         | 'select'
         | 'multi-select'
         | 'radio-group'
+        | 'toggle-group'
         | 'leaflet'
         | 'signature'
         | 'separator'
@@ -70,11 +71,14 @@ export interface FieldConfig<TData> {
     defaultAspect?: number;
 }
 
+// Baseline legacy: helpers exportados del formulario genérico (no componentes)
+// eslint-disable-next-line react-refresh/only-export-components
 export function isZodFieldRequired(
     schema: unknown,
     fieldName: string,
 ): boolean {
     if (!schema || typeof schema !== 'object') return false;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let current: any = schema;
     while (current && current._def) {
         if (current.shape) break;
@@ -98,6 +102,7 @@ export function isZodFieldRequired(
     return !result.success;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function resolveIsFieldRequired<TData>(
     fieldConfig: FieldConfig<TData>,
     schema?: ZodType<TData>,
@@ -185,6 +190,7 @@ export default function GenericForm<TData extends Record<string, unknown>>({
             mode: 'submit', // no valida hasta el primer intento de submit (comportamiento actual)
             modeAfterSubmission: 'change', // después de eso, revalida TODO el schema en cada cambio
         }),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         validators: { onDynamic: schema as any }, // reemplaza a { onSubmit: schema }
 
         onSubmit: async ({ value }) => {
@@ -581,6 +587,29 @@ export default function GenericForm<TData extends Record<string, unknown>>({
                                                             >
                                                                 {f.children}
                                                             </field.RadioGroup>
+                                                        );
+                                                    case 'toggle-group':
+                                                        return (
+                                                            <field.ToggleGroup
+                                                                label={f.label}
+                                                                description={
+                                                                    f.description
+                                                                }
+                                                                disabled={
+                                                                    isFieldDisabled
+                                                                }
+                                                                options={
+                                                                    f.options
+                                                                }
+                                                                onValueChange={
+                                                                    f.onValueChange
+                                                                }
+                                                                required={
+                                                                    isRequired
+                                                                }
+                                                            >
+                                                                {f.children}
+                                                            </field.ToggleGroup>
                                                         );
                                                     case 'signature':
                                                         return (
