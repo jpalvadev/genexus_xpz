@@ -24,6 +24,11 @@ public static class SecurityObservationRules {
         if (observerIds.Distinct().Count() != observerIds.Count)
             return "El mismo observador no puede nombrarse dos veces en una Observación de Seguridad";
 
+        // ADR-0006: el wire solo admite los literales byte-exactos; cualquier otro
+        // valor se rechaza ANTES de la obligatoriedad (ticket 04), como 400+ErrorResponse.
+        if (SafetyReviewAnswers(request).Any(answer => answer is not null and not ("SI" or "NO" or "N/A")))
+            return "Las respuestas de la Revisión de Seguridad deben ser Sí, No o N/A";
+
         if (SafetyReviewAnswers(request).Any(answer => answer is null))
             return "Todas las respuestas de la Revisión de Seguridad son obligatorias";
 

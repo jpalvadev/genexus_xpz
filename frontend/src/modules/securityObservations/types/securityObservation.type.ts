@@ -104,6 +104,11 @@ export type SafetyReviewAnswer = 'SI' | 'NO' | 'N/A';
 
 export const SAFETY_REVIEW_VALUES = ['SI', 'NO', 'N/A'] as const;
 
+/** Regla de valor fuera del set (ticket 04): mismo mensaje y mismo orden que
+ *  SecurityObservationRules — se evalúa antes de la obligatoriedad. */
+export const SAFETY_REVIEW_INVALID_COPY =
+    'Las respuestas de la Revisión de Seguridad deben ser Sí, No o N/A';
+
 /** Segments of the tri-state ToggleGroup: Spanish visible labels on wire values. */
 export const SAFETY_REVIEW_OPTIONS: { label: string; value: SafetyReviewAnswer }[] = [
     { label: 'Sí', value: 'SI' },
@@ -200,20 +205,20 @@ export const securityObservationSchema = z
         sectorId: z.string().min(1, 'El sector es obligatorio'),
         contractorCompanyId: z.string(),
         observers: z.array(z.string()).min(OBSERVERS_MIN, 'Se requiere al menos un observador'),
-        // Ticket 02 trace (ADR-0006): tri-state literal; the invalid-value message
-        // mirror lands with ticket 04's contraction.
-        aprReviewed: z.enum(SAFETY_REVIEW_VALUES).nullable(),
-        taskRealized: z.enum(SAFETY_REVIEW_VALUES).nullable(),
-        requiresAtrReview: z.enum(SAFETY_REVIEW_VALUES).nullable(),
-        trcRisk: z.enum(SAFETY_REVIEW_VALUES).nullable(),
-        impactRiskControlled: z.enum(SAFETY_REVIEW_VALUES).nullable(),
-        handInjuryMeasures: z.enum(SAFETY_REVIEW_VALUES).nullable(),
-        injuryMeasures: z.enum(SAFETY_REVIEW_VALUES).nullable(),
-        toolsReviewed: z.enum(SAFETY_REVIEW_VALUES).nullable(),
-        mobileEquipmentReviewed: z.enum(SAFETY_REVIEW_VALUES).nullable(),
-        energyReviewed: z.enum(SAFETY_REVIEW_VALUES).nullable(),
-        ladderReviewed: z.enum(SAFETY_REVIEW_VALUES).nullable(),
-        electricalEquipmentCircuitBreaker: z.enum(SAFETY_REVIEW_VALUES).nullable(),
+        // ADR-0006 + ticket 04: literales tri-estado con la regla de valor fuera
+        // del set; zod la evalúa en el parseo de campos, antes del superRefine.
+        aprReviewed: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        taskRealized: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        requiresAtrReview: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        trcRisk: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        impactRiskControlled: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        handInjuryMeasures: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        injuryMeasures: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        toolsReviewed: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        mobileEquipmentReviewed: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        energyReviewed: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        ladderReviewed: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
+        electricalEquipmentCircuitBreaker: z.enum(SAFETY_REVIEW_VALUES, { message: SAFETY_REVIEW_INVALID_COPY }).nullable(),
         controlesCriticos: z.string(),
         gestionRiesgo: z.array(z.string()),
         protocolosMortales: z.array(z.string()),

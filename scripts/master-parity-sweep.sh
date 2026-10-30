@@ -163,6 +163,10 @@ for R in $RESOURCES; do
   check "cleanup reference ($REF_ID)" 204 DELETE "$R_DEL"
 done
 
+echo "== safety review: valor fuera del set (ADR-0006, ticket 04)"
+check "invalid answer 400" 400 POST "$BASE/security-observations" "{\"observationDate\":\"$TODAY\",\"task\":\"Parity Sweep invalid answer\",\"lugar\":\"planta\",\"plantId\":$FIX_PLANT,\"sectorId\":$FIX_SECTOR,\"contractorCompanyId\":$FIX_COMPANY,\"observers\":[{\"observerId\":$FIX_OBSERVER}],\"aprReviewed\":\"NOPE\",\"taskRealized\":\"SI\",\"requiresAtrReview\":\"NO\",\"trcRisk\":\"SI\",\"impactRiskControlled\":\"SI\",\"handInjuryMeasures\":\"NO\",\"injuryMeasures\":\"SI\",\"toolsReviewed\":\"SI\",\"mobileEquipmentReviewed\":\"NO\",\"energyReviewed\":\"SI\",\"ladderReviewed\":\"N/A\",\"electricalEquipmentCircuitBreaker\":\"SI\",\"controlesCriticos\":\"parity sweep\",\"gestionRiesgo\":[\"Charla de Riesgo Diario (DRT)\"],\"protocolosMortales\":[\"Trabajo en Altura\"],\"clasificacionObservacion\":[\"Condición Segura\"],\"relacionObservacion\":[\"Relacionado con la Tarea\"],\"resumenObservacion\":\"parity sweep\",\"detalleAI\":\"parity sweep\",\"descripcionAC\":\"parity sweep\"}"
+copy "invalid answer 400" "Las respuestas de la Revisión de Seguridad deben ser Sí, No o N/A"
+
 echo "== sweep fixture cleanup (FK order: observation already deleted, then masters, then observer)"
 check "cleanup company ($FIX_COMPANY)" 204 DELETE "$BASE/contractor-companies/$FIX_COMPANY"
 check "cleanup sector ($FIX_SECTOR)" 204 DELETE "$BASE/sectors/$FIX_SECTOR"

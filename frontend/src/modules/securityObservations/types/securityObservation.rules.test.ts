@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { format, parseISO } from 'date-fns';
 
-import type { SecurityObservationFormValues } from './securityObservation.type';
+import type { SafetyReviewAnswer, SecurityObservationFormValues } from './securityObservation.type';
 import {
     OBSERVERS_MAX,
     SAFETY_REVIEW_FIELDS,
+    SAFETY_REVIEW_INVALID_COPY,
     emptySecurityObservationFormValues,
     observationDateWindow,
     securityObservationFormValuesToRequest,
@@ -74,6 +75,14 @@ describe('securityObservationSchema (mirror de SecurityObservationRules)', () =>
             values[key] = 'N/A';
         }
         expect(securityObservationSchema.safeParse(values).success).toBe(true);
+    });
+
+    it('rechaza un valor fuera del set con la copia española (ticket 04)', () => {
+        const messages = messagesOf({ ...validValues(), aprReviewed: 'Sí' as unknown as SafetyReviewAnswer });
+        expect(messages).toContain(SAFETY_REVIEW_INVALID_COPY);
+        // Mismo orden que la cadena "primera violación" del backend: el espejo zod
+        // la reporta en el parseo de campos; la obligatoriedad no cambió de mensaje.
+        expect(messages).not.toContain('Todas las respuestas de la Revisión de Seguridad son obligatorias');
     });
 
     it('exige todas las respuestas de Safety Review respondidas', () => {
